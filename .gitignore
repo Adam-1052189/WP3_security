@@ -1,2 +1,8 @@
 .idea
 resurrection/__pycache__/
+__pycache__/
+beheerders/__pycache__/
+beheerders/migrations/__pycache__/
+ervaringsdeskundige/__pycache__/
+ervaringsdeskundige/migrations/__pycache__/
+log-in/__pycache__/
