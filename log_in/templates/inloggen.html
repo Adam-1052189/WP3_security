@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <link rel="stylesheet" href="/log-in/static/CSS/log-in.css" type="text/css">
+    <link rel="stylesheet" href="/static/CSS/log_in.css" type="text/css">
     <meta charset="UTF-8">
     <title>Welkom op de inlogpagina van stichting accessibility.</title>
 </head>
 <body>
 <h1>Inloggen</h1>
 
-<form action="action_page.php" method="post">
-  <div class="imgcontainer">
+<form action="#" method="post">
+  <div class="img_container">
 
   </div>
-<img src="/log-in/static/images/logo-Accessibility.png" alt="logo Accesibility" class="logo-Accesibility">
-  <div class="container">
+<img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
+  <div class="aanmeldgegevens_container">
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+    <input type="text" placeholder="voor gebruikernaam in" name="gebruikersnaam" required>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <label for="psw" class="wachtwoord"> <b>wachtwoord</b></label>
+    <input type="password" placeholder="voor wachtwoord in" name="wachtwoord" required>
 
     <button type="submit">Login</button>
     <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
+      <input type="checkbox" checked="checked" name="onthoud_mij"> Onthoud mij
     </label>
   </div>
 
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
+  <div class="annuleer_en_wachtwoord_vergeten_container">
+    <button type="button" class="annuleerbutton">annuleer</button>
+    <span class="psw">Forgot <a href="#">wachtwoord vergeten?</a></span>
   </div>
+
+  <button type="button" class="account_aanmaken_button">account aanmaken</button>
+
 </form>
 
-
-
-</body>
 </html>
