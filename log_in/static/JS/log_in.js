@@ -1,0 +1,1 @@
+Met de annuleer knop wil ik het emailvak en wachtwoord veld leeg maken.

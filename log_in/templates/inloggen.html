@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="/static/CSS/log_in.css" type="text/css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welkom op de inlogpagina van stichting accessibility.</title>
 </head>
 <body>
@@ -12,12 +13,12 @@
   <div class="img_container">
 
   </div>
-<img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
-  <div class="aanmeldgegevens_container">
-    <label for="uname"><b>Username</b></label>
+    <img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
+  <div class="container">
+    <label for="e-mail"><b>e-mailadres</b></label>
     <input type="text" placeholder="voor gebruikernaam in" name="gebruikersnaam" required>
 
-    <label for="psw" class="wachtwoord"> <b>wachtwoord</b></label>
+    <label for="psw"><b>wachtwoord</b></label>
     <input type="password" placeholder="voor wachtwoord in" name="wachtwoord" required>
 
     <button type="submit">Login</button>
@@ -26,12 +27,13 @@
     </label>
   </div>
 
-  <div class="annuleer_en_wachtwoord_vergeten_container">
+  <div class="container">
     <button type="button" class="annuleerbutton">annuleer</button>
-    <span class="psw">Forgot <a href="#">wachtwoord vergeten?</a></span>
+    <span class="psw"><a href="#">wachtwoord vergeten?</a></span>
+    <button type="button" class="account_aanmaken_button">account aanmaken</button>
   </div>
 
-  <button type="button" class="account_aanmaken_button">account aanmaken</button>
+
 
 </form>
 
