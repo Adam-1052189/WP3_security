@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ervaringsdeskundige',
     'beheerders',
+    'log_in'
 ]
 
 MIDDLEWARE = [
