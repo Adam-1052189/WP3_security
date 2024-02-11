@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'resurrection.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'databases/db.sqlite3',
+        'NAME': BASE_DIR / 'databases/database_accessibility.db',
     }
 }
 

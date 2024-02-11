@@ -1,0 +1,93 @@
+CREATE TABLE "Onderzoek"(
+  onderzoek_id INTEGER NOT NULL,
+  titel TEXT,
+  status TEXT,
+  beschikbaar BOOLEAN,
+  "datum vanaf" DATE,
+  "datum tot" DATE,
+  "type onderzoek" TEXT,
+  locatie TEXT,
+  "met beloning" BOOLEAN,
+  beloning TEXT,
+  "doelgroep leeftijd van" NUMERIC,
+  "doelgroep leeftijd tot" NUMERIC,
+  "doelgroep beperking" TEXT,
+  organisaties_organisatie_id INTEGER NOT NULL,
+  ervaringsdeskundige_ervaringsdeskundige_id INTEGER NOT NULL,
+  PRIMARY KEY(onderzoek_id),
+  CONSTRAINT "organisaties_Onderzoek"
+    FOREIGN KEY (organisaties_organisatie_id)
+      REFERENCES organisaties (organisatie_id),
+  CONSTRAINT "ervaringsdeskundige_Onderzoek"
+    FOREIGN KEY (ervaringsdeskundige_ervaringsdeskundige_id)
+      REFERENCES ervaringsdeskundige (ervaringsdeskundige_id)
+);
+
+CREATE TABLE organisaties(
+  organisatie_id INTEGER NOT NULL,
+  type TEXT,
+  website TEXT,
+  beschrijving TEXT,
+  contactpersoon TEXT,
+  email TEXT,
+  telefoonnummer NUMERIC,
+  "overige details" TEXT,
+  "api key" TEXT,
+  PRIMARY KEY(organisatie_id)
+);
+
+CREATE TABLE ervaringsdeskundige(
+  ervaringsdeskundige_id INTEGER NOT NULL,
+  "type beperking" TEXT,
+  "gebruikte hulpmiddelen" TEXT,
+  bijzonderheden TEXT,
+  toezichthouder TEXT,
+  "naam voogd of toezichthouder" TEXT,
+  "email voogd of toezichthouder" TEXT,
+  "telefoonnummer voogd of toezichthouder" NUMERIC,
+  "voorkeur benadering" TEXT,
+  "type onderzoek" TEXT,
+  "bijzonderheden beschikbaar" TEXT,
+  beperkingen_beperkingen_id INTEGER NOT NULL,
+  hulpmiddelen_hulpmiddelen_id INTEGER NOT NULL,
+  gebruikers_gebruiker_id INTEGER NOT NULL,
+  PRIMARY KEY(ervaringsdeskundige_id),
+  CONSTRAINT beperkingen_id_ervaringsdeskundige
+    FOREIGN KEY (beperkingen_beperkingen_id) REFERENCES beperkingen (beperkingen_id),
+  CONSTRAINT hulpmiddelen_ervaringsdeskundige
+    FOREIGN KEY (hulpmiddelen_hulpmiddelen_id)
+      REFERENCES hulpmiddelen (hulpmiddelen_id),
+  CONSTRAINT gebruikers_ervaringsdeskundige
+    FOREIGN KEY (gebruikers_gebruiker_id) REFERENCES gebruikers (gebruiker_id)
+);
+
+CREATE TABLE hulpmiddelen(
+  hulpmiddelen_id INTEGER NOT NULL,
+  vergrootglas INTEGER,
+  "scherm voorlezer" INTEGER,
+  PRIMARY KEY(hulpmiddelen_id)
+);
+
+CREATE TABLE beperkingen(
+  beperkingen_id INTEGER NOT NULL,
+  "auditieve beperkingen" TEXT,
+  "visuele beperkingen" TEXT,
+  "motorische / lichamelijke beperkingen" TEXT,
+  "cognitieve / neurologische beperkingen" TEXT,
+  "reden beperking" INTEGER,
+  PRIMARY KEY(beperkingen_id)
+);
+
+CREATE TABLE gebruikers(
+  gebruiker_id INTEGER NOT NULL,
+  voornaam TEXT,
+  achternaam TEXT,
+  is_beheerder INTEGER,
+  postcode TEXT,
+  geslacht TEXT,
+  email TEXT,
+  wachtwoord TEXT,
+  telefoonummer NUMERIC,
+  geboortedatum TEXT,
+  PRIMARY KEY(gebruiker_id)
+);
