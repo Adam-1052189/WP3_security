@@ -13,18 +13,13 @@ CREATE TABLE "Onderzoek"(
   "doelgroep leeftijd tot" NUMERIC,
   "doelgroep beperking" TEXT,
   organisaties_organisatie_id INTEGER NOT NULL,
-  ervaringsdeskundige_ervaringsdeskundige_id INTEGER NOT NULL,
-  PRIMARY KEY(onderzoek_id),
-  CONSTRAINT "organisaties_Onderzoek"
-    FOREIGN KEY (organisaties_organisatie_id)
-      REFERENCES organisaties (organisatie_id),
-  CONSTRAINT "ervaringsdeskundige_Onderzoek"
-    FOREIGN KEY (ervaringsdeskundige_ervaringsdeskundige_id)
-      REFERENCES ervaringsdeskundige (ervaringsdeskundige_id)
+  PRIMARY KEY(onderzoek_id)
 );
+
 
 CREATE TABLE organisaties(
   organisatie_id INTEGER NOT NULL,
+  naam TEXT,
   type TEXT,
   website TEXT,
   beschrijving TEXT,
@@ -48,24 +43,21 @@ CREATE TABLE ervaringsdeskundige(
   "voorkeur benadering" TEXT,
   "type onderzoek" TEXT,
   "bijzonderheden beschikbaar" TEXT,
-  beperkingen_beperkingen_id INTEGER NOT NULL,
-  hulpmiddelen_hulpmiddelen_id INTEGER NOT NULL,
   gebruikers_gebruiker_id INTEGER NOT NULL,
-  PRIMARY KEY(ervaringsdeskundige_id),
-  CONSTRAINT beperkingen_id_ervaringsdeskundige
-    FOREIGN KEY (beperkingen_beperkingen_id) REFERENCES beperkingen (beperkingen_id),
-  CONSTRAINT hulpmiddelen_ervaringsdeskundige
-    FOREIGN KEY (hulpmiddelen_hulpmiddelen_id)
-      REFERENCES hulpmiddelen (hulpmiddelen_id),
-  CONSTRAINT gebruikers_ervaringsdeskundige
-    FOREIGN KEY (gebruikers_gebruiker_id) REFERENCES gebruikers (gebruiker_id)
+  beperkingen_beperkingen_id INTEGER NOT NULL,
+  "Onderzoek_onderzoek_id" INTEGER NOT NULL,
+  PRIMARY KEY(ervaringsdeskundige_id)
 );
 
 CREATE TABLE hulpmiddelen(
   hulpmiddelen_id INTEGER NOT NULL,
   vergrootglas INTEGER,
   "scherm voorlezer" INTEGER,
-  PRIMARY KEY(hulpmiddelen_id)
+  ervaringsdeskundige_ervaringsdeskundige_id INTEGER NOT NULL,
+  PRIMARY KEY(hulpmiddelen_id),
+  CONSTRAINT ervaringsdeskundige_hulpmiddelen
+    FOREIGN KEY (ervaringsdeskundige_ervaringsdeskundige_id)
+      REFERENCES ervaringsdeskundige (ervaringsdeskundige_id)
 );
 
 CREATE TABLE beperkingen(
@@ -74,8 +66,12 @@ CREATE TABLE beperkingen(
   "visuele beperkingen" TEXT,
   "motorische / lichamelijke beperkingen" TEXT,
   "cognitieve / neurologische beperkingen" TEXT,
-  "reden beperking" INTEGER,
-  PRIMARY KEY(beperkingen_id)
+  "reden beperking" TEXT,
+  ervaringsdeskundige_ervaringsdeskundige_id INTEGER NOT NULL,
+  PRIMARY KEY(beperkingen_id),
+  CONSTRAINT ervaringsdeskundige_beperkingen
+    FOREIGN KEY (ervaringsdeskundige_ervaringsdeskundige_id)
+      REFERENCES ervaringsdeskundige (ervaringsdeskundige_id)
 );
 
 CREATE TABLE gebruikers(
@@ -91,3 +87,5 @@ CREATE TABLE gebruikers(
   geboortedatum TEXT,
   PRIMARY KEY(gebruiker_id)
 );
+Main Diagram
+reden beperking

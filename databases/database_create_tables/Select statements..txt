@@ -1,0 +1,69 @@
+SELECT
+    onderzoek_id,
+    titel,
+    status,
+    beschikbaar,
+    "datum vanaf",
+    "datum tot",
+    "type onderzoek",
+    locatie,
+    "met beloning",
+    beloning,
+    "doelgroep leeftijd van",
+    "doelgroep leeftijd tot",
+    "doelgroep beperking",
+    organisaties_organisatie_id FROM "Onderzoek";
+
+SELECT
+    organisatie_id,
+    type,
+    website,
+    beschrijving,
+    contactpersoon,
+    email,
+    telefoonnummer,
+    "overige details",
+    "api key" FROM organisaties;
+
+SELECT
+    ervaringsdeskundige_id,
+    "type beperking",
+    "gebruikte hulpmiddelen",
+    bijzonderheden,
+    toezichthouder,
+    "naam voogd of toezichthouder",
+    "email voogd of toezichthouder",
+    "telefoonnummer voogd of toezichthouder",
+    "voorkeur benadering",
+    "type onderzoek",
+    "bijzonderheden beschikbaar",
+    gebruikers_gebruiker_id,
+    beperkingen_beperkingen_id,
+    "Onderzoek_onderzoek_id" FROM ervaringsdeskundige;
+
+SELECT
+    gebruiker_id,
+    voornaam,
+    achternaam,
+    is_beheerder,
+    postcode,
+    geslacht,
+    email,
+    wachtwoord,
+    telefoonummer,
+    geboortedatum FROM gebruikers;
+
+SELECT
+    hulpmiddelen_id,
+    vergrootglas,
+    "scherm voorlezer",
+    ervaringsdeskundige_ervaringsdeskundige_id FROM hulpmiddelen;
+
+SELECT
+    beperkingen_id,
+    "auditieve beperkingen",
+    "visuele beperkingen",
+    "motorische / lichamelijke beperkingen",
+    "cognitieve / neurologische beperkingen",
+    "reden beperking",
+    ervaringsdeskundige_ervaringsdeskundige_id FROM beperkingen;
