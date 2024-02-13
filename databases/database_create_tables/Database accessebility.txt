@@ -1,6 +1,7 @@
+
 CREATE TABLE "Onderzoek"(
   onderzoek_id INTEGER NOT NULL,
-  titel TEXT,
+  titel TEXT NOT NULL,
   status TEXT,
   beschikbaar BOOLEAN,
   "datum vanaf" DATE,
@@ -13,13 +14,15 @@ CREATE TABLE "Onderzoek"(
   "doelgroep leeftijd tot" NUMERIC,
   "doelgroep beperking" TEXT,
   organisaties_organisatie_id INTEGER NOT NULL,
-  PRIMARY KEY(onderzoek_id)
+  PRIMARY KEY(onderzoek_id),
+  CONSTRAINT "organisaties_Onderzoek"
+    FOREIGN KEY (organisaties_organisatie_id)
+      REFERENCES organisaties (organisatie_id)
 );
-
 
 CREATE TABLE organisaties(
   organisatie_id INTEGER NOT NULL,
-  naam TEXT,
+  naam TEXT NOT NULL,
   type TEXT,
   website TEXT,
   beschrijving TEXT,
@@ -33,20 +36,24 @@ CREATE TABLE organisaties(
 
 CREATE TABLE ervaringsdeskundige(
   ervaringsdeskundige_id INTEGER NOT NULL,
-  "type beperking" TEXT,
-  "gebruikte hulpmiddelen" TEXT,
   bijzonderheden TEXT,
-  toezichthouder TEXT,
-  "naam voogd of toezichthouder" TEXT,
-  "email voogd of toezichthouder" TEXT,
-  "telefoonnummer voogd of toezichthouder" NUMERIC,
   "voorkeur benadering" TEXT,
   "type onderzoek" TEXT,
   "bijzonderheden beschikbaar" TEXT,
   gebruikers_gebruiker_id INTEGER NOT NULL,
   beperkingen_beperkingen_id INTEGER NOT NULL,
   "Onderzoek_onderzoek_id" INTEGER NOT NULL,
-  PRIMARY KEY(ervaringsdeskundige_id)
+  toezichhouder_toezichthouder_id INTEGER NOT NULL,
+  PRIMARY KEY(ervaringsdeskundige_id),
+  CONSTRAINT gebruikers_ervaringsdeskundige
+    FOREIGN KEY (gebruikers_gebruiker_id) REFERENCES gebruikers (gebruiker_id),
+  CONSTRAINT beperkingen_ervaringsdeskundige
+    FOREIGN KEY (beperkingen_beperkingen_id) REFERENCES beperkingen (beperkingen_id),
+  CONSTRAINT "Onderzoek_ervaringsdeskundige"
+    FOREIGN KEY ("Onderzoek_onderzoek_id") REFERENCES "Onderzoek" (onderzoek_id),
+  CONSTRAINT toezichhouder_ervaringsdeskundige
+    FOREIGN KEY (toezichhouder_toezichthouder_id)
+      REFERENCES toezichhouder (toezichthouder_id)
 );
 
 CREATE TABLE hulpmiddelen(
@@ -68,24 +75,31 @@ CREATE TABLE beperkingen(
   "cognitieve / neurologische beperkingen" TEXT,
   "reden beperking" TEXT,
   ervaringsdeskundige_ervaringsdeskundige_id INTEGER NOT NULL,
-  PRIMARY KEY(beperkingen_id),
-  CONSTRAINT ervaringsdeskundige_beperkingen
-    FOREIGN KEY (ervaringsdeskundige_ervaringsdeskundige_id)
-      REFERENCES ervaringsdeskundige (ervaringsdeskundige_id)
+  PRIMARY KEY(beperkingen_id)
 );
 
 CREATE TABLE gebruikers(
   gebruiker_id INTEGER NOT NULL,
-  voornaam TEXT,
-  achternaam TEXT,
-  is_beheerder INTEGER,
+  voornaam TEXT NOT NULL,
+  achternaam TEXT NOT NULL,
+  is_beheerder INTEGER NOT NULL,
   postcode TEXT,
   geslacht TEXT,
-  email TEXT,
-  wachtwoord TEXT,
+  email TEXT NOT NULL,
+  wachtwoord TEXT NOT NULL,
   telefoonummer NUMERIC,
-  geboortedatum TEXT,
+  geboortedatum TEXT NOT NULL,
   PRIMARY KEY(gebruiker_id)
 );
+
+CREATE TABLE toezichhouder(
+  toezichthouder_id INTEGER NOT NULL,
+  naam INTEGER NOT NULL,
+  email INTEGER,
+  telefoonummer INTEGER,
+  ervaringsdeskundige_ervaringsdeskundige_id INTEGER NOT NULL,
+  PRIMARY KEY(toezichthouder_id)
+);
 Main Diagram
-reden beperking
+beperkingen_ervaringsdeskundige
+TRANSPARENT
