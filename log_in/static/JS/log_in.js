@@ -1,1 +1,5 @@
-Met de annuleer knop wil ik het emailvak en wachtwoord veld leeg maken.
+function wisInloggegevens(){
+    document.getElementById("mailadres").value = "";
+    document.getElementById("wachtwoord").value = "";
+    console.log("functie wordt aangeroepen")
+}

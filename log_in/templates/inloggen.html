@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welkom op de inlogpagina van stichting accessibility.</title>
+
 </head>
 <body>
 <h1>Inloggen</h1>
@@ -16,10 +17,10 @@
     <img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
   <div class="container">
     <label for="e-mail"><b>e-mailadres</b></label>
-    <input type="text" placeholder="voor gebruikernaam in" name="gebruikersnaam" required>
+    <input type="text" placeholder="voor gebruikernaam in" name="gebruikersnaam" id="mailadres" required>
 
     <label for="psw"><b>wachtwoord</b></label>
-    <input type="password" placeholder="voor wachtwoord in" name="wachtwoord" required>
+    <input type="password" placeholder="voor wachtwoord in" name="wachtwoord" id="wachtwoord" required>
 
     <button type="submit">Login</button>
     <label>
@@ -28,13 +29,19 @@
   </div>
 
   <div class="container">
-    <button type="button" class="annuleerbutton">annuleer</button>
+    <button type="button" class="annuleerbutton" onclick="wisInloggegevens()">annuleer</button>
     <span class="psw"><a href="#">wachtwoord vergeten?</a></span>
     <button type="button" class="account_aanmaken_button">account aanmaken</button>
   </div>
 
 
-
 </form>
-
+<script>
+function wisInloggegevens(){
+    document.getElementById("mailadres").value = "";
+    document.getElementById("wachtwoord").value = "";
+    console.log("functie wordt aangeroepen")
+}
+</script>
+</body>
 </html>
