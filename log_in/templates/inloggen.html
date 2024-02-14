@@ -2,13 +2,16 @@
 <html lang="nl">
 <head>
     <link rel="stylesheet" href="/static/CSS/log_in.css" type="text/css">
+    {% load static %}
+    <script src="{% static 'JS/log_in.js' %}"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Welkom op de inlogpagina van stichting accessibility.</title>
+    <title>Stichting Accesibility</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/icon_accessibility_green_black.jpg">
 
 </head>
 <body>
-<h1>Inloggen</h1>
+<h1 aria-label="inlogpagina stichting accesibility">Inloggen</h1>
 
 <form action="#" method="post">
   <div class="img_container">
@@ -17,7 +20,7 @@
     <img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
   <div class="container">
     <label for="e-mail"><b>e-mailadres</b></label>
-    <input type="text" placeholder="voor gebruikernaam in" name="gebruikersnaam" id="mailadres" required>
+    <input type="text" placeholder="voor e-mailadres in" name="mailadres" id="mailadres" required>
 
     <label for="psw"><b>wachtwoord</b></label>
     <input type="password" placeholder="voor wachtwoord in" name="wachtwoord" id="wachtwoord" required>
@@ -29,19 +32,12 @@
   </div>
 
   <div class="container">
-    <button type="button" class="annuleerbutton" onclick="wisInloggegevens()">annuleer</button>
+    <button aria-label="Annuleer knop, Door op deze annuleer knop te klikken maakt u de invoervelden voor het inloggen leeg" type="button" class="annuleerbutton" onclick="wisInloggegevens()">annuleer</button>
     <span class="psw"><a href="#">wachtwoord vergeten?</a></span>
     <button type="button" class="account_aanmaken_button">account aanmaken</button>
   </div>
 
 
 </form>
-<script>
-function wisInloggegevens(){
-    document.getElementById("mailadres").value = "";
-    document.getElementById("wachtwoord").value = "";
-    console.log("functie wordt aangeroepen")
-}
-</script>
 </body>
 </html>
