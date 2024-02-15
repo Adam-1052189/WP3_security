@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import RegistratieFormulier
-from .models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige
+from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige
 
 def dashboard(request):
     return render(request, 'dashboard_deskundige.html')
@@ -10,7 +10,7 @@ def registratie_ervaringsdeskundige(request):
         form = RegistratieFormulier(request.POST)
         if form.is_valid():
             # Gebruiker object aanmaken en opslaan
-            gebruikers = Gebruikers(
+            gebruiker = Gebruikers(
                 voornaam=form.cleaned_data['voornaam'],
                 achternaam=form.cleaned_data['achternaam'],
                 is_beheerder=form.cleaned_data['is_beheerder'],
@@ -21,7 +21,7 @@ def registratie_ervaringsdeskundige(request):
                 telefoonnummer=form.cleaned_data['telefoonnummer'],
                 geboortedatum=form.cleaned_data['geboortedatum']
             )
-            gebruikers.save()
+            gebruiker.save()
 
             # Beperkingen object aanmaken en opslaan
             beperkingen = Beperkingen(
@@ -50,7 +50,7 @@ def registratie_ervaringsdeskundige(request):
 
             # Ervaringsdeskundige object aanmaken en koppelen
             ervaringsdeskundige = Ervaringsdeskundige(
-                gebruikers=gebruikers,
+                gebruiker=gebruiker,
                 beperkingen=beperkingen,
                 toezichthouder=toezichthouder,
                 hulpmiddelen=hulpmiddelen,

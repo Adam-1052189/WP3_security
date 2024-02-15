@@ -24,7 +24,7 @@ class Gebruikers(models.Model):
     is_beheerder = models.BooleanField(default=False)
     postcode = models.CharField(max_length=6, blank=True, null=True)
     geslacht = models.CharField(max_length=10, blank=True, null=True)
-    email = models.EmailField(unique=True)
+    email = models.CharField(max_length=255, blank=True, null=True)
     wachtwoord = models.CharField(max_length=255)
     telefoonnummer = models.CharField(max_length=20, blank=True, null=True)
     geboortedatum = models.DateField()

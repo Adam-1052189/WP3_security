@@ -1,5 +1,5 @@
 from django import forms
-from .models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen
+from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige
 
 class RegistratieFormulier(forms.Form):
     # Gebruikers velden
