@@ -2,23 +2,28 @@
 <html lang="nl">
 <head>
     <link rel="stylesheet" href="/static/CSS/log_in.css" type="text/css">
+    {% load static %}
+    <script src="{% static 'JS/log_in.js' %}"></script>
     <meta charset="UTF-8">
-    <title>Welkom op de inlogpagina van stichting accessibility.</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stichting Accesibility</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/icon_accessibility_green_black.jpg">
+
 </head>
 <body>
-<h1>Inloggen</h1>
+<h1 aria-label="inlogpagina stichting accesibility">Inloggen</h1>
 
 <form action="#" method="post">
   <div class="img_container">
 
   </div>
-<img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
-  <div class="aanmeldgegevens_container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="voor gebruikernaam in" name="gebruikersnaam" required>
+    <img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
+  <div class="container">
+    <label for="e-mail"><b>e-mailadres</b></label>
+    <input type="text" placeholder="voor e-mailadres in" name="mailadres" id="mailadres" required>
 
-    <label for="psw" class="wachtwoord"> <b>wachtwoord</b></label>
-    <input type="password" placeholder="voor wachtwoord in" name="wachtwoord" required>
+    <label for="psw"><b>wachtwoord</b></label>
+    <input type="password" placeholder="voor wachtwoord in" name="wachtwoord" id="wachtwoord" required>
 
     <button type="submit">Login</button>
     <label>
@@ -26,13 +31,13 @@
     </label>
   </div>
 
-  <div class="annuleer_en_wachtwoord_vergeten_container">
-    <button type="button" class="annuleerbutton">annuleer</button>
-    <span class="psw">Forgot <a href="#">wachtwoord vergeten?</a></span>
+  <div class="container">
+    <button aria-label="Annuleer knop, Door op deze annuleer knop te klikken maakt u de invoervelden voor het inloggen leeg" type="button" class="annuleerbutton" onclick="wisInloggegevens()">annuleer</button>
+    <span class="psw"><a href="#">wachtwoord vergeten?</a></span>
+    <button type="button" class="account_aanmaken_button">account aanmaken</button>
   </div>
 
-  <button type="button" class="account_aanmaken_button">account aanmaken</button>
 
 </form>
-
+</body>
 </html>
