@@ -27,10 +27,6 @@ body {
   color: #333;
   line-height: 1.6;
   background-color: #d9ebf7;
-  /*background-image: radial-gradient(#d9ebf7 1px, transparent 0),*/
-  /*  radial-gradient(#d9ebf7 1px, transparent 0) 2px 0,*/
-  /*  radial-gradient(#d9ebf7 1px, transparent 0) 0 2px,*/
-  /*  radial-gradient(#d9ebf7 1px, transparent 0) 2px 2px;*/
   background-size: 20px 20px;
   background-position: 0 0, 10px 10px, 10px 0, 0 10px;
 }
