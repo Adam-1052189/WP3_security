@@ -43,6 +43,12 @@ INSTALLED_APPS = [
     'log_in'
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'core.backends.GebruikersBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Voeg dit toe om de standaard backend te behouden
+]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
