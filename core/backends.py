@@ -6,7 +6,7 @@ class GebruikersBackend(BaseBackend):
     def authenticate(self, request, email=None, password=None):
         try:
             user = Gebruikers.objects.get(email=email)
-            if user and check_password(password, user.wachtwoord):
+            if user.wachtwoord == password:
                 return user
         except Gebruikers.DoesNotExist:
             return None

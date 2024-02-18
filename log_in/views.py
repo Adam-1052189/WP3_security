@@ -1,11 +1,8 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login
 
-from django.contrib.auth import authenticate, login
-
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
@@ -15,7 +12,7 @@ def login(request):
 
         if user is not None:
             # Gebruiker bestaat, inloggen en doorsturen
-            login(request, user)
+            auth_login(request, user)
             return redirect('dashboard')
         else:
             # Ongeldige inloggegevens
@@ -23,4 +20,3 @@ def login(request):
             return redirect('login')
     else:
         return render(request, 'inloggen.html')
-
