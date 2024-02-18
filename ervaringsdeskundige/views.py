@@ -13,7 +13,6 @@ def registratie_ervaringsdeskundige(request):
             gebruiker = Gebruikers(
                 voornaam=form.cleaned_data['voornaam'],
                 achternaam=form.cleaned_data['achternaam'],
-                is_beheerder=form.cleaned_data['is_beheerder'],
                 postcode=form.cleaned_data['postcode'],
                 geslacht=form.cleaned_data['geslacht'],
                 email=form.cleaned_data['email'],

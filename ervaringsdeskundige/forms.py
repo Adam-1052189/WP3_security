@@ -5,7 +5,6 @@ class RegistratieFormulier(forms.Form):
     # Gebruikers velden
     voornaam = forms.CharField(max_length=255)
     achternaam = forms.CharField(max_length=255)
-    is_beheerder = forms.BooleanField(required=False)
     postcode = forms.CharField(max_length=6, required=False)
     geslacht = forms.CharField(max_length=1, required=False)
     email = forms.CharField(max_length=255)
