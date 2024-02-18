@@ -1,15 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'CSS/beheerders.css' %}" type="text/css">
     <title>Dashboard Beheer</title>
 </head>
 
 <body>
-<h1>Dashboard voor beheerders</h1>
+    <header role="banner">
+        <h1>Dashboard Beheerders</h1>
+    </header>
+    <nav id="Menu" class="sidebar">
+            <button aria-label="Close Menu" id="closeMenu">X</button>
+            <ul>
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+    </nav>
+    <header>
+            <button aria-label="Open Menu" id="openMenu">&#9776; Menu</button>
 
+    </header>
+    <nav role="navigation">
+        <ul>
+            <li><a href="#onderzoeksvragen">Goed te keuren onderzoeksvragen</a></li>
+            <li><a href="#inschrijvingen">Goed te keuren inschrijvingen door ervaringsdeskundigen</a></li>
+            <li><a href="#geregistreerde_evd">Goed te keuren nieuw geregistreerde ervaringsdeskundigen</a></li>
+        </ul>
+    </nav>
 
+    <main role="main">
+        <section id="onderzoeksvragen" tabindex="-1">
+    <h2>Goed te keuren onderzoeksvragen</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Status</th>
+                <th>Datum Vanaf</th>
+                <th>Datum Tot</th>
+                <th>Acties</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for onderzoek in onderzoeken %}
+            <tr>
+                <td>{{ onderzoek.titel }}</td>
+                <td>{{ onderzoek.status }}</td>
+                <td>{{ onderzoek.datum_vanaf }}</td>
+                <td>{{ onderzoek.datum_tot }}</td>
+                <td>
+                    <form action="{% url 'onderzoek_goedkeuren' onderzoek.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="Goedkeuren">
+                    </form>
+                    <form action="{% url 'onderzoek_afkeuren' onderzoek.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="Afkeuren">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+        </section>
+        <section id="inschrijvingen" tabindex="-1">
+            <h2>Section 2</h2>
+            <p>...</p>
+        </section>
+        <section id="geregistreerde_evd" tabindex="-1">
+            <h2>Section 3</h2>
+            <p>...</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Stichting Accessibility</p>
+    </footer>
+    <script src="{%  static 'js/script.js' %}"></script>
 </body>
+
 </html>

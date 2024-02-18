@@ -1,74 +1,93 @@
-h1 {
-  color: rgb(60, 137, 238);
-}
-
-.icon-accessibility {
-  height: 97px;
-  width: 97px;
-  display: block;
-  margin-left: 0px;
-  margin-right: auto;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-ul li {
-  background-color: #1fc396;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
-}
-
 body {
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    color: #831a1a;
-    font-size: 1.6rem;
-    line-height: 1.875;
-    font-family: Muli;
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
     background-color: #d9ebf7;
-    font-weight: 600;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    background-color: #1fc396;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
 }
 
 main {
-  margin: 0 auto;
-  padding: 5rem;
-  background-color: #2b50ec;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    padding: 5rem;
+    background-color: #2b50ec;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 footer {
-  padding: 1rem;
-  text-align: left;
-  background-color: #ec7777;
+    padding: 1rem;
+    text-align: left;
+    background-color: #ec7777;
+    color: white;
 }
 
-@media screen and (max-width: 768px) {  /* voor kleinere schermen */
-  .icon-accessibility {
-    height: 50px;
-    width: 50px;
-  }
-
-  main, footer {
-    padding: 5rem;
-  }
-
-  body {
-    background-size: 10px 10px;
-  }
+[tabindex="-1"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #2b50ec;
 }
 
-@media screen and (max-width: 480px) { /* voor nog kleinere schermen */
-  main, footer {
-    padding: 2rem;
-  }
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
 
-  ul li {
-    margin: 5px 0;
-    padding: 5px;
-  }
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar a:hover {
+    color: #f1f1f1;
+}
+
+.sidebar button {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    border: none;
+    background: none;
+    color: #818181;
+}
+
+#openMenu {
+    font-size: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: #818181;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
 }
