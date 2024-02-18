@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Inschrijvingen Overzicht</title>
+</head>
+<body>
+    <h1>Inschrijvingen</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Email</th>
+                <th>Inschrijvingsdatum</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inschrijving in inschrijvingen %}
+            <tr>
+                <td>{{ inschrijving.naam }}</td>
+                <td>{{ inschrijving.email }}</td>
+                <td>{{ inschrijving.inschrijvingsdatum }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -70,9 +70,37 @@
 </section>
         </section>
         <section id="inschrijvingen" tabindex="-1">
-            <h2>Section 2</h2>
-            <p>...</p>
-        </section>
+    <h2>Goed te keuren inschrijvingen door ervaringsdeskundigen</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Email</th>
+                <th>Inschrijvingsdatum</th>
+                <th>Acties</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for inschrijving in inschrijvingen %}
+            <tr>
+                <td>{{ inschrijving.gebruiker.voornaam }} {{ inschrijving.gebruiker.achternaam }}</td>
+                <td>{{ inschrijving.gebruiker.email }}</td>
+                <td>{{ inschrijving.inschrijvingsdatum }}</td>
+                <td>
+                    <form action="{% url 'inschrijving_goedkeuren' inschrijving.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="Goedkeuren">
+                    </form>
+                    <form action="{% url 'inschrijving_afkeuren' inschrijving.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="Afkeuren">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
         <section id="geregistreerde_evd" tabindex="-1">
             <h2>Section 3</h2>
             <p>...</p>
