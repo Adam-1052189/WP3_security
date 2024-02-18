@@ -13,17 +13,18 @@
 <body>
 <h1 aria-label="inlogpagina stichting accesibility">Inloggen</h1>
 
-<form action="#" method="post">
+<form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
   <div class="img_container">
 
   </div>
     <img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
   <div class="container">
     <label for="e-mail"><b>e-mailadres</b></label>
-    <input type="text" placeholder="voor e-mailadres in" name="mailadres" id="mailadres" required>
+    <input type="text" placeholder="voor e-mailadres in" name="email" id="mailadres" required>
 
     <label for="psw"><b>wachtwoord</b></label>
-    <input type="password" placeholder="voor wachtwoord in" name="wachtwoord" id="wachtwoord" required>
+    <input type="password" placeholder="voor wachtwoord in" name="password" id="wachtwoord" required>
 
     <button type="submit">Login</button>
     <label>

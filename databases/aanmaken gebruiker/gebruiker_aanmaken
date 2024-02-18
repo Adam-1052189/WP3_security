@@ -1,0 +1,1 @@
+INSERT INTO gebruikers (gebruiker_id, voornaam, achternaam, is_beheerder, postcode, geslacht, wachtwoord, telefoonnummer, geboortedatum, email) VALUES ('4', 'adam', 'barendregt', '0', '3211', 'M', 'adam', '0612345678', '2002-01-01', 'adam@hr.nl');
