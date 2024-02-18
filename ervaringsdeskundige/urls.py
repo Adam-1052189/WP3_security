@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+from .views import dashboard, aanmelden_voor_onderzoek, registratie_ervaringsdeskundige
 
 urlpatterns = [
-    path('dashboard/', views.dashboard),
-    path('registratie_ervaringsdeskundige/', views.registratie_ervaringsdeskundige),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('registratie_ervaringsdeskundige/',registratie_ervaringsdeskundige),
+    path('aanmelden/<int:onderzoek_id>/', aanmelden_voor_onderzoek, name='aanmelden_voor_onderzoek'),
 ]

@@ -2,22 +2,29 @@
 <html>
 <head>
     {% load static %}
-    <link rel="stylesheet" href="{%  static 'CSS/deskundige.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'CSS/deskundige.css' %}" type="text/css">
 </head>
-    <body>
+<body>
     <main>
-
+        <h1>Dit is de dashboard voor ervaringsdeskundige</h1>
+        <img src="{% static 'images/icon_accessibility.jpg' %}" alt="Icon Accessibility" class="icon-accessibility">
+        <ul>
+            <li>Onderzoeksvraag 1: Hoe kunnen we onze site nog beter maken volgens jou?</li>
+            <li>Onderzoeksvraag 2: Wat zijn de voordelen die we hebben?</li>
+            <li>Onderzoeksvraag 3: Wat wil je zien?</li>
+        </ul>
     </main>
 
- <h1> Dit is de dashboard voor ervaringsdeskundige</h1>
- {% load static %}
- <img src="{%  static 'images/icon_accessibility.jpg' %}" alt="Icon Accessibility" class="icon-accessibility">
- <ul>
-     <li>Onderzoeksvraag 1: Hoe kunnen we onze site nog beter maken volgens jouw?</li>
-     <li>Onderzoeksvraag 2: Wat zijn de voordelen die we hebben?</li>
-     <li>Onderzoeksvraag 3: Wat wil je zien?</li>
- </ul>
-    <footer>
-    </footer>
- </body>
+    <h2>Dashboard Ervaringsdeskundige</h2>
+    <form method="post">
+        {% csrf_token %}
+        <ul>
+            {% for onderzoek in onderzoeken %}
+            <li>
+                {{ onderzoek.titel }} - <button name="onderzoek_id" value="{{ onderzoek.id }}" type="submit">Aanmelden</button>
+            </li>
+            {% endfor %}
+        </ul>
+    </form>
+</body>
 </html>
