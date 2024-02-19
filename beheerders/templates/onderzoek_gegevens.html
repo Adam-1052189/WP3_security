@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ onderzoek.titel }}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>{{ onderzoek.titel }}</h1>
+    <p>Status: {{ onderzoek.status }}</p>
+    <p>Van: {{ onderzoek.datum_vanaf }}</p>
+    <p>Tot: {{ onderzoek.datum_tot }}</p>
+    <p>Type onderzoek: {{ onderzoek.type_onderzoek }}</p>
+    <p>Locatie: {{ onderzoek.locatie }}</p>
+    <p>Met Beloning: {{ onderzoek.met_beloning }} Beloning: {{ onderzoek.beloning }}</p>
+    <p>Groep leeftijd: {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}</p>
+    <p>Doelgroep beperking: {{ onderzoek.doelgroep_beperking }}</p>
+
+    <form id="onderzoekForm">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="button" id="saveBtn">Opslaan</button>
+    </form>
+
+    <script>
+    $(document).ready(function(){
+        $("#saveBtn").click(function(){
+            var formData = $("#onderzoekForm").serialize();
+            $.ajax({
+                url: "{% url 'onderzoek_update' onderzoek.pk %}",
+                type: "POST",
+                data: formData,
+                success: function(data) {
+                    alert("Onderzoek succesvol bijgewerkt.");
+
+                },
+                error: function(xhr, errmsg, err) {
+                    alert("Er is een fout opgetreden: " + errmsg);
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
