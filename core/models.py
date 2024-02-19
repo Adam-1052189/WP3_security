@@ -73,6 +73,7 @@ class Ervaringsdeskundige(models.Model):
     beperkingen = models.ForeignKey(Beperkingen, on_delete=models.SET_NULL, null=True, blank=True)
     toezichthouder = models.ForeignKey(Toezichthouder, on_delete=models.SET_NULL, null=True, blank=True)
     hulpmiddelen = models.ForeignKey(Hulpmiddelen, on_delete=models.SET_NULL, null=True, blank=True)
+    is_goedgekeurd = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'ervaringsdeskundige'
@@ -105,3 +106,15 @@ class OnderzoekErvaringsdeskundige(models.Model):
     class Meta:
         db_table = 'onderzoek_ervaringsdeskundige'
         unique_together = ('onderzoek', 'ervaringsdeskundige')
+
+class Inschrijvingen(models.Model):
+    naam = models.CharField(max_length=100)
+    email = models.EmailField()
+    inschrijvingsdatum = models.DateField(auto_now_add=True)
+    is_goedgekeurd = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.naam
+
+
+
