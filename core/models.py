@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.hashers import make_password
 
 class Organisaties(models.Model):
     organisatie_id = models.AutoField(primary_key=True)
@@ -29,6 +29,8 @@ class Gebruikers(models.Model):
     telefoonnummer = models.CharField(max_length=20, blank=True, null=True)
     geboortedatum = models.DateField()
 
+    def set_password(self, raw_password):
+        self.wachtwoord = make_password(raw_password)
     class Meta:
         db_table = 'gebruikers'
 

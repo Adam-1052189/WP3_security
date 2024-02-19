@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponse
 from core.decorators import custom_login_required
+from django.contrib.auth.hashers import make_password
 
 def registratie_ervaringsdeskundige(request):
     if request.method == 'POST':
@@ -19,10 +20,11 @@ def registratie_ervaringsdeskundige(request):
                 postcode=form.cleaned_data['postcode'],
                 geslacht=form.cleaned_data['geslacht'],
                 email=form.cleaned_data['email'],
-                wachtwoord=form.cleaned_data['wachtwoord'],  # Overweeg het gebruik van set_password
                 telefoonnummer=form.cleaned_data['telefoonnummer'],
                 geboortedatum=form.cleaned_data['geboortedatum']
             )
+            # Wachtwoord hashen en instellen
+            gebruiker.wachtwoord = make_password(form.cleaned_data['wachtwoord'])
             gebruiker.save()
 
             # Beperkingen object aanmaken en opslaan
