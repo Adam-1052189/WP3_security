@@ -28,9 +28,11 @@ class Gebruikers(models.Model):
     wachtwoord = models.CharField(max_length=255)
     telefoonnummer = models.CharField(max_length=20, blank=True, null=True)
     geboortedatum = models.DateField()
+    last_login = models.DateTimeField(blank=True, null=True)  # Toevoeging van last_login
 
     class Meta:
         db_table = 'gebruikers'
+
 
 
 class Hulpmiddelen(models.Model):
