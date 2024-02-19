@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from core.models import Onderzoek, Gebruikers, Inschrijvingen
+from core.models import Onderzoek, Gebruikers, Inschrijvingen, Ervaringsdeskundige
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -28,8 +28,12 @@ def onderzoek_dashboard(request):
     if not gebruiker_id or not Gebruikers.objects.filter(gebruiker_id=gebruiker_id, is_beheerder=True).exists():
         return redirect('login')
 
+    nieuwe_ervaringsdeskundigen = Ervaringsdeskundige.objects.filter(is_goedgekeurd=False)
+
     onderzoeken = Onderzoek.objects.all()
-    return render(request, 'dashboard_beheer.html', {'onderzoeken': onderzoeken})
+    return render(request, 'dashboard_beheer.html', {
+        'nieuwe_ervaringsdeskundigen': nieuwe_ervaringsdeskundigen,
+    })
 
 
 def onderzoek_goedkeuren(request, pk):
@@ -59,3 +63,15 @@ def afkeuren_inschrijving(request, inschrijving_id):
 def toon_inschrijvingen(request):
     inschrijvingen = Inschrijvingen.objects.all()
     return render(request, 'inschrijvingen.html', {'inschrijvingen': inschrijvingen})
+
+def goedkeuren_ervaringsdeskundige(request, pk):
+    ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
+    ervaringsdeskundige.is_goedgekeurd = True
+    ervaringsdeskundige.save()
+    return redirect('dashboard_beheer')
+
+def afkeuren_ervaringsdeskundige(request, pk):
+    ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
+    ervaringsdeskundige.is_goedgekeurd = False
+    ervaringsdeskundige.save()
+    return redirect('dashboard_beheer')

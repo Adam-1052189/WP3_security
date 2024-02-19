@@ -102,9 +102,29 @@
     </table>
 </section>
         <section id="geregistreerde_evd" tabindex="-1">
-            <h2>Section 3</h2>
-            <p>...</p>
-        </section>
+    <h2>Goed te keuren nieuwe geregistreerde ervaringsdeskundigen</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Naam</th>
+                <th>Email</th>
+                <th>Acties</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ervaringsdeskundige in nieuwe_ervaringsdeskundigen %}
+            <tr>
+                <td>{{ ervaringsdeskundige.gebruiker.voornaam }} {{ ervaringsdeskundige.gebruiker.achternaam }}</td>
+                <td>{{ ervaringsdeskundige.gebruiker.email }}</td>
+                <td>
+                    <a href="{% url 'ervaringsdeskundige_goedkeuren' ervaringsdeskundige.pk %}">Goedkeuren</a>
+                    <a href="{% url 'ervaringsdeskundige_afkeuren' ervaringsdeskundige.pk %}" style="margin-left: 10px;">Afkeuren</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
     </main>
 
     <footer>

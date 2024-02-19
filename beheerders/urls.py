@@ -9,4 +9,6 @@ urlpatterns = [
     path('inschrijvingen/goedkeuren/<int:inschrijving_id>/', views.goedkeuren_inschrijving, name='inschrijving_goedkeuren'),
     path('inschrijvingen/afkeuren/<int:inschrijving_id>/', views.afkeuren_inschrijving, name='inschrijving_afkeuren'),
     path('inschrijvingen/', toon_inschrijvingen, name='toon_inschrijvingen'),
+    path('ervaringsdeskundige/goedkeuren/<int:pk>/', views.goedkeuren_ervaringsdeskundige, name='ervaringsdeskundige_goedkeuren'),
+    path('ervaringsdeskundige/afkeuren/<int:pk>/', views.afkeuren_ervaringsdeskundige, name='ervaringsdeskundige_afkeuren'),
 ]

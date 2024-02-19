@@ -12,6 +12,8 @@
                 <th>Naam</th>
                 <th>Email</th>
                 <th>Inschrijvingsdatum</th>
+                <th>Status</th>
+                <th>Acties</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +22,14 @@
                 <td>{{ inschrijving.naam }}</td>
                 <td>{{ inschrijving.email }}</td>
                 <td>{{ inschrijving.inschrijvingsdatum }}</td>
+                <td>{{ inschrijving.is_goedgekeurd|yesno:"Goedgekeurd,Niet goedgekeurd" }}</td>
+                <td>
+                    {% if not inschrijving.is_goedgekeurd %}
+                        <a href="{% url 'inschrijving_goedkeuren' inschrijving.pk %}">Goedkeuren</a>
+                    {% else %}
+                        <a href="{% url 'inschrijving_afkeuren' inschrijving.pk %}">Afkeuren</a>
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>
