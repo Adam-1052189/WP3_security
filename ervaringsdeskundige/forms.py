@@ -1,5 +1,6 @@
 from django import forms
 from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige
+from django.contrib.auth.hashers import make_password
 
 class RegistratieFormulier(forms.Form):
     # Gebruikers velden
@@ -32,3 +33,39 @@ class RegistratieFormulier(forms.Form):
     bijzonderheden = forms.CharField(widget=forms.Textarea, required=False)
     voorkeur_benadering = forms.CharField(max_length=255, required=False)
     bijzonderheden_beschikbaar = forms.CharField(max_length=255, required=False)
+
+class GebruikerForm(forms.ModelForm):
+    class Meta:
+        model = Gebruikers
+        fields = ['voornaam', 'achternaam', 'postcode', 'geslacht', 'email', 'telefoonnummer', 'geboortedatum']
+        widgets = {
+            'geslacht': forms.Select(choices=[('Man', 'Man'), ('Vrouw', 'Vrouw')]),
+        }
+
+class WachtwoordWijzigenForm(forms.Form):
+    nieuw_wachtwoord = forms.CharField(widget=forms.PasswordInput())
+
+    def save(self, gebruiker_id):
+        gebruiker = Gebruikers.objects.get(gebruiker_id=gebruiker_id)
+        gebruiker.wachtwoord = make_password(self.cleaned_data['nieuw_wachtwoord'])
+        gebruiker.save()
+
+class ErvaringsdeskundigeForm(forms.ModelForm):
+    class Meta:
+        model = Ervaringsdeskundige
+        fields = ['bijzonderheden', 'voorkeur_benadering', 'bijzonderheden_beschikbaar']
+
+class BeperkingenForm(forms.ModelForm):
+    class Meta:
+        model = Beperkingen
+        fields = ['auditieve_beperkingen', 'visuele_beperkingen', 'motorische_lichamelijke_beperkingen', 'cognitieve_neurologische_beperkingen', 'reden_beperking']
+
+class HulpmiddelenForm(forms.ModelForm):
+    class Meta:
+        model = Hulpmiddelen
+        fields = ['vergrootglas', 'scherm_voorlezer']
+
+class ToezichthouderForm(forms.ModelForm):
+    class Meta:
+        model = Toezichthouder
+        fields = ['naam', 'email', 'telefoonnummer']

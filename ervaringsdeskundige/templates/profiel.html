@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Mijn Profiel</title>
+</head>
+<body>
+    <h1>Mijn Profiel</h1>
+    {% extends 'base.html' %}
+    {% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ gebruiker_form.as_p }}
+        {{ ervaringsdeskundige_form.as_p }}
+        {{ beperkingen_form.as_p }}
+        {{ hulpmiddelen_form.as_p }}
+        {{ toezichthouder_form.as_p }}
+        <button type="submit" name="wijzigen_profiel">Profiel bijwerken</button>
+    </form>
+
+<form method="post">
+    {% csrf_token %}
+    {{ wachtwoord_form.as_p }}
+    <button type="submit" name="wijzigen_wachtwoord">Wachtwoord wijzigen</button>
+</form>
+{% endblock %}
+</body>
+</html>

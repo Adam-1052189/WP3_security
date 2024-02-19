@@ -69,3 +69,29 @@ footer {
     padding: 5px;
   }
 }
+
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    background-color: #f3f3f3; /* Lichtgrijze achtergrond voor de header */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Een subtiele schaduw voor de header */
+}
+
+.profile-link-container {
+    /* Stijlen voor de container die de profiel link bevat */
+}
+
+.profile-link {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #007bff; /* Bootstrap blauwe kleur voor de link */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px; /* Afgeronde hoeken voor de link */
+    font-weight: bold;
+}
+
+.profile-link:hover {
+    background-color: #0056b3; /* Donkerdere blauwe kleur voor hover effect */
+}

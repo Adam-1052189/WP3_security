@@ -6,6 +6,12 @@
     <title>Dashboard Ervaringsdeskundige</title>
 </head>
 <body>
+<header>
+    <div class="profile-link-container">
+        <a href="{% url 'profiel' %}" class="profile-link">Mijn Profiel</a>
+    </div>
+</header>
+
 <main>
     <h1>Dit is de dashboard voor ervaringsdeskundige</h1>
     <img src="{% static 'images/icon_accessibility.jpg' %}" alt="Icon Accessibility" class="icon-accessibility">
@@ -19,7 +25,7 @@
                     Status: {{ onderzoek.status }}<br>
                     Van: {{ onderzoek.datum_vanaf }} Tot: {{ onderzoek.datum_tot }}<br>
                     Type: {{ onderzoek.type_onderzoek }}<br>
-                     <a href="{% url 'onderzoek_details' onderzoek.onderzoek_id %}">Meer gegevens</a>
+                    <a href="{% url 'onderzoek_details' onderzoek.onderzoek_id %}">Meer gegevens</a>
                 </li>
             {% endfor %}
         </ul>

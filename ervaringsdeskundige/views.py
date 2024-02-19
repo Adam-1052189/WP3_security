@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegistratieFormulier
+from .forms import RegistratieFormulier, GebruikerForm, WachtwoordWijzigenForm, ErvaringsdeskundigeForm, BeperkingenForm, HulpmiddelenForm, ToezichthouderForm
 from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige, Onderzoek, OnderzoekErvaringsdeskundige
 from django.views import View
 from django.contrib.auth import authenticate, login as auth_login
@@ -108,3 +108,44 @@ def onderzoek_details(request, onderzoek_id):
         'organisatie': organisatie,
     }
     return render(request, 'onderzoek_details.html', context)
+
+
+def profiel(request):
+    gebruiker = Gebruikers.objects.get(gebruiker_id=request.user.id)
+    ervaringsdeskundige = Ervaringsdeskundige.objects.get(gebruiker=gebruiker)
+
+    if request.method == 'POST':
+        gebruiker_form = GebruikerForm(request.POST, instance=gebruiker)
+        ervaringsdeskundige_form = ErvaringsdeskundigeForm(request.POST, instance=ervaringsdeskundige)
+        beperkingen_form = BeperkingenForm(request.POST, instance=ervaringsdeskundige.beperkingen)
+        hulpmiddelen_form = HulpmiddelenForm(request.POST, instance=ervaringsdeskundige.hulpmiddelen)
+        toezichthouder_form = ToezichthouderForm(request.POST, instance=ervaringsdeskundige.toezichthouder)
+        wachtwoord_form = WachtwoordWijzigenForm(request.POST)
+
+        if (gebruiker_form.is_valid() and ervaringsdeskundige_form.is_valid() and beperkingen_form.is_valid() and
+                hulpmiddelen_form.is_valid() and toezichthouder_form.is_valid() and
+                ('wijzigen_profiel' in request.POST) and wachtwoord_form.is_valid()):
+            gebruiker_form.save()
+            ervaringsdeskundige_form.save()
+            beperkingen_form.save()
+            hulpmiddelen_form.save()
+            toezichthouder_form.save()
+            wachtwoord_form.save(gebruiker.gebruiker_id)
+            return redirect('profiel')
+    else:
+        gebruiker_form = GebruikerForm(instance=gebruiker)
+        ervaringsdeskundige_form = ErvaringsdeskundigeForm(instance=ervaringsdeskundige)
+        beperkingen_form = BeperkingenForm(instance=ervaringsdeskundige.beperkingen)
+        hulpmiddelen_form = HulpmiddelenForm(instance=ervaringsdeskundige.hulpmiddelen)
+        toezichthouder_form = ToezichthouderForm(instance=ervaringsdeskundige.toezichthouder)
+        wachtwoord_form = WachtwoordWijzigenForm()
+
+    context = {
+        'gebruiker_form': gebruiker_form,
+        'ervaringsdeskundige_form': ervaringsdeskundige_form,
+        'beperkingen_form': beperkingen_form,
+        'hulpmiddelen_form': hulpmiddelen_form,
+        'toezichthouder_form': toezichthouder_form,
+        'wachtwoord_form': wachtwoord_form,
+    }
+    return render(request, 'profiel.html', context)
