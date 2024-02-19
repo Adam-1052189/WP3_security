@@ -1,10 +1,11 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from core.models import Onderzoek, Gebruikers, Inschrijvingen
+from core.models import Onderzoek, Gebruikers, Inschrijvingen, Ervaringsdeskundige, OnderzoekErvaringsdeskundige
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
+from .forms import OnderzoekForm
 
 def beheerder_required(view_func):
     def wrap(request, *args, **kwargs):
@@ -28,8 +29,14 @@ def onderzoek_dashboard(request):
     if not gebruiker_id or not Gebruikers.objects.filter(gebruiker_id=gebruiker_id, is_beheerder=True).exists():
         return redirect('login')
 
+    niet_goedgekeurde_inschrijvingen = OnderzoekErvaringsdeskundige.objects.filter(is_goedgekeurd=False)
+    nieuwe_ervaringsdeskundigen = Ervaringsdeskundige.objects.filter(is_goedgekeurd=False)
+
     onderzoeken = Onderzoek.objects.all()
-    return render(request, 'dashboard_beheer.html', {'onderzoeken': onderzoeken})
+    return render(request, 'dashboard_beheer.html', {
+        'niet_goedgekeurde_inschrijvingen': niet_goedgekeurde_inschrijvingen,
+        'nieuwe_ervaringsdeskundigen': nieuwe_ervaringsdeskundigen,
+    })
 
 
 def onderzoek_goedkeuren(request, pk):
@@ -44,18 +51,46 @@ def onderzoek_afkeuren(request, pk):
     onderzoek.save()
     return HttpResponseRedirect(reverse('onderzoek_dashboard'))
 
-def goedkeuren_inschrijving(request, inschrijving_id):
-    inschrijving = get_object_or_404(Inschrijvingen, pk=inschrijving_id)
+def goedkeuren_inschrijving(request, pk):
+    inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
     inschrijving.is_goedgekeurd = True
     inschrijving.save()
-    return redirect('inschrijvingen')
+    return redirect('dashboard_beheer')
 
-def afkeuren_inschrijving(request, inschrijving_id):
-    inschrijving = get_object_or_404(Inschrijvingen, pk=inschrijving_id)
+def afkeuren_inschrijving(request, pk):
+    inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
     inschrijving.is_goedgekeurd = False
     inschrijving.save()
-    return redirect('inschrijvingen')
+    return redirect('dashboard_beheer')
 
 def toon_inschrijvingen(request):
     inschrijvingen = Inschrijvingen.objects.all()
     return render(request, 'inschrijvingen.html', {'inschrijvingen': inschrijvingen})
+
+def goedkeuren_ervaringsdeskundige(request, pk):
+    ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
+    ervaringsdeskundige.is_goedgekeurd = True
+    ervaringsdeskundige.save()
+    return redirect('dashboard_beheer')
+
+def afkeuren_ervaringsdeskundige(request, pk):
+    ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
+    ervaringsdeskundige.is_goedgekeurd = False
+    ervaringsdeskundige.save()
+    return redirect('dashboard_beheer')
+
+def onderzoek_gegevens(request, pk):
+    onderzoek = get_object_or_404(Onderzoek, pk=pk)
+    form = OnderzoekForm(instance=onderzoek)
+    return render(request, 'onderzoek_gegevens.html', {'onderzoek': onderzoek, 'form': form})
+
+def onderzoek_update(request, pk):
+    if request.method == 'POST':
+        onderzoek = get_object_or_404(Onderzoek, pk=pk)
+        form = OnderzoekForm(request.POST, instance=onderzoek)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"success": "Onderzoek succesvol bijgewerkt."})
+        else:
+            return JsonResponse({"error": form.errors}, status=400)
+    return JsonResponse({"error": "Alleen POST-verzoeken zijn toegestaan."}, status=400)
