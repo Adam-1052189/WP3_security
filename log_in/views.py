@@ -13,7 +13,7 @@ def login_view(request):
         if user is not None:
             # Gebruiker bestaat, inloggen en doorsturen
             auth_login(request, user)
-            return redirect('dashboard')
+            return redirect('registratie')
         else:
             # Ongeldige inloggegevens
             messages.error(request, 'Ongeldige e-mail of wachtwoord.')
