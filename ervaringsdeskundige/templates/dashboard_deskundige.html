@@ -1,30 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'CSS/deskundige.css' %}" type="text/css">
+    <title>Dashboard Ervaringsdeskundige</title>
 </head>
 <body>
-    <main>
-        <h1>Dit is de dashboard voor ervaringsdeskundige</h1>
-        <img src="{% static 'images/icon_accessibility.jpg' %}" alt="Icon Accessibility" class="icon-accessibility">
-        <ul>
-            <li>Onderzoeksvraag 1: Hoe kunnen we onze site nog beter maken volgens jou?</li>
-            <li>Onderzoeksvraag 2: Wat zijn de voordelen die we hebben?</li>
-            <li>Onderzoeksvraag 3: Wat wil je zien?</li>
-        </ul>
-    </main>
-
-    <h2>Dashboard Ervaringsdeskundige</h2>
+<main>
+    <h1>Dit is de dashboard voor ervaringsdeskundige</h1>
+    <img src="{% static 'images/icon_accessibility.jpg' %}" alt="Icon Accessibility" class="icon-accessibility">
+    <h2>Beschikbare Onderzoeken</h2>
     <form method="post">
         {% csrf_token %}
         <ul>
-            {% for onderzoek in onderzoeken %}
-            <li>
-                {{ onderzoek.titel }} - <button name="onderzoek_id" value="{{ onderzoek.id }}" type="submit">Aanmelden</button>
-            </li>
+            {% for onderzoek in beschikbare_onderzoeken %}
+                <li>
+                    <strong>{{ onderzoek.titel }}</strong><br>
+                    Status: {{ onderzoek.status }}<br>
+                    Van: {{ onderzoek.datum_vanaf }} Tot: {{ onderzoek.datum_tot }}<br>
+                    Type: {{ onderzoek.type_onderzoek }}<br>
+                     <a href="{% url 'onderzoek_details' onderzoek.onderzoek_id %}">Meer gegevens</a>
+                </li>
             {% endfor %}
         </ul>
     </form>
+</main>
 </body>
 </html>
