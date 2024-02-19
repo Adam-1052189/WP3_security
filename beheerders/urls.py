@@ -11,4 +11,6 @@ urlpatterns = [
     path('inschrijvingen/', toon_inschrijvingen, name='toon_inschrijvingen'),
     path('ervaringsdeskundige/goedkeuren/<int:pk>/', views.goedkeuren_ervaringsdeskundige, name='ervaringsdeskundige_goedkeuren'),
     path('ervaringsdeskundige/afkeuren/<int:pk>/', views.afkeuren_ervaringsdeskundige, name='ervaringsdeskundige_afkeuren'),
+    path('onderzoek/bijwerken/<int:pk>/', views.onderzoek_bijwerken, name='onderzoek_bijwerken'),
+    path('onderzoek/update/<int:pk>/', views.onderzoek_update, name='onderzoek_update'),
 ]

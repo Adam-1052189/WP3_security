@@ -49,7 +49,9 @@
         <tbody>
             {% for onderzoek in onderzoeken %}
             <tr>
-                <td>{{ onderzoek.titel }}</td>
+                <td>
+                    <a href="{% url 'onderzoek_bijwerken' onderzoek.pk %}">{{ onderzoek.titel }}</a>
+                </td>
                 <td>{{ onderzoek.status }}</td>
                 <td>{{ onderzoek.datum_vanaf }}</td>
                 <td>{{ onderzoek.datum_tot }}</td>
@@ -68,7 +70,6 @@
         </tbody>
     </table>
 </section>
-        </section>
         <section id="inschrijvingen" tabindex="-1">
     <h2>Goed te keuren inschrijvingen door ervaringsdeskundigen op onderzoeken</h2>
     <table>
