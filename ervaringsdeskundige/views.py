@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistratieFormulier
 from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige, Onderzoek, OnderzoekErvaringsdeskundige
 from django.views import View
@@ -92,3 +92,12 @@ def aanmelden_voor_onderzoek(request, onderzoek_id):
             return redirect('dashboard')
         else:
             return HttpResponse('Je moet een ervaringsdeskundige zijn om je aan te melden voor een onderzoek.', status=403)
+
+def onderzoek_details(request, onderzoek_id):
+    onderzoek = Onderzoek.objects.get(onderzoek_id=onderzoek_id)
+    organisatie = onderzoek.organisatie
+    context = {
+        'onderzoek': onderzoek,
+        'organisatie': organisatie,
+    }
+    return render(request, 'onderzoek_details.html', context)

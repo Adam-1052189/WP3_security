@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <title>{{ onderzoek.titel }} Details</title>
+</head>
+<body>
+    <h1>{{ onderzoek.titel }}</h1>
+    <p>Status: {{ onderzoek.status }}</p>
+    <p>Datum vanaf: {{ onderzoek.datum_vanaf }} tot {{ onderzoek.datum_tot }}</p>
+    <p>Type: {{ onderzoek.type_onderzoek }} Locatie: {{ onderzoek.locatie }}</p>
+    <p>Met Beloning: {{ onderzoek.met_beloning }} Beloning: {{ onderzoek.beloning }}</p>
+    <p>groep leeftijd: {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}</p>
+    <p>Delgroep beperking: {{ onderzoek.doelgroep_beperking }}</p>
+    <p>Organisatie: {{ onderzoek.organisatie.naam }}</p>
+    
+    <h2>Organisatie</h2>
+    <p>Naam: {{ organisatie.naam }}</p>
+    <p>Type: {{ organisatie.type }}</p>
+    <p>Website: <a href="{{ organisatie.website }}">{{ organisatie.website }}</a></p>
+    <p>Beschrijving: {{ organisatie.beschrijving }}</p>
+    <p>Contactpersoon: {{ organisatie.contactpersoon }}</p>
+    <p>E-mail: {{ organisatie.email }}</p>
+    <p>Telefoonummer: {{ organisatie.telefoonnummer }}</p>
+    <p>Overige details: {{ organisatie.overige_details }}</p>
+    <!-- Toon hier alle andere details van de organisatie -->
+    <form action="{% url 'aanmelden_voor_onderzoek' onderzoek.onderzoek_id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Aanmelden voor dit onderzoek</button>
+    </form>
+</body>
+</html>
