@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from core.models import Onderzoek, Gebruikers, Inschrijving
+from core.models import Onderzoek, Gebruikers, Inschrijvingen
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -45,17 +45,17 @@ def onderzoek_afkeuren(request, pk):
     return HttpResponseRedirect(reverse('onderzoek_dashboard'))
 
 def goedkeuren_inschrijving(request, inschrijving_id):
-    inschrijving = get_object_or_404(Inschrijving, pk=inschrijving_id)
+    inschrijving = get_object_or_404(Inschrijvingen, pk=inschrijving_id)
     inschrijving.is_goedgekeurd = True
     inschrijving.save()
     return redirect('inschrijvingen')
 
 def afkeuren_inschrijving(request, inschrijving_id):
-    inschrijving = get_object_or_404(Inschrijving, pk=inschrijving_id)
+    inschrijving = get_object_or_404(Inschrijvingen, pk=inschrijving_id)
     inschrijving.is_goedgekeurd = False
     inschrijving.save()
     return redirect('inschrijvingen')
 
 def toon_inschrijvingen(request):
-    inschrijvingen = Inschrijving.objects.all()
+    inschrijvingen = Inschrijvingen.objects.all()
     return render(request, 'inschrijvingen.html', {'inschrijvingen': inschrijvingen})

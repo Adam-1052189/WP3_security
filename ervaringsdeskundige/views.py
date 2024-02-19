@@ -7,19 +7,23 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.http import HttpResponse
 from core.decorators import custom_login_required
+from django.contrib.auth.hashers import make_password  # Voor wachtwoord hashing
 
 def registratie_ervaringsdeskundige(request):
     if request.method == 'POST':
         form = RegistratieFormulier(request.POST)
         if form.is_valid():
-            # Gebruiker object aanmaken en opslaan
+            # Hier voeren we de wachtwoord hashing uit
+            gehasht_wachtwoord = make_password(form.cleaned_data['wachtwoord'])
+
+            # Gebruiker object aanmaken en opslaan met gehasht wachtwoord
             gebruiker = Gebruikers(
                 voornaam=form.cleaned_data['voornaam'],
                 achternaam=form.cleaned_data['achternaam'],
                 postcode=form.cleaned_data['postcode'],
                 geslacht=form.cleaned_data['geslacht'],
                 email=form.cleaned_data['email'],
-                wachtwoord=form.cleaned_data['wachtwoord'],  # Overweeg het gebruik van set_password
+                wachtwoord=gehasht_wachtwoord,
                 telefoonnummer=form.cleaned_data['telefoonnummer'],
                 geboortedatum=form.cleaned_data['geboortedatum']
             )
@@ -56,13 +60,16 @@ def registratie_ervaringsdeskundige(request):
                 beperkingen=beperkingen,
                 toezichthouder=toezichthouder,
                 hulpmiddelen=hulpmiddelen,
-                bijzonderheden = form.cleaned_data['bijzonderheden'],
-                voorkeur_benadering = form.cleaned_data['voorkeur_benadering'],
-                bijzonderheden_beschikbaar = form.cleaned_data['bijzonderheden_beschikbaar']
+                bijzonderheden=form.cleaned_data['bijzonderheden'],
+                voorkeur_benadering=form.cleaned_data['voorkeur_benadering'],
+                bijzonderheden_beschikbaar=form.cleaned_data['bijzonderheden_beschikbaar']
             )
             ervaringsdeskundige.save()
 
-            return redirect('login')  # Pas dit aan naar de gewenste redirect URL
+            # Aangepaste redirect en succesbericht
+            messages.success(request, 'Registratie succesvol.')
+            return redirect('login')  # Zorg ervoor dat dit de correcte URL-naam is
+
     else:
         form = RegistratieFormulier()
 
