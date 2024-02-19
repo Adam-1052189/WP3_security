@@ -79,10 +79,10 @@ def afkeuren_ervaringsdeskundige(request, pk):
     ervaringsdeskundige.save()
     return redirect('dashboard_beheer')
 
-def onderzoek_bijwerken(request, pk):
+def onderzoek_gegevens(request, pk):
     onderzoek = get_object_or_404(Onderzoek, pk=pk)
     form = OnderzoekForm(instance=onderzoek)
-    return render(request, 'onderzoek_bijwerken.html', {'onderzoek': onderzoek, 'form': form})
+    return render(request, 'onderzoek_gegevens.html', {'onderzoek': onderzoek, 'form': form})
 
 def onderzoek_update(request, pk):
     if request.method == 'POST':
