@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import OnderzoekForm
+from django.contrib.auth import get_user_model
 
 def beheerder_required(view_func):
     def wrap(request, *args, **kwargs):
@@ -23,11 +24,11 @@ def beheerder_required(view_func):
             return redirect('login')
     return wrap
 
-@login_required(login_url='login')
+@login_required()
 def onderzoek_dashboard(request):
-    gebruiker_id = request.session.get('gebruiker_id')
-    if not gebruiker_id or not Gebruikers.objects.filter(gebruiker_id=gebruiker_id, is_beheerder=True).exists():
-        return redirect('login')
+    User = get_user_model()
+    if not request.user.is_staff:
+        return redirect('dashboard_deskundige')
 
     niet_goedgekeurde_inschrijvingen = OnderzoekErvaringsdeskundige.objects.filter(is_goedgekeurd=False)
     nieuwe_ervaringsdeskundigen = Ervaringsdeskundige.objects.filter(is_goedgekeurd=False)
