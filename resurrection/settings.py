@@ -44,8 +44,8 @@ INSTALLED_APPS = [
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'core.backends.GebruikersBackend',
     'django.contrib.auth.backends.ModelBackend',  # Voeg dit toe om de standaard backend te behouden
+    'core.backends.GebruikersBackend',
 ]
 
 LOGIN_URL = '/'
@@ -136,3 +136,5 @@ IMAGES_URL = 'images/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'core.Gebruikers'

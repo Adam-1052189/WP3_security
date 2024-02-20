@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
 class Organisaties(models.Model):
     organisatie_id = models.AutoField(primary_key=True)
@@ -17,22 +17,48 @@ class Organisaties(models.Model):
         db_table = 'organisaties'
 
 
-class Gebruikers(models.Model):
+class GebruikersManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('Gebruikers moeten een e-mailadres hebben')
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        return self.create_user(email, password, **extra_fields)
+
+class Gebruikers(AbstractBaseUser, PermissionsMixin):
     gebruiker_id = models.AutoField(primary_key=True)
     voornaam = models.CharField(max_length=255)
     achternaam = models.CharField(max_length=255)
     is_beheerder = models.BooleanField(default=False)
     postcode = models.CharField(max_length=6, blank=True, null=True)
     geslacht = models.CharField(max_length=10, blank=True, null=True)
-    email = models.CharField(max_length=255, blank=True, null=True)
-    wachtwoord = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
     telefoonnummer = models.CharField(max_length=20, blank=True, null=True)
     geboortedatum = models.DateField()
     last_login = models.DateTimeField(blank=True, null=True)
-    is_authenticated = models.BooleanField(blank=True, null=True)
+
+    objects = GebruikersManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     class Meta:
         db_table = 'gebruikers'
+
+    @property
+    def is_staff(self):
+        return self.is_beheerder
+
+    def __str__(self):
+        return self.email
 
 
 
