@@ -30,8 +30,7 @@ def registratie_ervaringsdeskundige(request):
                 auditieve_beperkingen=form.cleaned_data['auditieve_beperkingen'],
                 visuele_beperkingen=form.cleaned_data['visuele_beperkingen'],
                 motorische_lichamelijke_beperkingen=form.cleaned_data['motorische_lichamelijke_beperkingen'],
-                cognitieve_neurologische_beperkingen=form.cleaned_data['cognitieve_neurologische_beperkingen'],
-                reden_beperking=form.cleaned_data['reden_beperking']
+                cognitieve_neurologische_beperkingen=form.cleaned_data['cognitieve_neurologische_beperkingen']
             )
             beperkingen.save()
 

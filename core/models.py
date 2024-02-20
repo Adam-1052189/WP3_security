@@ -82,12 +82,45 @@ class Toezichthouder(models.Model):
 
 
 class Beperkingen(models.Model):
-    beperkingen_id = models.AutoField(primary_key=True)
-    auditieve_beperkingen = models.CharField(max_length=255, blank=True, null=True)
-    visuele_beperkingen = models.CharField(max_length=255, blank=True, null=True)
-    motorische_lichamelijke_beperkingen = models.CharField(max_length=255, blank=True, null=True)
-    cognitieve_neurologische_beperkingen = models.CharField(max_length=255, blank=True, null=True)
-    reden_beperking = models.TextField(blank=True, null=True)
+    AUDITIEVE_BEPERKINGEN_CHOICES = [
+        ('doof', 'Doof'),
+        ('slechthorend', 'Slechthorend'),
+        ('doofblind', 'Doofblind'),
+    ]
+
+    VISUELE_BEPERKINGEN_CHOICES = [
+        ('blind', 'Blind'),
+        ('slechtziend', 'Slechtziend'),
+        ('kleurenblind', 'Kleurenblind'),
+        ('doofblind', 'Doofblind'),
+    ]
+
+    MOTORISCHE_BEPERKINGEN_CHOICES = [
+        ('amputatie', 'Amputatie en mismaaktheid'),
+        ('artritus', 'Artritus'),
+        ('fibromyalgie', 'Fibromyalgie'),
+        ('reuma', 'Reuma'),
+        ('handvaardigheid', 'Verminderde handvaardigheid'),
+        ('spierdystrofie', 'Spierdystrofie'),
+        ('rsi', 'RSI'),
+        ('tremor', 'Tremor en Spasmen'),
+        ('quadriplegie', 'Quadriplegie of tetraplegie'),
+    ]
+
+    COGNITIEVE_BEPERKINGEN_CHOICES = [
+        ('adhd', 'ADHD'),
+        ('autisme', 'Autisme'),
+        ('leerstoornis', 'Leerstoornis'),
+        ('geheugen', 'Geheugen beperking'),
+        ('ms', 'Multiple Sclerose'),
+        ('epilepsie', 'Epilepsie'),
+        ('migraine', 'Migraine'),
+    ]
+
+    auditieve_beperkingen = models.CharField(max_length=50, choices=AUDITIEVE_BEPERKINGEN_CHOICES, blank=True, null=True)
+    visuele_beperkingen = models.CharField(max_length=50, choices=VISUELE_BEPERKINGEN_CHOICES, blank=True, null=True)
+    motorische_lichamelijke_beperkingen = models.CharField(max_length=50, choices=MOTORISCHE_BEPERKINGEN_CHOICES, blank=True, null=True)
+    cognitieve_neurologische_beperkingen = models.CharField(max_length=50, choices=COGNITIEVE_BEPERKINGEN_CHOICES, blank=True, null=True)
 
     class Meta:
         db_table = 'beperkingen'
