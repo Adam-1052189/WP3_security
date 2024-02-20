@@ -1,13 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RegistratieFormulier, GebruikerForm, WachtwoordWijzigenForm, ErvaringsdeskundigeForm, BeperkingenForm, HulpmiddelenForm, ToezichthouderForm
 from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige, Onderzoek, OnderzoekErvaringsdeskundige
-from django.views import View
-from django.contrib.auth import authenticate, login as auth_login
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
-from django.contrib.auth.hashers import make_password  # Voor wachtwoord hashing
+from django.contrib.auth import get_user_model
 
 def registratie_ervaringsdeskundige(request):
     if request.method == 'POST':
@@ -70,10 +67,11 @@ def registratie_ervaringsdeskundige(request):
 
     return render(request, 'registratie_ervaringsdeskundige.html', {'form': form})
 
+User = get_user_model()
 
+@login_required()
 def dashboard(request):
-    gebruiker_id = request.user.id  # Veronderstelt dat je een manier hebt om de huidige gebruiker te krijgen
-    ervaringsdeskundige = Ervaringsdeskundige.objects.filter(gebruiker_id=gebruiker_id).first()
+    ervaringsdeskundige = Ervaringsdeskundige.objects.filter(gebruiker=request.user).first()
     if ervaringsdeskundige:
         beschikbare_onderzoeken = Onderzoek.objects.filter(beschikbaar=True)
         context = {
@@ -83,10 +81,10 @@ def dashboard(request):
     else:
         return HttpResponse('Je moet een ervaringsdeskundige zijn om deze pagina te bekijken.', status=403)
 
+@login_required()
 def aanmelden_voor_onderzoek(request, onderzoek_id):
     if request.method == 'POST':
-        gebruiker_id = request.user.id
-        ervaringsdeskundige = Ervaringsdeskundige.objects.filter(gebruiker=gebruiker_id).first()
+        ervaringsdeskundige = Ervaringsdeskundige.objects.filter(gebruiker=request.user).first()
         if ervaringsdeskundige:
             onderzoek = Onderzoek.objects.get(id=onderzoek_id)
             OnderzoekErvaringsdeskundige.objects.create(onderzoek=onderzoek, ervaringsdeskundige=ervaringsdeskundige)
@@ -95,6 +93,7 @@ def aanmelden_voor_onderzoek(request, onderzoek_id):
         else:
             return HttpResponse('Je moet een ervaringsdeskundige zijn om je aan te melden voor een onderzoek.', status=403)
 
+@login_required()
 def onderzoek_details(request, onderzoek_id):
     onderzoek = Onderzoek.objects.get(onderzoek_id=onderzoek_id)
     organisatie = onderzoek.organisatie
@@ -104,9 +103,9 @@ def onderzoek_details(request, onderzoek_id):
     }
     return render(request, 'onderzoek_details.html', context)
 
-
+@login_required()
 def profiel(request):
-    gebruiker = Gebruikers.objects.get(gebruiker_id=request.user.id)
+    gebruiker = request.user.id
     ervaringsdeskundige = Ervaringsdeskundige.objects.get(gebruiker=gebruiker)
 
     if request.method == 'POST':
