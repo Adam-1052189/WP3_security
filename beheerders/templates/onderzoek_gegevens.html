@@ -4,23 +4,83 @@
     <meta charset="UTF-8">
     <title>{{ onderzoek.titel }}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box; /* Voegt padding toe aan de breedte en hoogte */
+        }
+
+        button#saveBtn {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button#saveBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-<h1>{{ onderzoek.titel }}</h1>
-<p>Status: {{ onderzoek.status }}</p>
-<p>Van: {{ onderzoek.datum_vanaf }}</p>
-<p>Tot: {{ onderzoek.datum_tot }}</p>
-<p>Type onderzoek: {{ onderzoek.type_onderzoek }}</p>
-<p>Locatie: {{ onderzoek.locatie }}</p>
-<p>Met Beloning: {{ onderzoek.met_beloning }} Beloning: {{ onderzoek.beloning }}</p>
-<p>Groep leeftijd: {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}</p>
-<p>Doelgroep beperking: {{ onderzoek.doelgroep_beperking }}</p>
 
-    <form id="onderzoekForm">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="button" id="saveBtn">Opslaan</button>
-    </form>
+<div id="onderzoek-{{ onderzoek.pk }}">
+    <h1>{{ onderzoek.titel }}</h1>
+    <p>Status: {{ onderzoek.status }}</p>
+    <p>Van: {{ onderzoek.datum_vanaf }}</p>
+    <p>Tot: {{ onderzoek.datum_tot }}</p>
+    <p>Type onderzoek: {{ onderzoek.type_onderzoek }}</p>
+    <p>Locatie: {{ onderzoek.locatie }}</p>
+    <p>Met Beloning: {{ onderzoek.met_beloning }} Beloning: {{ onderzoek.beloning }}</p>
+    <p>Groep leeftijd: {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}</p>
+    <p>Doelgroep beperking: {{ onderzoek.doelgroep_beperking }}</p>
+</div>
+
+
+<form id="onderzoekForm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="button" id="saveBtn">Opslaan</button>
+</form>
 
 <script>
     $(document).ready(function () {

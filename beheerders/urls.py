@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import onderzoek_dashboard, onderzoek_goedkeuren, onderzoek_afkeuren, toon_inschrijvingen
+from .views import onderzoek_dashboard, onderzoek_goedkeuren, onderzoek_afkeuren, toon_inschrijvingen, onderzoeksvragen
 from . import views
 
 urlpatterns = [
@@ -13,4 +13,5 @@ urlpatterns = [
     path('ervaringsdeskundige/afkeuren/<int:pk>/', views.afkeuren_ervaringsdeskundige, name='ervaringsdeskundige_afkeuren'),
     path('onderzoek/gegevens/<int:pk>/', views.onderzoek_gegevens, name='onderzoek_gegevens'),
     path('onderzoek/update/<int:pk>/', views.onderzoek_update, name='onderzoek_update'),
+    path('onderzoeksvragen/', onderzoeksvragen, name='onderzoeksvragen'),
 ]
