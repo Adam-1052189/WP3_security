@@ -1,5 +1,4 @@
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from core.models import Onderzoek, Gebruikers, Inschrijvingen, Ervaringsdeskundige, OnderzoekErvaringsdeskundige
 from django.http import HttpResponseRedirect
@@ -37,18 +36,21 @@ def onderzoek_dashboard(request):
     return render(request, 'dashboard_beheer.html', {
         'niet_goedgekeurde_inschrijvingen': niet_goedgekeurde_inschrijvingen,
         'nieuwe_ervaringsdeskundigen': nieuwe_ervaringsdeskundigen,
+        'onderzoeken': onderzoeken,
     })
 
 
 def onderzoek_goedkeuren(request, pk):
     onderzoek = Onderzoek.objects.get(pk=pk)
     onderzoek.status = 'Goedgekeurd'
+    onderzoek.is_goedgekeurd = True
     onderzoek.save()
     return HttpResponseRedirect(reverse('onderzoek_dashboard'))
 
 def onderzoek_afkeuren(request, pk):
     onderzoek = Onderzoek.objects.get(pk=pk)
     onderzoek.status = 'Afgekeurd'
+    onderzoek.is_goedgekeurd = False
     onderzoek.save()
     return HttpResponseRedirect(reverse('onderzoek_dashboard'))
 

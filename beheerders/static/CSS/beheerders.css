@@ -91,3 +91,20 @@ footer {
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
 }
+
+.goedkeur-link, .afkeur-link {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.goedkeur-link {
+    background-color: #4CAF50; /* Groen */
+}
+
+.afkeur-link {
+    background-color: #f44336; /* Rood */
+}

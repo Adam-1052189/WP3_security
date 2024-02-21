@@ -9,35 +9,35 @@
 </head>
 
 <body>
-    <header role="banner">
-        <h1>Dashboard Beheerders</h1>
-    </header>
-    <nav id="Menu" class="sidebar">
-            <button aria-label="Close Menu" id="closeMenu">X</button>
-            <ul>
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="{% url 'organisatie_overzicht' %}">Organisaties</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
-    </nav>
-    <header>
-            <button aria-label="Open Menu" id="openMenu">&#9776; Menu</button>
+<header role="banner">
+    <h1>Dashboard Beheerders</h1>
+</header>
+<nav id="Menu" class="sidebar">
+    <button aria-label="Close Menu" id="closeMenu">X</button>
+    <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Organisaties</a></li>
+        <li><a href="#">Analytics</a></li>
+        <li><a href="#">Settings</a></li>
+    </ul>
+</nav>
+<header>
+    <button aria-label="Open Menu" id="openMenu">&#9776; Menu</button>
 
-    </header>
-    <nav role="navigation">
-        <ul>
-            <li><a href="#onderzoeksvragen">Goed te keuren onderzoeksvragen</a></li>
-            <li><a href="#inschrijvingen">Goed te keuren inschrijvingen door ervaringsdeskundigen op onderzoeken</a></li>
-            <li><a href="#geregistreerde_evd">Goed te keuren nieuw geregistreerde ervaringsdeskundigen</a></li>
-        </ul>
-    </nav>
+</header>
+<nav role="navigation">
+    <ul>
+        <li><a href="#onderzoeksvragen">Goed te keuren onderzoeksvragen</a></li>
+        <li><a href="#inschrijvingen">Goed te keuren inschrijvingen door ervaringsdeskundigen op onderzoeken</a></li>
+        <li><a href="#geregistreerde_evd">Goed te keuren nieuw geregistreerde ervaringsdeskundigen</a></li>
+    </ul>
+</nav>
 
-    <main role="main">
-        <section id="onderzoeksvragen" tabindex="-1">
-    <h2>Goed te keuren onderzoeksvragen</h2>
-    <table>
-        <thead>
+<main role="main">
+    <section id="onderzoeksvragen" tabindex="-1">
+        <h2>Goed te keuren onderzoeksvragen</h2>
+        <table>
+            <thead>
             <tr>
                 <th>Titel</th>
                 <th>Status</th>
@@ -45,85 +45,82 @@
                 <th>Datum Tot</th>
                 <th>Acties</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for onderzoek in onderzoeken %}
-            <tr>
-                <td>
-                    <a href="{% url 'onderzoek_gegevens' onderzoek.pk %}">{{ onderzoek.titel }}</a>
-                </td>
-                <td>{{ onderzoek.status }}</td>
-                <td>{{ onderzoek.datum_vanaf }}</td>
-                <td>{{ onderzoek.datum_tot }}</td>
-                <td>
-                    <form action="{% url 'onderzoek_goedkeuren' onderzoek.pk %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <input type="submit" value="Goedkeuren">
-                    </form>
-                    <form action="{% url 'onderzoek_afkeuren' onderzoek.pk %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <input type="submit" value="Afkeuren">
-                    </form>
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        <a href="{% url 'onderzoek_gegevens' onderzoek.pk %}">{{ onderzoek.titel }}</a>
+                    </td>
+                    <td>{{ onderzoek.status }}</td>
+                    <td>{{ onderzoek.datum_vanaf }}</td>
+                    <td>{{ onderzoek.datum_tot }}</td>
+                    <td>
+                        <a href="{% url 'onderzoek_goedkeuren' onderzoek.pk %}" class="goedkeur-link">Goedkeuren</a>
+                        <a href="{% url 'onderzoek_afkeuren' onderzoek.pk %}" class="afkeur-link"
+                           style="margin-left: 10px;">Afkeuren</a>
+                    </td>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</section>
-        <section id="inschrijvingen" tabindex="-1">
-    <h2>Goed te keuren inschrijvingen door ervaringsdeskundigen op onderzoeken</h2>
-    <table>
-        <thead>
+            </tbody>
+        </table>
+    </section>
+    <section id="inschrijvingen" tabindex="-1">
+        <h2>Goed te keuren inschrijvingen door ervaringsdeskundigen op onderzoeken</h2>
+        <table>
+            <thead>
             <tr>
                 <th>Onderzoek Titel</th>
                 <th>Ervaringsdeskundige</th>
                 <th>Acties</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for inschrijving in niet_goedgekeurde_inschrijvingen %}
-            <tr>
-                <td>{{ inschrijving.onderzoek.titel }}</td>
-                <td>{{ inschrijving.ervaringsdeskundige.gebruiker.voornaam }} {{ inschrijving.ervaringsdeskundige.gebruiker.achternaam }}</td>
-                <td>
-                    <a href="{% url 'inschrijving_goedkeuren' inschrijving.pk %}">Goedkeuren</a>
-                    <a href="{% url 'inschrijving_afkeuren' inschrijving.pk %}" style="margin-left: 10px;">Afkeuren</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ inschrijving.onderzoek.titel }}</td>
+                    <td>{{ inschrijving.ervaringsdeskundige.gebruiker.voornaam }} {{ inschrijving.ervaringsdeskundige.gebruiker.achternaam }}</td>
+                    <td>
+                        <a href="{% url 'inschrijving_goedkeuren' inschrijving.pk %}">Goedkeuren</a>
+                        <a href="{% url 'inschrijving_afkeuren' inschrijving.pk %}"
+                           style="margin-left: 10px;">Afkeuren</a>
+                    </td>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</section>
-        <section id="geregistreerde_evd" tabindex="-1">
-    <h2>Goed te keuren nieuwe geregistreerde ervaringsdeskundigen</h2>
-    <table>
-        <thead>
+            </tbody>
+        </table>
+    </section>
+    <section id="geregistreerde_evd" tabindex="-1">
+        <h2>Goed te keuren nieuwe geregistreerde ervaringsdeskundigen</h2>
+        <table>
+            <thead>
             <tr>
                 <th>Naam</th>
                 <th>Email</th>
                 <th>Acties</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for ervaringsdeskundige in nieuwe_ervaringsdeskundigen %}
-            <tr>
-                <td>{{ ervaringsdeskundige.gebruiker.voornaam }} {{ ervaringsdeskundige.gebruiker.achternaam }}</td>
-                <td>{{ ervaringsdeskundige.gebruiker.email }}</td>
-                <td>
-                    <a href="{% url 'ervaringsdeskundige_goedkeuren' ervaringsdeskundige.pk %}">Goedkeuren</a>
-                    <a href="{% url 'ervaringsdeskundige_afkeuren' ervaringsdeskundige.pk %}" style="margin-left: 10px;">Afkeuren</a>
-                </td>
-            </tr>
+                <tr>
+                    <td>{{ ervaringsdeskundige.gebruiker.voornaam }} {{ ervaringsdeskundige.gebruiker.achternaam }}</td>
+                    <td>{{ ervaringsdeskundige.gebruiker.email }}</td>
+                    <td>
+                        <a href="{% url 'ervaringsdeskundige_goedkeuren' ervaringsdeskundige.pk %}">Goedkeuren</a>
+                        <a href="{% url 'ervaringsdeskundige_afkeuren' ervaringsdeskundige.pk %}"
+                           style="margin-left: 10px;">Afkeuren</a>
+                    </td>
+                </tr>
             {% endfor %}
-        </tbody>
-    </table>
-</section>
-    </main>
+            </tbody>
+        </table>
+    </section>
+</main>
 
-    <footer>
-        <p>Stichting Accessibility</p>
-    </footer>
-    <script src="{%  static 'js/script.js' %}"></script>
+<footer>
+    <p>Stichting Accessibility</p>
+</footer>
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 
 </html>
