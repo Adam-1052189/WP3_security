@@ -3,14 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Onderzoeksvraag aanmaken</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        {% if success_message %}
+        window.onload = function() {
+            var popup = document.getElementById("success-popup");
+            popup.style.display = "block";
+            setTimeout(function(){ popup.style.display = "none"; }, 4000); // Sluit de pop-up na 2 seconden
+        }
+        {% endif %}
+        $( function() {
+            $( ".datepicker" ).datepicker();
+        } );
+    </script>
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 9999;
+        }
+    </style>
 </head>
 <body>
-    <h1>onderzoeksvraag invullen</h1>
+    <h1>Onderzoeksvraag invullen</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Opslaan</button>
     </form>
 
+    <div id="success-popup" class="popup">Onderzoeksvraag succesvol opgeslagen!</div>
 </body>
 </html>
