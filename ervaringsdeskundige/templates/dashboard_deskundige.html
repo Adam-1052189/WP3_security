@@ -3,12 +3,14 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'CSS/deskundige.css' %}" type="text/css">
+    <script src="{% static 'js/deskundige.js' %}" defer></script>
     <title>Dashboard Ervaringsdeskundige</title>
 </head>
-<body>
+<body data-login-url="{% url 'login' %}">
 <header>
     <div class="profile-link-container">
         <a href="{% url 'profiel' %}" class="profile-link">Mijn Profiel</a>
+         <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen </button>
     </div>
 </header>
 

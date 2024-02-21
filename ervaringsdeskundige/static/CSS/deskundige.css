@@ -79,19 +79,38 @@ header {
 }
 
 .profile-link-container {
-    /* Stijlen voor de container die de profiel link bevat */
 }
 
 .profile-link {
     display: inline-block;
-    padding: 8px 15px;
-    background-color: #007bff; /* Bootstrap blauwe kleur voor de link */
+    padding: 3px 10px;
+    background-color: #007bff;
     color: white;
     text-decoration: none;
-    border-radius: 5px; /* Afgeronde hoeken voor de link */
+    border: none;
+    border-radius: 5px;
     font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 .profile-link:hover {
-    background-color: #0056b3; /* Donkerdere blauwe kleur voor hover effect */
+    background-color: #0056b3;
 }
+
+.logout-button {
+        display: inline-block;
+        padding: 8px 15px;
+        background-color: #d9534f;
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    .logout-button:hover {
+        background-color: #c9302c;
+    }

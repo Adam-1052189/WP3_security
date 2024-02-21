@@ -3,8 +3,8 @@ from .forms import RegistratieFormulier, GebruikerForm, CustomPasswordChangeForm
 from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige, Onderzoek, OnderzoekErvaringsdeskundige
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponse
-from django.contrib.auth import get_user_model, update_session_auth_hash
+from django.http import HttpResponse, JsonResponse
+from django.contrib.auth import get_user_model, update_session_auth_hash, logout
 from datetime import date
 
 def registratie_ervaringsdeskundige(request):
@@ -166,3 +166,11 @@ def profiel(request):
         'toon_toezichthouder_form': toon_toezichthouder_form,
     }
     return render(request, 'profiel.html', context)
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'Je bent succesvol uitgelogd.')
+        return JsonResponse({"success": True, "message": "Je bent succesvol uitgelogd."})
+    else:
+        return JsonResponse({"success": False, "message": "Foutieve verzoekmethode."}, status=400)

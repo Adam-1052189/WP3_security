@@ -5,8 +5,8 @@
     <title>Mijn Profiel</title>
     <script>
         function togglePasswordVisibility() {
-            var passwordInput = document.getElementById('id_new_password1'); // Verander dit ID naar het ID van je wachtwoordveld
-            var passwordConfirmInput = document.getElementById('id_new_password2'); // Pas dit aan indien nodig
+            var passwordInput = document.getElementById('id_new_password1');
+            var passwordConfirmInput = document.getElementById('id_new_password2');
             if (passwordInput.type === "password") {
                 passwordInput.type = "text";
                 if (passwordConfirmInput) passwordConfirmInput.type = "text";
@@ -17,7 +17,6 @@
         }
     </script>
     <style>
-        /* Voeg hier eventuele CSS-stijlen toe */
         label {
             display: block;
             margin-top: 10px;
