@@ -23,7 +23,7 @@
             margin-top: 10px;
         }
 
-        input, select {
+        input, select, button {
             margin-bottom: 10px;
         }
 
@@ -58,10 +58,12 @@
         <legend>Beperkingen:</legend>
         {{ beperkingen_form.as_p }}
     </fieldset>
+    {% if toon_toezichthouder_form %}
     <fieldset>
         <legend>Toezichthouder:</legend>
         {{ toezichthouder_form.as_p }}
     </fieldset>
+    {% endif %}
     <button type="submit" name="wijzigen_extra_info">Extra informatie bijwerken</button>
 </form>
 
