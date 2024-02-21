@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Onderzoeksvraag aanmaken</title>
+</head>
+<body>
+    <h1>onderzoeksvraag invullen</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Opslaan</button>
+    </form>
+
+</body>
+</html>
