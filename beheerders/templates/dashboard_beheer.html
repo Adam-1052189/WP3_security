@@ -57,8 +57,7 @@
                     <td>{{ onderzoek.datum_tot }}</td>
                     <td>
                         <a href="{% url 'onderzoek_goedkeuren' onderzoek.pk %}" class="goedkeur-link">Goedkeuren</a>
-                        <a href="{% url 'onderzoek_afkeuren' onderzoek.pk %}" class="afkeur-link"
-                           style="margin-left: 10px;">Afkeuren</a>
+                        <a href="{% url 'onderzoek_afkeuren' onderzoek.pk %}" class="afkeur-link" style="margin-left: 10px;">Afkeuren</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -81,9 +80,8 @@
                     <td>{{ inschrijving.onderzoek.titel }}</td>
                     <td>{{ inschrijving.ervaringsdeskundige.gebruiker.voornaam }} {{ inschrijving.ervaringsdeskundige.gebruiker.achternaam }}</td>
                     <td>
-                        <a href="{% url 'inschrijving_goedkeuren' inschrijving.pk %}">Goedkeuren</a>
-                        <a href="{% url 'inschrijving_afkeuren' inschrijving.pk %}"
-                           style="margin-left: 10px;">Afkeuren</a>
+                        <a href="{% url 'inschrijving_goedkeuren' inschrijving.pk %}" class="goedkeur-link">Goedkeuren</a>
+                        <a href="{% url 'inschrijving_afkeuren' inschrijving.pk %}" class="afkeur-link" style="margin-left: 10px;">Afkeuren</a>
                     </td>
                 </tr>
             {% endfor %}
@@ -106,9 +104,8 @@
                     <td>{{ ervaringsdeskundige.gebruiker.voornaam }} {{ ervaringsdeskundige.gebruiker.achternaam }}</td>
                     <td>{{ ervaringsdeskundige.gebruiker.email }}</td>
                     <td>
-                        <a href="{% url 'ervaringsdeskundige_goedkeuren' ervaringsdeskundige.pk %}">Goedkeuren</a>
-                        <a href="{% url 'ervaringsdeskundige_afkeuren' ervaringsdeskundige.pk %}"
-                           style="margin-left: 10px;">Afkeuren</a>
+                        <a href="{% url 'ervaringsdeskundige_goedkeuren' ervaringsdeskundige.pk %}" class="goedkeur-link" >Goedkeuren</a>
+                        <a href="{% url 'ervaringsdeskundige_afkeuren' ervaringsdeskundige.pk %}" class="afkeur-link" style="margin-left: 10px;">Afkeuren</a>
                     </td>
                 </tr>
             {% endfor %}

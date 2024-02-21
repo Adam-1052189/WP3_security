@@ -16,6 +16,9 @@ class Organisaties(models.Model):
     class Meta:
         db_table = 'organisaties'
 
+    def __str__(self):
+        return self.naam
+
 
 class GebruikersManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
