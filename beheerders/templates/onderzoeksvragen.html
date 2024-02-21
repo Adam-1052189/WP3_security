@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Alle Onderzoeken</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        ul {
+            list-style-type: none;
+        }
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Alle Onderzoeken</h1>
+    <ul>
+        {% for onderzoek in onderzoeken %}
+            <li>
+                <strong>{{ onderzoek.titel }}</strong><br>
+                <strong>Status:</strong> {{ onderzoek.status }}<br>
+                <strong>Van:</strong> {{ onderzoek.datum_vanaf }} <strong>Tot:</strong> {{ onderzoek.datum_tot }}<br>
+                <strong>Type onderzoek:</strong> {{ onderzoek.type_onderzoek }}<br>
+                <strong>Locatie:</strong> {{ onderzoek.locatie }}<br>
+                <strong>Met Beloning:</strong> {{ onderzoek.met_beloning }} <strong>Beloning:</strong> {{ onderzoek.beloning }}<br>
+                <strong>Groep leeftijd:</strong> {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}<br>
+                <strong>Doelgroep beperking:</strong> {{ onderzoek.doelgroep_beperking }}<br>
+                <strong>Organisatie:</strong> {{ onderzoek.organisatie.naam }}<br>
+            </li>
+        {% empty %}
+            <li>Geen onderzoeken gevonden.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

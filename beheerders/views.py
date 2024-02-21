@@ -45,14 +45,14 @@ def onderzoek_goedkeuren(request, pk):
     onderzoek.status = 'Goedgekeurd'
     onderzoek.is_goedgekeurd = True
     onderzoek.save()
-    return HttpResponseRedirect(reverse('onderzoek_dashboard'))
+    return HttpResponseRedirect(reverse('dashboard_beheer'))
 
 def onderzoek_afkeuren(request, pk):
     onderzoek = Onderzoek.objects.get(pk=pk)
     onderzoek.status = 'Afgekeurd'
     onderzoek.is_goedgekeurd = False
     onderzoek.save()
-    return HttpResponseRedirect(reverse('onderzoek_dashboard'))
+    return HttpResponseRedirect(reverse('dashboard_beheer'))
 
 def goedkeuren_inschrijving(request, pk):
     inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
@@ -97,3 +97,7 @@ def onderzoek_update(request, pk):
         else:
             return JsonResponse({"error": form.errors}, status=400)
     return JsonResponse({"error": "Alleen POST-verzoeken zijn toegestaan."}, status=400)
+
+def onderzoeksvragen(request):
+    onderzoeken = Onderzoek.objects.all()
+    return render(request, 'onderzoeksvragen.html', {'onderzoeken': onderzoeken})
