@@ -1,6 +1,9 @@
 from django import forms
 from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import  get_user_model
+
+User = get_user_model()
 
 class RegistratieFormulier(forms.Form):
     # Gebruikers velden
@@ -53,65 +56,53 @@ class RegistratieFormulier(forms.Form):
 
 class GebruikerForm(forms.ModelForm):
     class Meta:
-        model = Gebruikers
+        model = User
         fields = ['voornaam', 'achternaam', 'postcode', 'geslacht', 'email', 'telefoonnummer', 'geboortedatum']
-        widgets = {
-            'geslacht': forms.Select(choices=[('Man', 'Man'), ('Vrouw', 'Vrouw')]),
-        }
 
-class WachtwoordWijzigenForm(forms.Form):
-    nieuw_wachtwoord = forms.CharField(widget=forms.PasswordInput())
-
-    def save(self, gebruiker_id):
-        gebruiker = Gebruikers.objects.get(gebruiker_id=gebruiker_id)
-        gebruiker.wachtwoord = make_password(self.cleaned_data['nieuw_wachtwoord'])
-        gebruiker.save()
+    def __init__(self, *args, **kwargs):
+        super(GebruikerForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].required = False
 
 class ErvaringsdeskundigeForm(forms.ModelForm):
     class Meta:
         model = Ervaringsdeskundige
         fields = ['bijzonderheden', 'voorkeur_benadering', 'bijzonderheden_beschikbaar']
 
-
-class BeperkingenForm(forms.ModelForm):
-    GEEN_OPTIE = [('', 'Geen')]
-
-    auditieve_beperkingen = forms.ChoiceField(
-        choices=GEEN_OPTIE + Beperkingen.AUDITIEVE_BEPERKINGEN_CHOICES,
-        required=False,
-        label="Auditieve beperkingen"
-    )
-    visuele_beperkingen = forms.ChoiceField(
-        choices=GEEN_OPTIE + Beperkingen.VISUELE_BEPERKINGEN_CHOICES,
-        required=False,
-        label="Visuele beperkingen"
-    )
-    motorische_lichamelijke_beperkingen = forms.ChoiceField(
-        choices=GEEN_OPTIE + Beperkingen.MOTORISCHE_BEPERKINGEN_CHOICES,
-        required=False,
-        label="Motorische / lichamelijke beperkingen"
-    )
-    cognitieve_neurologische_beperkingen = forms.ChoiceField(
-        choices=GEEN_OPTIE + Beperkingen.COGNITIEVE_BEPERKINGEN_CHOICES,
-        required=False,
-        label="Cognitieve / neurologische beperkingen"
-    )
-
-    class Meta:
-        model = Beperkingen
-        fields = [
-            'auditieve_beperkingen',
-            'visuele_beperkingen',
-            'motorische_lichamelijke_beperkingen',
-            'cognitieve_neurologische_beperkingen',
-        ]
+    def __init__(self, *args, **kwargs):
+        super(ErvaringsdeskundigeForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].required = False
 
 class HulpmiddelenForm(forms.ModelForm):
     class Meta:
         model = Hulpmiddelen
-        fields = ['vergrootglas', 'scherm_voorlezer']
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(HulpmiddelenForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].required = False
+
+class BeperkingenForm(forms.ModelForm):
+    class Meta:
+        model = Beperkingen
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(BeperkingenForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].required = False
 
 class ToezichthouderForm(forms.ModelForm):
     class Meta:
         model = Toezichthouder
-        fields = ['naam', 'email', 'telefoonnummer']
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(ToezichthouderForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].required = False
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    pass
