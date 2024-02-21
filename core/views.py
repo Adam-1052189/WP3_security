@@ -6,7 +6,7 @@ def onderzoek_invoeren(request):
         form = OnderzoekForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('login')
+            return render(request, 'onderzoek_form.html', {'form': OnderzoekForm(), 'success_message': True})
     else:
         form = OnderzoekForm()
 
