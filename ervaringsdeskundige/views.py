@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import RegistratieFormulier, GebruikerForm, WachtwoordWijzigenForm, ErvaringsdeskundigeForm, BeperkingenForm, HulpmiddelenForm, ToezichthouderForm
+from .forms import RegistratieFormulier, GebruikerForm, CustomPasswordChangeForm, ErvaringsdeskundigeForm, BeperkingenForm, HulpmiddelenForm, ToezichthouderForm
 from core.models import Gebruikers, Beperkingen, Toezichthouder, Hulpmiddelen, Ervaringsdeskundige, Onderzoek, OnderzoekErvaringsdeskundige
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpResponse
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, update_session_auth_hash
+from datetime import date
 
 def registratie_ervaringsdeskundige(request):
     if request.method == 'POST':
@@ -103,43 +104,65 @@ def onderzoek_details(request, onderzoek_id):
     }
     return render(request, 'onderzoek_details.html', context)
 
-@login_required()
+def leeftijd_berekenen(geboortedatum):
+    vandaag = date.today()
+    leeftijd = vandaag.year - geboortedatum.year - ((vandaag.month, vandaag.day) < (geboortedatum.month, geboortedatum.day))
+    return leeftijd
+
+@login_required
 def profiel(request):
-    gebruiker = request.user.id
-    ervaringsdeskundige = Ervaringsdeskundige.objects.get(gebruiker=gebruiker)
+    gebruiker = request.user
+    leeftijd = leeftijd_berekenen(gebruiker.geboortedatum)
+    toon_toezichthouder_form = leeftijd < 18
+    ervaringsdeskundige, _ = Ervaringsdeskundige.objects.get_or_create(gebruiker=gebruiker)
+    hulpmiddelen, _ = Hulpmiddelen.objects.get_or_create(ervaringsdeskundige=ervaringsdeskundige)
+    beperkingen, _ = Beperkingen.objects.get_or_create(ervaringsdeskundige=ervaringsdeskundige)
+    toezichthouder, _ = Toezichthouder.objects.get_or_create(ervaringsdeskundige=ervaringsdeskundige) if toon_toezichthouder_form else (None, False)
 
     if request.method == 'POST':
         gebruiker_form = GebruikerForm(request.POST, instance=gebruiker)
         ervaringsdeskundige_form = ErvaringsdeskundigeForm(request.POST, instance=ervaringsdeskundige)
-        beperkingen_form = BeperkingenForm(request.POST, instance=ervaringsdeskundige.beperkingen)
-        hulpmiddelen_form = HulpmiddelenForm(request.POST, instance=ervaringsdeskundige.hulpmiddelen)
-        toezichthouder_form = ToezichthouderForm(request.POST, instance=ervaringsdeskundige.toezichthouder)
-        wachtwoord_form = WachtwoordWijzigenForm(request.POST)
+        hulpmiddelen_form = HulpmiddelenForm(request.POST, instance=hulpmiddelen)
+        beperkingen_form = BeperkingenForm(request.POST, instance=beperkingen)
+        toezichthouder_form = ToezichthouderForm(request.POST, instance=toezichthouder) if toon_toezichthouder_form else None
+        password_form = CustomPasswordChangeForm(user=gebruiker, data=request.POST)
 
-        if (gebruiker_form.is_valid() and ervaringsdeskundige_form.is_valid() and beperkingen_form.is_valid() and
-                hulpmiddelen_form.is_valid() and toezichthouder_form.is_valid() and
-                ('wijzigen_profiel' in request.POST) and wachtwoord_form.is_valid()):
-            gebruiker_form.save()
-            ervaringsdeskundige_form.save()
-            beperkingen_form.save()
-            hulpmiddelen_form.save()
-            toezichthouder_form.save()
-            wachtwoord_form.save(gebruiker.gebruiker_id)
+        if 'wijzigen_profiel' in request.POST:
+            forms_valid = (gebruiker_form.is_valid() and ervaringsdeskundige_form.is_valid() and
+                           hulpmiddelen_form.is_valid() and beperkingen_form.is_valid() and
+                           toezichthouder_form.is_valid() if toon_toezichthouder_form else True)
+            if forms_valid:
+                gebruiker_form.save()
+                ervaringsdeskundige_form.save()
+                hulpmiddelen_form.save()
+                beperkingen_form.save()
+                if toon_toezichthouder_form:
+                    toezichthouder_form.save()
+                messages.success(request, 'Profiel succesvol bijgewerkt.', extra_tags='profiel')
+                return redirect('profiel')
+            else:
+                messages.error(request, 'Controleer alstublieft de ingevoerde gegevens.', extra_tags='profiel')
+
+        elif 'wijzigen_wachtwoord' in request.POST and password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Wachtwoord succesvol gewijzigd.', extra_tags='profiel')
             return redirect('profiel')
     else:
         gebruiker_form = GebruikerForm(instance=gebruiker)
         ervaringsdeskundige_form = ErvaringsdeskundigeForm(instance=ervaringsdeskundige)
-        beperkingen_form = BeperkingenForm(instance=ervaringsdeskundige.beperkingen)
-        hulpmiddelen_form = HulpmiddelenForm(instance=ervaringsdeskundige.hulpmiddelen)
-        toezichthouder_form = ToezichthouderForm(instance=ervaringsdeskundige.toezichthouder)
-        wachtwoord_form = WachtwoordWijzigenForm()
+        hulpmiddelen_form = HulpmiddelenForm(instance=hulpmiddelen)
+        beperkingen_form = BeperkingenForm(instance=beperkingen)
+        toezichthouder_form = ToezichthouderForm(instance=toezichthouder) if toon_toezichthouder_form else None
+        password_form = CustomPasswordChangeForm(user=gebruiker)
 
     context = {
         'gebruiker_form': gebruiker_form,
         'ervaringsdeskundige_form': ervaringsdeskundige_form,
-        'beperkingen_form': beperkingen_form,
         'hulpmiddelen_form': hulpmiddelen_form,
+        'beperkingen_form': beperkingen_form,
         'toezichthouder_form': toezichthouder_form,
-        'wachtwoord_form': wachtwoord_form,
+        'password_form': password_form,
+        'toon_toezichthouder_form': toon_toezichthouder_form,
     }
     return render(request, 'profiel.html', context)

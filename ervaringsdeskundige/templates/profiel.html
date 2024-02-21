@@ -3,26 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <title>Mijn Profiel</title>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById('id_new_password1'); // Verander dit ID naar het ID van je wachtwoordveld
+            var passwordConfirmInput = document.getElementById('id_new_password2'); // Pas dit aan indien nodig
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                if (passwordConfirmInput) passwordConfirmInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+                if (passwordConfirmInput) passwordConfirmInput.type = "password";
+            }
+        }
+    </script>
+    <style>
+        /* Voeg hier eventuele CSS-stijlen toe */
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, select, button {
+            margin-bottom: 10px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Mijn Profiel</h1>
-    {% extends 'base.html' %}
-    {% block content %}
-    <form method="post">
-        {% csrf_token %}
-        {{ gebruiker_form.as_p }}
-        {{ ervaringsdeskundige_form.as_p }}
-        {{ beperkingen_form.as_p }}
-        {{ hulpmiddelen_form.as_p }}
-        {{ toezichthouder_form.as_p }}
-        <button type="submit" name="wijzigen_profiel">Profiel bijwerken</button>
-    </form>
+<h1>Mijn Profiel</h1>
 
 <form method="post">
     {% csrf_token %}
-    {{ wachtwoord_form.as_p }}
+    <fieldset>
+        <legend>Persoonlijke informatie:</legend>
+        {{ gebruiker_form.as_p }}
+    </fieldset>
+    <button type="submit" name="wijzigen_profiel">Profiel bijwerken</button>
+</form>
+
+<form method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Ervaringsdeskundige informatie:</legend>
+        {{ ervaringsdeskundige_form.as_p }}
+    </fieldset>
+    <fieldset>
+        <legend>Hulpmiddelen:</legend>
+        {{ hulpmiddelen_form.as_p }}
+    </fieldset>
+    <fieldset>
+        <legend>Beperkingen:</legend>
+        {{ beperkingen_form.as_p }}
+    </fieldset>
+    {% if toon_toezichthouder_form %}
+    <fieldset>
+        <legend>Toezichthouder:</legend>
+        {{ toezichthouder_form.as_p }}
+    </fieldset>
+    {% endif %}
+    <button type="submit" name="wijzigen_extra_info">Extra informatie bijwerken</button>
+</form>
+
+<form method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Wachtwoord wijzigen:</legend>
+        {{ password_form.as_p }}
+        <button type="button" onclick="togglePasswordVisibility()">Toon Wachtwoord</button>
+    </fieldset>
     <button type="submit" name="wijzigen_wachtwoord">Wachtwoord wijzigen</button>
 </form>
-{% endblock %}
+
+{% if messages %}
+<ul>
+    {% for message in messages %}
+        {% if 'profiel' in message.tags %}
+            <li>{{ message }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+{% endif %}
 </body>
 </html>
