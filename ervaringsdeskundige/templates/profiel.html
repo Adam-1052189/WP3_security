@@ -2,6 +2,9 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/profiel.css' %}" type="text/css">
     <title>Mijn Profiel</title>
     <script>
         function togglePasswordVisibility() {
@@ -16,74 +19,69 @@
             }
         }
     </script>
-    <style>
-        label {
-            display: block;
-            margin-top: 10px;
-        }
-
-        input, select, button {
-            margin-bottom: 10px;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 <body>
-<h1>Mijn Profiel</h1>
+<div class="container">
+    <main>
+        <h1>Mijn Profiel</h1>
 
-<form method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend>Persoonlijke informatie:</legend>
-        {{ gebruiker_form.as_p }}
-    </fieldset>
-    <button type="submit" name="wijzigen_profiel">Profiel bijwerken</button>
-</form>
+        <form method="post" aria-label="Profiel bijwerken">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Persoonlijke informatie:</legend>
+                {{ gebruiker_form.as_p }}
+            </fieldset>
+            <button type="submit" name="wijzigen_profiel">Profiel bijwerken</button>
+        </form>
 
-<form method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend>Ervaringsdeskundige informatie:</legend>
-        {{ ervaringsdeskundige_form.as_p }}
-    </fieldset>
-    <fieldset>
-        <legend>Hulpmiddelen:</legend>
-        {{ hulpmiddelen_form.as_p }}
-    </fieldset>
-    <fieldset>
-        <legend>Beperkingen:</legend>
-        {{ beperkingen_form.as_p }}
-    </fieldset>
-    {% if toon_toezichthouder_form %}
-    <fieldset>
-        <legend>Toezichthouder:</legend>
-        {{ toezichthouder_form.as_p }}
-    </fieldset>
-    {% endif %}
-    <button type="submit" name="wijzigen_extra_info">Extra informatie bijwerken</button>
-</form>
+        <form method="post" aria-label="Extra informatie bijwerken">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Ervaringsdeskundige informatie:</legend>
+                {{ ervaringsdeskundige_form.as_p }}
+            </fieldset>
+            <fieldset>
+                <legend>Hulpmiddelen:</legend>
+                {{ hulpmiddelen_form.as_p }}
+            </fieldset>
+            <fieldset>
+                <legend>Beperkingen:</legend>
+                {{ beperkingen_form.as_p }}
+            </fieldset>
+            {% if toon_toezichthouder_form %}
+                <fieldset>
+                    <legend>Toezichthouder:</legend>
+                    {{ toezichthouder_form.as_p }}
+                </fieldset>
+            {% endif %}
+            <button type="submit" name="wijzigen_extra_info">Extra informatie bijwerken</button>
+        </form>
 
-<form method="post">
-    {% csrf_token %}
-    <fieldset>
-        <legend>Wachtwoord wijzigen:</legend>
-        {{ password_form.as_p }}
-        <button type="button" onclick="togglePasswordVisibility()">Toon Wachtwoord</button>
-    </fieldset>
-    <button type="submit" name="wijzigen_wachtwoord">Wachtwoord wijzigen</button>
-</form>
+        <form method="post" aria-label="Wachtwoord wijzigen">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Wachtwoord wijzigen:</legend>
+                {{ password_form.as_p }}
+                <button type="button" onclick="togglePasswordVisibility()" aria-label="Toon wachtwoord">Toon
+                    Wachtwoord
+                </button>
+            </fieldset>
+            <button type="submit" name="wijzigen_wachtwoord">Wachtwoord wijzigen</button>
+        </form>
 
-{% if messages %}
-<ul>
-    {% for message in messages %}
-        {% if 'profiel' in message.tags %}
-            <li>{{ message }}</li>
+        {% if messages %}
+            <section aria-live="polite">
+                <h2>Meldingen</h2>
+                <ul>
+                    {% for message in messages %}
+                        {% if 'profiel' in message.tags %}
+                            <li>{{ message }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </section>
         {% endif %}
-    {% endfor %}
-</ul>
-{% endif %}
+    </main>
+</div>
 </body>
 </html>

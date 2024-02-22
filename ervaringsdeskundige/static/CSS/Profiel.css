@@ -1,0 +1,62 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d9ebf7;
+    color: #333;
+    padding: 20px;
+    margin: 0 auto; /* Centreert de content */
+}
+
+.container {
+    max-width: 800px; /* Maximale breedte van de content */
+    margin: 0 auto; /* Centreert de container */
+    padding: 20px;
+    background-color: #fff; /* Achtergrondkleur van de container */
+    border-radius: 8px; /* Ronde hoeken voor de container */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtiele schaduw voor diepte */
+}
+
+h1 {
+    color: #2b50ec;
+}
+
+fieldset {
+    border: 2px solid #1fc396;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+legend {
+    color: #2b50ec;
+    font-weight: bold;
+}
+
+label, button, input[type="button"], input[type="submit"] {
+    cursor: pointer;
+}
+
+input, select, button, input[type="button"], input[type="submit"] {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button, input[type="button"], input[type="submit"] {
+    background-color: #2b50ec;
+    color: white;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        margin: 0 10px; /* Zorgt voor een beetje ruimte aan de zijkanten op kleine schermen */
+    }
+
+    input, select, button, input[type="button"], input[type="submit"] {
+        width: auto;
+    }
+}
