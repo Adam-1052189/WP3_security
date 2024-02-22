@@ -23,7 +23,10 @@
 <body>
 <div class="container">
     <main>
-        <h1>Mijn Profiel</h1>
+        <div class="header">
+            <h1>Mijn Profiel</h1>
+            <button onclick="history.back()" class="back-button">Terug naar dashboard</button>
+        </div>
 
         <form method="post" aria-label="Profiel bijwerken">
             {% csrf_token %}

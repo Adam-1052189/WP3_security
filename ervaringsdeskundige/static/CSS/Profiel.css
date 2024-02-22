@@ -3,20 +3,24 @@ body {
     background-color: #d9ebf7;
     color: #333;
     padding: 20px;
-    margin: 0 auto; /* Centreert de content */
+    margin: 0 auto;
 }
 
 .container {
-    max-width: 800px; /* Maximale breedte van de content */
-    margin: 0 auto; /* Centreert de container */
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: #fff; /* Achtergrondkleur van de container */
-    border-radius: 8px; /* Ronde hoeken voor de container */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtiele schaduw voor diepte */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 h1 {
     color: #2b50ec;
+    flex-grow: 30;
+    margin-right: 250px;
+    width: 1000px;
+    height: 50px;
 }
 
 fieldset {
@@ -53,10 +57,32 @@ button, input[type="button"], input[type="submit"] {
 @media (max-width: 768px) {
     .container {
         padding: 10px;
-        margin: 0 10px; /* Zorgt voor een beetje ruimte aan de zijkanten op kleine schermen */
+        margin: 0 10px;
     }
 
     input, select, button, input[type="button"], input[type="submit"] {
         width: auto;
     }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Zorgt ervoor dat de header de volledige breedte inneemt */
+}
+
+.back-button {
+    background-color: #1fc396;
+    color: white;
+    padding: 10px 30px; /* Kleinere padding om de knop kleiner te maken */
+    font-size: 0.75em; /* Kleinere font-size */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Zorgt voor wat ruimte tussen de titel en de knop */
+}
+
+.back-button:hover {
+    background-color: #17a487;
 }
