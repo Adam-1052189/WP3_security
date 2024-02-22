@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d9ebf7;
+    color: #333;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #2b50ec;
+    flex-grow: 30;
+    margin-right: 250px;
+    width: 1000px;
+    height: 50px;
+}
+
+fieldset {
+    border: 2px solid #1fc396;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+legend {
+    color: #2b50ec;
+    font-weight: bold;
+}
+
+label, button, input[type="button"], input[type="submit"] {
+    cursor: pointer;
+}
+
+input, select, button, input[type="button"], input[type="submit"] {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button, input[type="button"], input[type="submit"] {
+    background-color: #2b50ec;
+    color: white;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+        margin: 0 10px;
+    }
+
+    input, select, button, input[type="button"], input[type="submit"] {
+        width: auto;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Zorgt ervoor dat de header de volledige breedte inneemt */
+}
+
+.back-button {
+    background-color: #1fc396;
+    color: white;
+    padding: 10px 30px; /* Kleinere padding om de knop kleiner te maken */
+    font-size: 0.75em; /* Kleinere font-size */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px; /* Zorgt voor wat ruimte tussen de titel en de knop */
+}
+
+.back-button:hover {
+    background-color: #17a487;
+}
