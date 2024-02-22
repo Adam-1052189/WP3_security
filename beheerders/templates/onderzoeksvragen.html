@@ -26,9 +26,9 @@
     <h1>Alle Onderzoeken</h1>
     <ul>
         {% for onderzoek in onderzoeken %}
-            <li>
+            <li id="onderzoek-item-{{ onderzoek.pk }}">
                 <strong>{{ onderzoek.titel }}</strong><br>
-                <strong>Status:</strong> {{ onderzoek.status }}<br>
+                <strong>Status:</strong><span id="status-{{ onderzoek.pk }}">{{ onderzoek.status }}</span><br>
                 <strong>Van:</strong> {{ onderzoek.datum_vanaf }} <strong>Tot:</strong> {{ onderzoek.datum_tot }}<br>
                 <strong>Type onderzoek:</strong> {{ onderzoek.type_onderzoek }}<br>
                 <strong>Locatie:</strong> {{ onderzoek.locatie }}<br>
@@ -37,7 +37,7 @@
                 <strong>Doelgroep beperking:</strong> {{ onderzoek.doelgroep_beperking }}<br>
                 <strong>Organisatie:</strong> {{ onderzoek.organisatie.naam }}<br>
                 {% if onderzoek.status == 'Goedgekeurd' %}
-                    <a href="{% url 'onderzoek_afkeuren' onderzoek.pk %}">Afkeuren</a>
+                    <button id="afkeur-knop-{{ onderzoek.pk }}" onclick="afkeuren(event, {{ onderzoek.pk }})">Afkeuren</button>
                 {% endif %}
             </li>
         {% empty %}

@@ -48,11 +48,14 @@ def onderzoek_goedkeuren(request, pk):
     return HttpResponseRedirect(reverse('dashboard_beheer'))
 
 def onderzoek_afkeuren(request, pk):
-    onderzoek = Onderzoek.objects.get(pk=pk)
-    onderzoek.status = 'Afgekeurd'
-    onderzoek.is_goedgekeurd = False
-    onderzoek.save()
-    return HttpResponseRedirect(reverse('dashboard_beheer'))
+    if request.method == 'POST':
+        try:
+            onderzoek = Onderzoek.objects.get(pk=pk)
+            onderzoek.status = 'Afgekeurd'
+            onderzoek.save()
+            return JsonResponse({'status': 'success', 'message': 'Onderzoek succesvol afgekeurd'})
+        except Onderzoek.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Onderzoek niet gevonden'}, status=404)
 
 def goedkeuren_inschrijving(request, pk):
     inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
