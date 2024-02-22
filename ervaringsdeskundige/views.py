@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model, update_session_auth_hash, logout
 from datetime import date
+from django.views.decorators.http import require_POST
 
 def registratie_ervaringsdeskundige(request):
     if request.method == 'POST':
@@ -82,25 +83,41 @@ def dashboard(request):
     else:
         return HttpResponse('Je moet een ervaringsdeskundige zijn om deze pagina te bekijken.', status=403)
 
-@login_required()
+@require_POST
+@login_required
 def aanmelden_voor_onderzoek(request, onderzoek_id):
-    if request.method == 'POST':
-        ervaringsdeskundige = Ervaringsdeskundige.objects.filter(gebruiker=request.user).first()
-        if ervaringsdeskundige:
-            onderzoek = Onderzoek.objects.get(id=onderzoek_id)
-            OnderzoekErvaringsdeskundige.objects.create(onderzoek=onderzoek, ervaringsdeskundige=ervaringsdeskundige)
-            messages.success(request, 'Je bent succesvol aangemeld voor het onderzoek.')
-            return redirect('dashboard_deskundige')
-        else:
-            return HttpResponse('Je moet een ervaringsdeskundige zijn om je aan te melden voor een onderzoek.', status=403)
+    onderzoek = get_object_or_404(Onderzoek, pk=onderzoek_id)
+    ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, gebruiker=request.user)
+
+    koppeling_bestaat = OnderzoekErvaringsdeskundige.objects.filter(onderzoek=onderzoek, ervaringsdeskundige=ervaringsdeskundige).exists()
+
+    if not koppeling_bestaat:
+        OnderzoekErvaringsdeskundige.objects.create(
+            onderzoek=onderzoek,
+            ervaringsdeskundige=ervaringsdeskundige,
+            is_goedgekeurd=False
+        )
+        return JsonResponse({"success": True, "message": "Je bent succesvol aangemeld voor het onderzoek."})
+    else:
+        return JsonResponse({"success": False, "message": "Je bent al aangemeld voor dit onderzoek."})
 
 @login_required()
 def onderzoek_details(request, onderzoek_id):
-    onderzoek = Onderzoek.objects.get(onderzoek_id=onderzoek_id)
+    onderzoek = get_object_or_404(Onderzoek, onderzoek_id=onderzoek_id)
     organisatie = onderzoek.organisatie
+    ervaringsdeskundige = Ervaringsdeskundige.objects.filter(gebruiker=request.user).first()
+
+    is_aangemeld = False
+    if ervaringsdeskundige:
+        is_aangemeld = OnderzoekErvaringsdeskundige.objects.filter(
+            onderzoek=onderzoek,
+            ervaringsdeskundige=ervaringsdeskundige
+        ).exists()
+
     context = {
         'onderzoek': onderzoek,
         'organisatie': organisatie,
+        'is_aangemeld': is_aangemeld,
     }
     return render(request, 'onderzoek_details.html', context)
 
