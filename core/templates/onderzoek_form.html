@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+    <link rel="stylesheet" href="/static/CSS/onderzoek_aanmaken.css" type="text/css">
+    {% load static %}
+    <script src="{% static 'JS/onderzoek_aanmaken.js' %}"></script>
     <meta charset="UTF-8">
     <title>Onderzoeksvraag aanmaken</title>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -11,11 +14,14 @@
         window.onload = function() {
             var popup = document.getElementById("success-popup");
             popup.style.display = "block";
-            setTimeout(function(){ popup.style.display = "none"; }, 4000); // Sluit de pop-up na 2 seconden
+            setTimeout(function(){ popup.style.display = "none"; }, 4000);
         }
         {% endif %}
+
         $( function() {
-            $( ".datepicker" ).datepicker();
+            $( ".datepicker" ).datepicker({
+                dateFormat: 'yy-mm-dd'
+            });
         } );
     </script>
     <style>
@@ -30,6 +36,39 @@
             border-radius: 5px;
             z-index: 9999;
         }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea {
+            width: 300px;
+            height: 40px;
+            margin-bottom: 10px;
+            padding: 5px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        label {
+            text-align: right;
+            margin-right: 10px;
+            width: 200px;
+        }
+        h1 {
+            text-align: center;
+        }
+        button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
     </style>
 </head>
 <body>
