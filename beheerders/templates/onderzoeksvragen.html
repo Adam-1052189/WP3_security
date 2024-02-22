@@ -7,9 +7,11 @@
         body {
             font-family: Arial, sans-serif;
         }
+
         ul {
             list-style-type: none;
         }
+
         li {
             margin-bottom: 20px;
             padding: 10px;
@@ -17,6 +19,8 @@
             border-radius: 5px;
         }
     </style>
+    {% load static %}
+    <script src="{% static 'js/onderzoeksvragen.js' %}" defer></script>
 </head>
 <body>
     <h1>Alle Onderzoeken</h1>
@@ -32,6 +36,9 @@
                 <strong>Groep leeftijd:</strong> {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}<br>
                 <strong>Doelgroep beperking:</strong> {{ onderzoek.doelgroep_beperking }}<br>
                 <strong>Organisatie:</strong> {{ onderzoek.organisatie.naam }}<br>
+                {% if onderzoek.status == 'Goedgekeurd' %}
+                    <a href="{% url 'onderzoek_afkeuren' onderzoek.pk %}">Afkeuren</a>
+                {% endif %}
             </li>
         {% empty %}
             <li>Geen onderzoeken gevonden.</li>
