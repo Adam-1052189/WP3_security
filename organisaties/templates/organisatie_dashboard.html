@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Onderzoekstabel</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/icon_accessibility_green_black.jpg">
+</head>
+<body>
+    <h1>Onderzoekstabel</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Status</th>
+                <th>beschikbaar</th>
+                <th>vanaf</th>
+                <th>tot</th>
+                <th>type onderzoek</th>
+                <th>locatie</th>
+                <th>met beloning</th>
+                <th>beloning</th>
+                <th>doelgroep leeftijd van</th>
+                <th>doelgroep leeftijd tot</th>
+                <th>doelgroep beperking</th>
+                <th>organisatie id</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for onderzoek in onderzoeken %}
+            <tr>
+                <td>{{ onderzoek.titel }}</td> <br>
+                <td>{{ onderzoek.status }}</td><br>
+                <td>{{ onderzoek.beschikbaar }}</td><br>
+                <td>{{ onderzoek.datum_vanaf }}</td>
+                <td>{{ onderzoek.datum_tot }}</td>
+                <td>{{ onderzoek.type_onderzoek }}</td>
+                <td>{{ onderzoek.locatie }}</td>
+                <td>{{ onderzoek.met_beloning }}</td>
+                <td>{{ onderzoek.beloning }}</td>
+                <td>{{ onderzoek.doelgroep_leeftijd_van }}</td>
+                <td>{{ onderzoek.doelgroep_leeftijd_tot }}</td>
+                <td>{{ onderzoek.doelgroep_beperking}}</td>
+                <td>{{ onderzoek.organisatie_id }}</td>
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

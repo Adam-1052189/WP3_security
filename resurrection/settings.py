@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'core',
     'ervaringsdeskundige',
     'beheerders',
-    'log_in'
+    'log_in',
+    'organisaties'
 ]
 
 AUTHENTICATION_BACKENDS = [
