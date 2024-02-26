@@ -1,5 +1,6 @@
 from django import forms
-from .models import Onderzoek
+from core.models import Onderzoek
+
 
 class OnderzoekForm(forms.ModelForm):
     class Meta:
