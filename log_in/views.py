@@ -18,7 +18,9 @@ def login_view(request):
 
             next_url = request.POST.get('next') or request.GET.get('next')
 
-            if not gebruiker.is_beheerder:
+            if gebruiker.is_organisatie:
+                return redirect(next_url if next_url else '/organisaties/onderzoekstabel/')
+            elif not gebruiker.is_beheerder:
                 return redirect(next_url if next_url else 'dashboard_deskundige')
             else:
                 return redirect(next_url if next_url else 'dashboard_beheer')

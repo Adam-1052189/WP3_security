@@ -21,11 +21,11 @@ class Organisaties(models.Model):
 
 
 class GebruikersManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
+    def create_user(self, email, password=None, is_organisatie=False, **extra_fields):
         if not email:
             raise ValueError('Gebruikers moeten een e-mailadres hebben')
         email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
+        user = self.model(email=email, is_organisatie=is_organisatie, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -33,6 +33,7 @@ class GebruikersManager(BaseUserManager):
     def create_superuser(self, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_organisatie', False)
 
         return self.create_user(email, password, **extra_fields)
 
@@ -41,6 +42,7 @@ class Gebruikers(AbstractBaseUser, PermissionsMixin):
     voornaam = models.CharField(max_length=255)
     achternaam = models.CharField(max_length=255)
     is_beheerder = models.BooleanField(default=False)
+    is_organisatie = models.BooleanField(default=False)
     postcode = models.CharField(max_length=6, blank=True, null=True)
     geslacht = models.CharField(max_length=10, blank=True, null=True)
     email = models.EmailField(unique=True)

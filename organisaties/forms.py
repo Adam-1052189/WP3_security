@@ -3,6 +3,12 @@ from core.models import Onderzoek
 
 
 class OnderzoekForm(forms.ModelForm):
+
+    STATUS_CHOICES = [
+        ('Nieuw', 'Nieuw'),
+    ]
+
+    status = forms.ChoiceField(choices=STATUS_CHOICES)
     class Meta:
         model = Onderzoek
         fields = '__all__'
