@@ -49,6 +49,7 @@ class Gebruikers(AbstractBaseUser, PermissionsMixin):
     telefoonnummer = models.CharField(max_length=20, blank=True, null=True)
     geboortedatum = models.DateField()
     last_login = models.DateTimeField(blank=True, null=True)
+    organisatie = models.ForeignKey(Organisaties, on_delete=models.SET_NULL, null=True, blank=True)
 
     objects = GebruikersManager()
 

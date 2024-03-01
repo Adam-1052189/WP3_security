@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: Mijn API
+  description: API voor gebruikersauthenticatie met JWT
+  version: 1.0.0
+paths:
+  /api/token/:
+    post:
+      summary: Genereer JWT-token voor gebruikers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: JWT-token gegenereerd
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /api/protected-resource/:
+    get:
+      summary: Beschermde bron
+      security:
+        - JWTAuth: []
+      responses:
+        '200':
+          description: Beschermde bron opgehaald
+security:
+  - JWTAuth: []
+components:
+  securitySchemes:
+    JWTAuth:
+      type: http
+      scheme: bearer
