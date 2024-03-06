@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Onderzoekstabel</title>
     <link rel="icon" type="image/x-icon" href="/static/images/icon_accessibility_green_black.jpg">
+    {% load static %}
+    <script src="{% static 'js/dashboard_organisatie.js' %}" defer></script>
 </head>
-<body>
+<body data-login-url="{% url 'login' %}">
     <h1>Onderzoekstabel</h1>
+
+    <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen </button>
     <table>
         <thead>
             <tr>

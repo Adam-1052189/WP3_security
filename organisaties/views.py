@@ -9,6 +9,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .serializers import OrganisatieSerializer
+from django.contrib.auth import logout
+from django.contrib import messages
 class OrganisatieCreateAPIView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -56,3 +58,11 @@ def onderzoek_invoeren(request):
         form = OnderzoekForm()
 
     return render(request, 'onderzoek_form.html', {'form': form})
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'Je bent succesvol uitgelogd.')
+        return JsonResponse({"success": True, "message": "Je bent succesvol uitgelogd."})
+    else:
+        return JsonResponse({"success": False, "message": "Foutieve verzoekmethode."}, status=400)
