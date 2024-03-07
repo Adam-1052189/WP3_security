@@ -6,18 +6,18 @@ function logoutUser() {
             'X-CSRFToken': getCookie('csrftoken'),
         },
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert(data.message);
-            window.location.href = '';
-        } else {
-            alert(data.message);
-        }
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);
+                window.location.href = '';
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
 }
 
 function getCookie(name) {
@@ -26,7 +26,7 @@ function getCookie(name) {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=') ) {
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
             }
@@ -34,3 +34,32 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    function laadOnderzoeken(type) {
+        var xhr = new XMLHttpRequest();
+        var container = document.getElementById("onderzoeken-container");
+        var url = `${container.getAttribute('data-laad-onderzoeken-url')}?type=${type}`;
+        xhr.open("GET", url, true);
+        xhr.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                container.innerHTML = this.responseText;
+                var titel = document.getElementById("onderzoeken-titel");
+                if (titel) {
+                    titel.textContent = type === 'beschikbaar' ? 'Beschikbare Onderzoeken' : 'Deelgenomen Onderzoeken';
+                }
+            }
+        };
+        xhr.send();
+    }
+
+    document.getElementById("show-beschikbare-onderzoeken").addEventListener("click", function() {
+        laadOnderzoeken('beschikbaar');
+    });
+
+    document.getElementById("show-deelgenomen-onderzoeken").addEventListener("click", function() {
+        laadOnderzoeken('deelgenomen');
+    });
+
+    laadOnderzoeken('beschikbaar');
+});

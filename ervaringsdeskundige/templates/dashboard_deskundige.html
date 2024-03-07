@@ -10,28 +10,34 @@
 <header>
     <div class="profile-link-container">
         <a href="{% url 'profiel' %}" class="profile-link">Mijn Profiel</a>
-         <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen </button>
+        <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen</button>
     </div>
 </header>
 
 <main>
     <h1>Dit is de dashboard voor ervaringsdeskundige</h1>
     <img src="{% static 'images/icon_accessibility.jpg' %}" alt="Icon Accessibility" class="icon-accessibility">
-    <h2>Beschikbare Onderzoeken</h2>
-    <form method="post">
-        {% csrf_token %}
-        <ul>
-            {% for onderzoek in beschikbare_onderzoeken %}
-                <li>
-                    <strong>{{ onderzoek.titel }}</strong><br>
-                    Status: {{ onderzoek.status }}<br>
-                    Van: {{ onderzoek.datum_vanaf }} Tot: {{ onderzoek.datum_tot }}<br>
-                    Type: {{ onderzoek.type_onderzoek }}<br>
-                    <a href="{% url 'onderzoek_details' onderzoek.onderzoek_id %}">Meer gegevens</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </form>
+    <div id="onderzoeken-buttons">
+        <button id="show-beschikbare-onderzoeken">Toon Beschikbare Onderzoeken</button>
+        <button id="show-deelgenomen-onderzoeken">Toon Deelgenomen Onderzoeken</button>
+        <h2 id="onderzoeken-titel">Beschikbare Onderzoeken</h2>
+    </div>
+    <div id="onderzoeken-container" data-laad-onderzoeken-url="{% url 'laad_onderzoeken' %}">
+        <form method="post">
+            {% csrf_token %}
+            <ul>
+                {% for onderzoek in beschikbare_onderzoeken %}
+                    <li>
+                        <strong>{{ onderzoek.titel }}</strong><br>
+                        Status: {{ onderzoek.status }}<br>
+                        Van: {{ onderzoek.datum_vanaf }} Tot: {{ onderzoek.datum_tot }}<br>
+                        Type: {{ onderzoek.type_onderzoek }}<br>
+                        <a href="{% url 'onderzoek_details' onderzoek.onderzoek_id %}">Meer gegevens</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
 </main>
 </body>
 </html>

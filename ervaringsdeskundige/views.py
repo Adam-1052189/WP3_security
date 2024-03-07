@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import get_user_model, update_session_auth_hash, logout
 from datetime import date
+from django.template.loader import render_to_string
 
 
 def registratie_ervaringsdeskundige(request):
@@ -107,6 +108,28 @@ def aanmelden_voor_onderzoek(request, onderzoek_id):
         return JsonResponse({"success": True, "message": "Je bent succesvol aangemeld voor het onderzoek."})
     else:
         return JsonResponse({"success": False, "message": "Je bent al aangemeld voor dit onderzoek."})
+
+
+@login_required()
+def laad_onderzoeken(request):
+    type_onderzoek = request.GET.get('type')
+    ervaringsdeskundige = Ervaringsdeskundige.objects.filter(gebruiker=request.user).first()
+    if ervaringsdeskundige:
+        if type_onderzoek == 'beschikbaar':
+            onderzoeken = Onderzoek.objects.exclude(
+                onderzoekervaringsdeskundige__ervaringsdeskundige=ervaringsdeskundige
+            ).filter(status='Goedgekeurd', beschikbaar=True)
+        elif type_onderzoek == 'deelgenomen':
+            onderzoeken = Onderzoek.objects.filter(
+                onderzoekervaringsdeskundige__ervaringsdeskundige=ervaringsdeskundige
+            )
+        else:
+            onderzoeken = []
+
+        html = render_to_string('deelgenomen_onderzoeken.html', {'onderzoeken': onderzoeken})
+        return HttpResponse(html)
+    else:
+        return HttpResponse('Je moet een ervaringsdeskundige zijn om deze data te bekijken.', status=403)
 
 
 @login_required()
