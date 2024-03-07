@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from core.models import Onderzoek, Gebruikers, Inschrijvingen, Ervaringsdeskundige, OnderzoekErvaringsdeskundige
+from core.models import Onderzoek, Gebruikers, Ervaringsdeskundige, OnderzoekErvaringsdeskundige
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
@@ -64,14 +64,17 @@ def goedkeuren_inschrijving(request, pk):
     return redirect('dashboard_beheer')
 
 def afkeuren_inschrijving(request, pk):
-    inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
-    inschrijving.is_goedgekeurd = False
-    inschrijving.save()
-    return redirect('dashboard_beheer')
+    if request.method == 'POST':
+        inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
+        inschrijving.is_goedgekeurd = False
+        inschrijving.save()
+        return JsonResponse({'status': 'success', 'message': 'Inschrijving succesvol afgekeurd.'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Ongeldig verzoek'}, status=400)
 
 def toon_inschrijvingen(request):
-    inschrijvingen = Inschrijvingen.objects.all()
-    return render(request, 'inschrijvingen.html', {'inschrijvingen': inschrijvingen})
+    inschrijvingen = OnderzoekErvaringsdeskundige.objects.all()
+    return render(request, 'toon_inschrijvingen.html', {'inschrijvingen': inschrijvingen})
 
 def goedkeuren_ervaringsdeskundige(request, pk):
     ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)

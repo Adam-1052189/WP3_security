@@ -17,7 +17,7 @@
     <ul>
         <li><a href="{% url 'onderzoeksvragen' %}">Onderzoeksvragen</a></li>
         <li><a href="{% url 'maak_organisatie_aan' %}">Maak organisatie aan</a></li>
-        <li><a href="#">Analytics</a></li>
+        <li><a href="{% url 'inschrijvingen' %}">Inschrijvingen Overzicht</a></li>
         <li><a href="#">Settings</a></li>
     </ul>
 </nav>
@@ -52,6 +52,7 @@
                     <td>
                         <a href="{% url 'onderzoek_gegevens' onderzoek.pk %}">{{ onderzoek.titel }}</a>
                     </td>
+                    <td>{{ onderzoek.omschrijving }}</td>
                     <td>{{ onderzoek.status }}</td>
                     <td>{{ onderzoek.datum_vanaf }}</td>
                     <td>{{ onderzoek.datum_tot }}</td>

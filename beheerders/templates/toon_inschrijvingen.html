@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Goed te keuren inschrijvingen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+    {% load static %}
+    <script defer>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function afkeuren(event, inschrijvingId) {
+            event.preventDefault();
+            const csrfToken = getCookie('csrftoken');
+
+            fetch(`/beheerders/inschrijvingen/afkeuren/${inschrijvingId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const afkeurKnop = document.getElementById(`afkeur-knop-${inschrijvingId}`);
+                        if (afkeurKnop) {
+                            afkeurKnop.style.display = 'none';
+                        }
+
+                        const statusTekst = document.getElementById(`status-${inschrijvingId}`);
+                        if (statusTekst) {
+                            statusTekst.innerText = 'Afgekeurd';
+                        }
+
+                        alert(data.message);
+                    } else {
+                        throw new Error(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Er is een fout opgetreden: ' + error.message);
+                });
+        }
+    </script>
+</head>
+<body>
+<h1>Alle inschrijvingen door ervaringsdeskundigen op onderzoeken</h1>
+<ul>
+    {% for OnderzoekErvaringsdeskundige in inschrijvingen %}
+    <li id="inschrijving-item-{{ OnderzoekErvaringsdeskundige.pk }}">
+        <strong>Onderzoek:</strong> {{ OnderzoekErvaringsdeskundige.onderzoek.titel }}<br>
+        <strong>Ervaringsdeskundige:</strong> {{ OnderzoekErvaringsdeskundige.ervaringsdeskundige.gebruiker.voornaam }} {{ OnderzoekErvaringsdeskundige.ervaringsdeskundige.gebruiker.achternaam }}<br>
+        <strong>Status:</strong><span id="status-{{ OnderzoekErvaringsdeskundige.pk }}">{{ OnderzoekErvaringsdeskundige.is_goedgekeurd|yesno:"Goedgekeurd,Afgekeurd" }}</span><br>
+        {% if OnderzoekErvaringsdeskundige.is_goedgekeurd %}
+            <button id="afkeur-knop-{{ OnderzoekErvaringsdeskundige.pk }}" onclick="afkeuren(event, {{ OnderzoekErvaringsdeskundige.pk }})">Afkeuren</button>
+        {% endif %}
+    </li>
+    {% empty %}
+        <li>Geen inschrijvingen gevonden.</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
