@@ -72,6 +72,14 @@ def afkeuren_inschrijving(request, pk):
     else:
         return JsonResponse({'status': 'error', 'message': 'Ongeldig verzoek'}, status=400)
 
+def verwijder_inschrijving(request, pk):
+    if request.method == 'DELETE':
+        inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
+        inschrijving.delete()
+        return JsonResponse({'status': 'success', 'message': 'Inschrijving succesvol verwijderd.'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Ongeldig verzoek'}, status=400)
+
 def toon_inschrijvingen(request):
     inschrijvingen = OnderzoekErvaringsdeskundige.objects.all()
     return render(request, 'toon_inschrijvingen.html', {'inschrijvingen': inschrijvingen})
