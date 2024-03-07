@@ -102,9 +102,19 @@ footer {
 }
 
 .goedkeur-link {
-    background-color: #4CAF50; /* Groen */
+    background-color: #4CAF50;
 }
 
 .afkeur-link {
-    background-color: #f44336; /* Rood */
+    background-color: #f44336;
+}
+
+.verwijder-link {
+    display: inline-block;
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #f44336;
 }
