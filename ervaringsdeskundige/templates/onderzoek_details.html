@@ -7,8 +7,9 @@
     <script src="{% static 'js/onderzoek_aanmelden.js' %}" defer></script>
 </head>
 <body>
-<h1>{{ onderzoek.titel }}</h1>
 <button onclick="window.history.back();" class="terug-knop">Terug</button>
+<h1>{{ onderzoek.titel }}</h1>
+<p>Omschrijving: {{ onderzoek.omschrijving }}</p>
 <p>Status: {{ onderzoek.status }}</p>
 <p>Datum vanaf: {{ onderzoek.datum_vanaf }} tot {{ onderzoek.datum_tot }}</p>
 <p>Type: {{ onderzoek.type_onderzoek }} Locatie: {{ onderzoek.locatie }}</p>
@@ -35,6 +36,7 @@
 {% else %}
     <div id="deelnameBericht">
         Je neemt deel aan dit onderzoek.
+        <button type="button" id="annuleerButton" data-onderzoek-id="{{ onderzoek.onderzoek_id }}">Annuleer deelname</button>
     </div>
 {% endif %}
 </body>
