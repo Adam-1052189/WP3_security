@@ -2,6 +2,7 @@
     {% for onderzoek in onderzoeken %}
         <li>
             <strong>{{ onderzoek.titel }}</strong><br>
+            Omschrijving: {{ onderzoek.omschrijving }}<br>
             Status: {{ onderzoek.status }}<br>
             Van: {{ onderzoek.datum_vanaf }} Tot: {{ onderzoek.datum_tot }}<br>
             Type: {{ onderzoek.type_onderzoek }}<br>
