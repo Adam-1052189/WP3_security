@@ -31,9 +31,19 @@ class OrganisatieListView(APIView):
 def maak_organisatie_aan(request):
     if request.method == 'POST':
         naam = request.POST.get('naam')
+        type = request.POST.get('type')
+        website = request.POST.get('website')
+        beschrijving = request.POST.get('beschrijving')
+        contactpersoon = request.POST.get('contactpersoon')
+        email = request.POST.get('email')
+        telefoonnummer = request.POST.get('telefoonnummer')
+        overige_details = request.POST.get('overige_details')
         api_key = request.POST.get('api_key')
 
-        organisatie = Organisaties.objects.create(naam=naam, api_key=api_key)
+        organisatie = Organisaties.objects.create(naam=naam, type=type, website=website,
+                                                  beschrijving=beschrijving, contactpersoon=contactpersoon, email=email,
+                                                  telefoonnummer=telefoonnummer, overige_details=overige_details,
+                                                  api_key=api_key)
 
         return JsonResponse({'message': 'Organisatie aangemaakt met succes!'})
 

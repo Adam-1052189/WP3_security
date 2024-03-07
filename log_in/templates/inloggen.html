@@ -15,28 +15,30 @@
 
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-  <div class="img_container">
+    <div class="img_container">
 
-  </div>
+    </div>
     <img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
-  <div class="container">
-    <label for="e-mail"><b>e-mailadres</b></label>
-    <input type="text" placeholder="voor e-mailadres in" name="email" id="mailadres" required>
+    <div class="container">
+        <label for="e-mail" class="e-mailadres"><b>e-mailadres</b></label>
+        <input type="text" placeholder="voor e-mailadres in" name="email" id="mailadres" required>
 
-    <label for="psw"><b>wachtwoord</b></label>
-    <input type="password" placeholder="voor wachtwoord in" name="password" id="wachtwoord" required>
+        <label for="psw"><b>wachtwoord</b></label>
+        <input type="password" placeholder="voor wachtwoord in" name="password" id="wachtwoord" required>
 
-    <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="onthoud_mij"> Onthoud mij
-    </label>
-  </div>
+        <button type="submit" class="login_button">Login</button>
+        <label for="onthoud_mij" class="onthoud_mij_lettertype">
+            <input type="checkbox" checked="checked" name="onthoud_mij"> Onthoud mij
+        </label>
+    </div>
 
-  <div class="container">
-    <button aria-label="Annuleer knop, Door op deze annuleer knop te klikken maakt u de invoervelden voor het inloggen leeg" type="button" class="annuleerbutton" onclick="wisInloggegevens()">annuleer</button>
-    <span class="psw"><a href="#">wachtwoord vergeten?</a></span>
-    <a href="{% url 'registratie' %}" class="registratie_button">Registreer hier</a>
-  </div>
+    <div class="container">
+        <button aria-label="Annuleer knop = invoervelden legen"
+                type="button" class="annuleerbutton" onclick="wisInloggegevens()">annuleer
+        </button>
+        <span class="psw"><a href="#">wachtwoord vergeten?</a></span>
+        <a href="{% url 'registratie' %}" class="registratie_button">Registreer hier</a>
+    </div>
 
 
 </form>

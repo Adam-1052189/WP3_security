@@ -150,6 +150,7 @@ class Ervaringsdeskundige(models.Model):
 class Onderzoek(models.Model):
     onderzoek_id = models.AutoField(primary_key=True)
     titel = models.CharField(max_length=255)
+    omschrijving = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=50, blank=True, null=True)
     beschikbaar = models.BooleanField(default=True)
     datum_vanaf = models.DateField(blank=True, null=True)
