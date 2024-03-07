@@ -110,6 +110,21 @@ def aanmelden_voor_onderzoek(request, onderzoek_id):
         return JsonResponse({"success": False, "message": "Je bent al aangemeld voor dit onderzoek."})
 
 
+@login_required
+def annuleren_voor_onderzoek(request, onderzoek_id):
+    onderzoek = get_object_or_404(Onderzoek, pk=onderzoek_id)
+    ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, gebruiker=request.user)
+
+    koppeling = OnderzoekErvaringsdeskundige.objects.filter(onderzoek=onderzoek,
+                                                            ervaringsdeskundige=ervaringsdeskundige).first()
+
+    if koppeling:
+        koppeling.delete()
+        return JsonResponse({"success": True, "message": "Je deelname aan het onderzoek is geannuleerd."})
+    else:
+        return JsonResponse({"success": False, "message": "Je was niet aangemeld voor dit onderzoek."})
+
+
 @login_required()
 def laad_onderzoeken(request):
     type_onderzoek = request.GET.get('type')
