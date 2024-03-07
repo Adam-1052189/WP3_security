@@ -25,10 +25,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        aanmeldForm.style.display = 'none';
-                        deelnameBerichtContainer.style.display = 'block';
-                        annuleerButton.style.display = 'block';
                         alert(data.message);
+                        window.location.reload();
                     } else {
                         alert(data.message);
                     }
@@ -57,12 +55,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     throw new Error('Netwerkantwoord was niet ok.');
                 })
                 .then(data => {
-                    console.log('Antwoord:', data);
                     if (data.success) {
-                        deelnameBerichtContainer.style.display = 'none';
-                        aanmeldForm.style.display = 'block';
-                        annuleerButton.style.display = 'none';
                         alert(data.message);
+                        window.location.reload();
                     } else {
                         alert(data.message);
                     }
