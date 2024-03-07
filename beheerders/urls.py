@@ -1,18 +1,17 @@
 from django.urls import path
-from .views import onderzoek_dashboard, onderzoek_goedkeuren, onderzoek_afkeuren, toon_inschrijvingen, onderzoeksvragen
 from . import views
 
 urlpatterns = [
-    path('dashboard/', onderzoek_dashboard, name='dashboard_beheer'),
-    path('goedkeuren/<int:pk>/', onderzoek_goedkeuren, name='onderzoek_goedkeuren'),
-    path('afkeuren/<int:pk>/', onderzoek_afkeuren, name='onderzoek_afkeuren'),
+    path('dashboard/', views.onderzoek_dashboard, name='dashboard_beheer'),
+    path('goedkeuren/<int:pk>/', views.onderzoek_goedkeuren, name='onderzoek_goedkeuren'),
+    path('afkeuren/<int:pk>/', views.onderzoek_afkeuren, name='onderzoek_afkeuren'),
     path('onderzoeksvragen/afkeuren/<int:pk>/', views.onderzoek_afkeuren, name='onderzoek_afkeuren'),
-    path('inschrijvingen/goedkeuren/<int:inschrijving_id>/', views.goedkeuren_inschrijving, name='inschrijving_goedkeuren'),
-    path('inschrijvingen/afkeuren/<int:inschrijving_id>/', views.afkeuren_inschrijving, name='inschrijving_afkeuren'),
-    path('inschrijvingen/', toon_inschrijvingen, name='toon_inschrijvingen'),
+    path('inschrijvingen/goedkeuren/<int:pk>/', views.goedkeuren_inschrijving, name='inschrijving_goedkeuren'),
+    path('inschrijvingen/afkeuren/<int:pk>/', views.afkeuren_inschrijving, name='inschrijving_afkeuren'),
+    path('toon_inschrijvingen/', views.toon_inschrijvingen, name='inschrijvingen'),
     path('ervaringsdeskundige/goedkeuren/<int:pk>/', views.goedkeuren_ervaringsdeskundige, name='ervaringsdeskundige_goedkeuren'),
     path('ervaringsdeskundige/afkeuren/<int:pk>/', views.afkeuren_ervaringsdeskundige, name='ervaringsdeskundige_afkeuren'),
     path('onderzoek/gegevens/<int:pk>/', views.onderzoek_gegevens, name='onderzoek_gegevens'),
     path('onderzoek/update/<int:pk>/', views.onderzoek_update, name='onderzoek_update'),
-    path('onderzoeksvragen/', onderzoeksvragen, name='onderzoeksvragen'),
+    path('onderzoeksvragen/', views.onderzoeksvragen, name='onderzoeksvragen'),
 ]
