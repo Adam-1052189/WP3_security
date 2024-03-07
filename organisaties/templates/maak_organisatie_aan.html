@@ -7,14 +7,37 @@
     <link rel="icon" type="image/x-icon" href="/static/images/icon_accessibility_green_black.jpg">
 </head>
 <body>
-    <h1>Create Organisatie</h1>
-    <form method="POST" action="{% url 'maak_organisatie_aan' %}">
-        {% csrf_token %}
-        <label for="naam">Naam:</label>
-        <input type="text" id="naam" name="naam" required><br><br>
-        <label for="api_key">API-sleutel:</label>
-        <input type="text" id="api_key" name="api_key" required><br><br>
-        <button type="submit">Maak organisatie aan</button>
-    </form>
+<h1>Create Organisatie</h1>
+<form method="POST" action="{% url 'maak_organisatie_aan' %}">
+    {% csrf_token %}
+    <label for="naam">Naam:</label>
+    <input type="text" id="naam" name="naam" required><br><br>
+
+    <label for="type">Type:</label>
+    <input type="text" id="type" name="type"><br><br>
+
+    <label for="website">Website:</label>
+    <input type="url" id="website" name="website"><br><br>
+
+    <label for="beschrijving">Beschrijving:</label>
+    <textarea id="beschrijving" name="beschrijving"></textarea><br><br>
+
+    <label for="contactpersoon">Contactpersoon:</label>
+    <input type="text" id="contactpersoon" name="contactpersoon"><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+
+    <label for="telefoonnummer">Telefoonnummer:</label>
+    <input type="text" id="telefoonnummer" name="telefoonnummer"><br><br>
+
+    <label for="overige_details">Overige details:</label>
+    <textarea id="overige_details" name="overige_details"></textarea><br><br>
+
+    <label for="api_key">API-sleutel:</label>
+    <input type="text" id="api_key" name="api_key" required><br><br>
+
+    <button type="submit">Maak organisatie aan</button>
+</form>
 </body>
 </html>

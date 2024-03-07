@@ -65,6 +65,7 @@
 
 <div id="onderzoek-{{ onderzoek.pk }}">
     <h1>{{ onderzoek.titel }}</h1>
+    <p>Omschrijving: {{ onderzoek.omschrijving }}</p>
     <p>Status: {{ onderzoek.status }}</p>
     <p>Van: {{ onderzoek.datum_vanaf }}</p>
     <p>Tot: {{ onderzoek.datum_tot }}</p>
@@ -73,7 +74,7 @@
     <p>Met Beloning: {{ onderzoek.met_beloning }} Beloning: {{ onderzoek.beloning }}</p>
     <p>Groep leeftijd: {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}</p>
     <p>Doelgroep beperking: {{ onderzoek.doelgroep_beperking }}</p>
-</div>
+    </div>
 
 
 <form id="onderzoekForm">

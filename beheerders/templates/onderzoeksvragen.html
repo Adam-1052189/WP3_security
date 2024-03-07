@@ -28,6 +28,7 @@
         {% for onderzoek in onderzoeken %}
             <li id="onderzoek-item-{{ onderzoek.pk }}">
                 <strong>{{ onderzoek.titel }}</strong><br>
+                <strong>Omschrijving:</strong> {{ onderzoek.omschrijving }}<br>
                 <strong>Status:</strong><span id="status-{{ onderzoek.pk }}">{{ onderzoek.status }}</span><br>
                 <strong>Van:</strong> {{ onderzoek.datum_vanaf }} <strong>Tot:</strong> {{ onderzoek.datum_tot }}<br>
                 <strong>Type onderzoek:</strong> {{ onderzoek.type_onderzoek }}<br>

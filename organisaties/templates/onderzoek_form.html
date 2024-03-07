@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <link rel="stylesheet" href="/static/CSS/onderzoek_aanmaken.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/onderzoekformstylesheet.css" type="text/css">
     {% load static %}
-    <script src="{% static 'JS/onderzoek_aanmaken.js' %}"></script>
+    <script src="{% static 'js/onderzoek_aanmaken.js' %}" defer></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Onderzoeksvraag aanmaken</title>
@@ -13,74 +13,25 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script>
         {% if success_message %}
-        window.onload = function() {
-            var popup = document.getElementById("success-popup");
-            popup.style.display = "block";
-            setTimeout(function(){ popup.style.display = "none"; }, 4000);
-        }
+            window.onload = function () {
+                var popup = document.getElementById("success-popup");
+                popup.style.display = "block";
+                setTimeout(function () {
+                    popup.style.display = "none";
+                }, 4000);
+            }
         {% endif %}
 
-        $( function() {
-            $( ".datepicker" ).datepicker({
-                dateFormat: 'yy-mm-dd'
-            });
-        } );
     </script>
-    <style>
-        .popup {
-            display: none;
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
-            z-index: 9999;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        input[type="text"],
-        input[type="email"],
-        input[type="number"],
-        textarea {
-            width: 300px;
-            height: 40px;
-            margin-bottom: 10px;
-            padding: 5px;
-            box-sizing: border-box;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        label {
-            text-align: right;
-            margin-right: 10px;
-            width: 200px;
-        }
-        h1 {
-            text-align: center;
-        }
-        button[type="submit"] {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    </style>
 </head>
 <body>
-    <h1>Onderzoeksvraag invullen</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Opslaan</button>
-    </form>
+<h1>Onderzoeksvraag invullen</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Opslaan</button>
+</form>
 
-    <div id="success-popup" class="popup">Onderzoeksvraag succesvol opgeslagen!</div>
+<div id="success-popup" class="popup">Onderzoeksvraag succesvol opgeslagen!</div>
 </body>
 </html>
