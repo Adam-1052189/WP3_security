@@ -9,49 +9,55 @@
     <script src="{% static 'js/dashboard_organisatie.js' %}" defer></script>
 </head>
 <body data-login-url="{% url 'login' %}">
-    <h1>Onderzoekstabel</h1>
+<h1>Onderzoekstabel</h1>
 
-    <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen </button>
-    <table>
-        <thead>
-            <tr>
-                <th>Titel</th>
-                <th>Status</th>
-                <th>beschikbaar</th>
-                <th>vanaf</th>
-                <th>tot</th>
-                <th>type onderzoek</th>
-                <th>locatie</th>
-                <th>met beloning</th>
-                <th>beloning</th>
-                <th>doelgroep leeftijd van</th>
-                <th>doelgroep leeftijd tot</th>
-                <th>doelgroep beperking</th>
-                <th>organisatie id</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for onderzoek in onderzoeken %}
-            <tr>
-                <td>{{ onderzoek.titel }}</td> <br>
-                <td>{{ onderzoek.status }}</td><br>
-                <td>{{ onderzoek.beschikbaar }}</td><br>
-                <td>{{ onderzoek.datum_vanaf }}</td>
-                <td>{{ onderzoek.datum_tot }}</td>
-                <td>{{ onderzoek.type_onderzoek }}</td>
-                <td>{{ onderzoek.locatie }}</td>
-                <td>{{ onderzoek.met_beloning }}</td>
-                <td>{{ onderzoek.beloning }}</td>
-                <td>{{ onderzoek.doelgroep_leeftijd_van }}</td>
-                <td>{{ onderzoek.doelgroep_leeftijd_tot }}</td>
-                <td>{{ onderzoek.doelgroep_beperking}}</td>
-                <td>{{ onderzoek.organisatie_id }}</td>
+<button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen</button>
+<table>
+    <thead>
+    <tr>
+        <th>Titel</th>
+        <th>omschrijving</th>
+        <th>Status</th>
+        <th>beschikbaar</th>
+        <th>vanaf</th>
+        <th>tot</th>
+        <th>type onderzoek</th>
+        <th>locatie</th>
+        <th>met beloning</th>
+        <th>beloning</th>
+        <th>doelgroep leeftijd van</th>
+        <th>doelgroep leeftijd tot</th>
+        <th>doelgroep beperking</th>
+        <th>organisatie id</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for onderzoek in onderzoeken %}
+        <tr>
+            <td>{{ onderzoek.titel }}</td>
+            <br>
+            <td>{{ onderzoek.omschrijving }}</td>
+            <br>
+            <td>{{ onderzoek.status }}</td>
+            <br>
+            <td>{{ onderzoek.beschikbaar }}</td>
+            <br>
+            <td>{{ onderzoek.datum_vanaf }}</td>
+            <td>{{ onderzoek.datum_tot }}</td>
+            <td>{{ onderzoek.type_onderzoek }}</td>
+            <td>{{ onderzoek.locatie }}</td>
+            <td>{{ onderzoek.met_beloning }}</td>
+            <td>{{ onderzoek.beloning }}</td>
+            <td>{{ onderzoek.doelgroep_leeftijd_van }}</td>
+            <td>{{ onderzoek.doelgroep_leeftijd_tot }}</td>
+            <td>{{ onderzoek.doelgroep_beperking }}</td>
+            <td>{{ onderzoek.organisatie_id }}</td>
 
-            </tr>
-            {% endfor %}
-        <a href="/organisaties/maak_organisatie_aan/">maak organisatie aan</a><br>
-        <a href="/organisaties/onderzoek/invoeren/">maak onderzoek aan</a>
-        </tbody>
-    </table>
+        </tr>
+    {% endfor %}
+    <a href="/organisaties/maak_organisatie_aan/">maak organisatie aan</a><br>
+    <a href="/organisaties/onderzoek/invoeren/">maak onderzoek aan</a>
+    </tbody>
+</table>
 </body>
 </html>
