@@ -1,0 +1,58 @@
+.logout-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background-color: #d9534f;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    float: right;
+}
+
+.logout-button:hover {
+    background-color: #c9302c;
+}
+
+.maak-organisatie-aan-knop {
+    background-color: #04AA6D;
+    color: #333;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.maak-organisatie-aan-knop:hover {
+    background-color: #04AA6D;
+}
+
+.maak-onderzoek-aan-knop {
+    background-color: #04AA6D;
+    color: #333;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.maak-onderzoek-aan-knop:hover {
+    background-color: #e7e7e7;
+}
+
+body {
+    margin-left: 90px;
+}
+
+
+

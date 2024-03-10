@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+    <link rel="stylesheet" href="/static/css/organisatie_dashboard_stylesheet.css" type="text/css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Onderzoekstabel</title>
@@ -9,9 +10,11 @@
     <script src="{% static 'js/dashboard_organisatie.js' %}" defer></script>
 </head>
 <body data-login-url="{% url 'login' %}">
-<h1>Onderzoekstabel</h1>
-
 <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen</button>
+<h1>Dit is het dashboard voor de organisatie</h1>
+<button onclick="location.href='{% url 'maak_organisatie_aan' %}';" class="maak-organisatie-aan-knop">maak organisatie aan</button>
+<button onclick="location.href='{% url 'onderzoek_invoeren' %}';" class="maak-onderzoek-aan-knop">maak nieuw onderzoek aan</button>
+<br><br>
 <table>
     <thead>
     <tr>
@@ -55,8 +58,6 @@
 
         </tr>
     {% endfor %}
-    <a href="/organisaties/maak_organisatie_aan/">maak organisatie aan</a><br>
-    <a href="/organisaties/onderzoek/invoeren/">maak onderzoek aan</a>
     </tbody>
 </table>
 </body>

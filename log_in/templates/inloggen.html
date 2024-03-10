@@ -16,9 +16,10 @@
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <div class="img_container">
-
     </div>
+    <br><br><br>
     <img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
+    <br><br><br>
     <div class="container">
         <label for="e-mail" class="e-mailadres"><b>e-mailadres</b></label>
         <input type="text" placeholder="voor e-mailadres in" name="email" id="mailadres" required>
@@ -36,7 +37,6 @@
         <button aria-label="Annuleer knop = invoervelden legen"
                 type="button" class="annuleerbutton" onclick="wisInloggegevens()">annuleer
         </button>
-        <span class="psw"><a href="#">wachtwoord vergeten?</a></span>
         <a href="{% url 'registratie' %}" class="registratie_button">Registreer hier</a>
     </div>
 

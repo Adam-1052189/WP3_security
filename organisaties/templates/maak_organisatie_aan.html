@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+    <link rel="stylesheet" href="/static/css/maak_organisatie_aan_stylesheet.css" type="text/css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Organisatie</title>
     <link rel="icon" type="image/x-icon" href="/static/images/icon_accessibility_green_black.jpg">
+    {% load static %}
+    <script src="{% static 'js/organisatie_aanmaken.js' %}" defer></script>
 </head>
 <body>
-<h1>Create Organisatie</h1>
+<button onclick="location.href='{% url 'dashboard_organisatie' %}';" class="terug-knop">Terug naar Dashboard</button>
+<h1>Maak organisatie aan</h1>
 <form method="POST" action="{% url 'maak_organisatie_aan' %}">
     {% csrf_token %}
     <label for="naam">Naam:</label>
@@ -35,8 +39,10 @@
     <textarea id="overige_details" name="overige_details"></textarea><br><br>
 
     <label for="api_key">API-sleutel:</label>
-    <input type="text" id="api_key" name="api_key" required><br><br>
+    <input type="text" id="api_key" name="api_key" required>
+    <button class="button-api-key" onclick="genereerApiKey()">Genereer sleutel en maak organisatie aan</button>
 
+    <br><br>
     <button type="submit">Maak organisatie aan</button>
 </form>
 </body>

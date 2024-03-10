@@ -25,6 +25,7 @@
     </script>
 </head>
 <body>
+<button onclick="location.href='{% url 'dashboard_organisatie' %}';" class="terug-knop">Terug naar Dashboard</button>
 <h1>Onderzoeksvraag invullen</h1>
 <form method="post">
     {% csrf_token %}
