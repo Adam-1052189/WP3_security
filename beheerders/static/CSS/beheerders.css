@@ -5,6 +5,10 @@ body {
     background-color: #d9ebf7;
 }
 
+header {
+    padding-bottom: 10px;
+}
+
 nav ul {
     list-style: none;
     padding: 0;
@@ -117,4 +121,24 @@ footer {
     border-radius: 5px;
     font-weight: bold;
     background-color: #f44336;
+}
+
+.logout-button {
+    padding: 8px 15px;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    background-color: #f44336;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 10;
+}
+
+.logout-button:hover {
+    background-color: #c9302c;
 }

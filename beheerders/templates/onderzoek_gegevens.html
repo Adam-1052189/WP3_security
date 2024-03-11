@@ -62,6 +62,7 @@
     </style>
 </head>
 <body>
+<button onclick="location.href='{% url 'dashboard_beheer' %}';" class="terug-knop">Terug naar Dashboard</button>
 
 <div id="onderzoek-{{ onderzoek.pk }}">
     <h1>{{ onderzoek.titel }}</h1>
@@ -96,7 +97,7 @@
 
                 },
                 error: function (xhr, errmsg, err) {
-                    console.log(xhr.responseText); // Voor debug
+                    console.log(xhr.responseText);
                     alert("Er is een fout opgetreden: " + xhr.responseText);
                 }
             });
