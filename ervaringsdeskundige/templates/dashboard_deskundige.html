@@ -15,30 +15,32 @@
 </header>
 
 <main>
-    <h1>Dit is de dashboard voor ervaringsdeskundige</h1>
-    <img src="{% static 'images/icon_accessibility.jpg' %}" alt="Icon Accessibility" class="icon-accessibility">
-    <div id="onderzoeken-buttons">
-        <button id="show-beschikbare-onderzoeken">Toon Beschikbare Onderzoeken</button>
-        <button id="show-deelgenomen-onderzoeken">Toon Deelgenomen Onderzoeken</button>
+    <h1>Dashboard Ervaringsdeskundige</h1>
+    <img src="{% static 'images/icon_accessibility.jpg' %}" alt="Toegankelijkheidsicoon" class="icon-accessibility">
+    <section id="onderzoeken-section">
+        <div class="onderzoeken-buttons">
+            <button id="show-beschikbare-onderzoeken" aria-label="Toon beschikbare onderzoeken">Beschikbare Onderzoeken</button>
+            <button id="show-deelgenomen-onderzoeken" aria-label="Toon deelgenomen onderzoeken">Deelgenomen Onderzoeken</button>
+        </div>
         <h2 id="onderzoeken-titel">Beschikbare Onderzoeken</h2>
-    </div>
-    <div id="onderzoeken-container" data-laad-onderzoeken-url="{% url 'laad_onderzoeken' %}">
-        <form method="post">
-            {% csrf_token %}
-            <ul>
-                {% for onderzoek in beschikbare_onderzoeken %}
-                    <li>
-                        <strong>{{ onderzoek.titel }}</strong><br>
-                        Omschrijving: {{ onderzoek.omschrijving }}<br>
-                        Status: {{ onderzoek.status }}<br>
-                        Van: {{ onderzoek.datum_vanaf }} Tot: {{ onderzoek.datum_tot }}<br>
-                        Type: {{ onderzoek.type_onderzoek }}<br>
-                        <a href="{% url 'onderzoek_details' onderzoek.onderzoek_id %}">Meer gegevens</a>
-                    </li>
-                {% endfor %}
-            </ul>
-        </form>
-    </div>
+        <div id="onderzoeken-container" data-laad-onderzoeken-url="{% url 'laad_onderzoeken' %}">
+            <form method="post">
+                {% csrf_token %}
+                <ul>
+                    {% for onderzoek in beschikbare_onderzoeken %}
+                        <li>
+                            <strong>{{ onderzoek.titel }}</strong><br>
+                            Omschrijving: {{ onderzoek.omschrijving }}<br>
+                            Status: {{ onderzoek.status }}<br>
+                            Van: {{ onderzoek.datum_vanaf }} Tot: {{ onderzoek.datum_tot }}<br>
+                            Type: {{ onderzoek.type_onderzoek }}<br>
+                            <a href="{% url 'onderzoek_details' onderzoek.onderzoek_id %}" aria-label="Meer gegevens over {{ onderzoek.titel }}">Meer gegevens</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </form>
+        </div>
+    </section>
 </main>
 </body>
 </html>

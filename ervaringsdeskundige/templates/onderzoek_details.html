@@ -7,37 +7,40 @@
     <script src="{% static 'js/onderzoek_aanmelden.js' %}" defer></script>
 </head>
 <body>
-<button onclick="location.href='{% url 'dashboard_deskundige' %}';" class="terug-knop">Terug naar Dashboard</button>
-<h1>{{ onderzoek.titel }}</h1>
-<p>Omschrijving: {{ onderzoek.omschrijving }}</p>
-<p>Status: {{ onderzoek.status }}</p>
-<p>Datum vanaf: {{ onderzoek.datum_vanaf }} tot {{ onderzoek.datum_tot }}</p>
-<p>Type: {{ onderzoek.type_onderzoek }} Locatie: {{ onderzoek.locatie }}</p>
-<p>Met Beloning: {{ onderzoek.met_beloning }} Beloning: {{ onderzoek.beloning }}</p>
-<p>Groep leeftijd: {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}</p>
-<p>Doelgroep beperking: {{ onderzoek.doelgroep_beperking }}</p>
-<p>Organisatie: {{ onderzoek.organisatie.naam }}</p>
-
-<h2>Organisatie</h2>
-<p>Naam: {{ organisatie.naam }}</p>
-<p>Type: {{ organisatie.type }}</p>
-<p>Website: <a href="{{ organisatie.website }}">{{ organisatie.website }}</a></p>
-<p>Beschrijving: {{ organisatie.beschrijving }}</p>
-<p>Contactpersoon: {{ organisatie.contactpersoon }}</p>
-<p>E-mail: {{ organisatie.email }}</p>
-<p>Telefoonnummer: {{ organisatie.telefoonnummer }}</p>
-<p>Overige details: {{ organisatie.overige_details }}</p>
-
-{% if not is_aangemeld %}
-    <form id="aanmeldForm" action="{% url 'aanmelden_voor_onderzoek' onderzoek_id=onderzoek.onderzoek_id %}" method="post">
-        {% csrf_token %}
-        <button type="button" id="aanmeldButton" data-onderzoek-id="{{ onderzoek.onderzoek_id }}">Aanmelden voor dit onderzoek</button>
-    </form>
-{% else %}
-    <div id="deelnameBericht">
-        Je neemt deel aan dit onderzoek.<br>
-        <button type="button" id="annuleerButton" data-onderzoek-id="{{ onderzoek.onderzoek_id }}">Annuleer deelname</button>
-    </div>
-{% endif %}
+<div class="container">
+    <button onclick="location.href='{% url 'dashboard_deskundige' %}';" class="terug-knop">Terug naar Dashboard</button>
+    <h1>{{ onderzoek.titel }}</h1>
+    <section class="onderzoek-details">
+        <p><strong>Omschrijving:</strong> {{ onderzoek.omschrijving }}</p>
+        <p><strong>Status:</strong> {{ onderzoek.status }}</p>
+        <p><strong>Datum vanaf:</strong> {{ onderzoek.datum_vanaf }} tot {{ onderzoek.datum_tot }}</p>
+        <p><strong>Type:</strong> {{ onderzoek.type_onderzoek }} <strong>Locatie:</strong> {{ onderzoek.locatie }}</p>
+        <p><strong>Met Beloning:</strong> {{ onderzoek.met_beloning }} <strong>Beloning:</strong> {{ onderzoek.beloning }}</p>
+        <p><strong>Groep leeftijd:</strong> {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}</p>
+        <p><strong>Doelgroep beperking:</strong> {{ onderzoek.doelgroep_beperking }}</p>
+    </section>
+    <section class="organisatie-details">
+        <h2>Organisatie</h2>
+        <p><strong>Naam:</strong> {{ organisatie.naam }}</p>
+        <p><strong>Type:</strong> {{ organisatie.type }}</p>
+        <p><strong>Website:</strong> <a href="{{ organisatie.website }}">{{ organisatie.website }}</a></p>
+        <p><strong>Beschrijving:</strong> {{ organisatie.beschrijving }}</p>
+        <p><strong>Contactpersoon:</strong> {{ organisatie.contactpersoon }}</p>
+        <p><strong>E-mail:</strong> {{ organisatie.email }}</p>
+        <p><strong>Telefoonnummer:</strong> {{ organisatie.telefoonnummer }}</p>
+        <p><strong>Overige details:</strong> {{ organisatie.overige_details }}</p>
+    </section>
+    {% if not is_aangemeld %}
+        <form id="aanmeldForm" action="{% url 'aanmelden_voor_onderzoek' onderzoek_id=onderzoek.onderzoek_id %}" method="post">
+            {% csrf_token %}
+            <button type="button" id="aanmeldButton" data-onderzoek-id="{{ onderzoek.onderzoek_id }}">Aanmelden voor dit onderzoek</button>
+        </form>
+    {% else %}
+        <div id="deelnameBericht">
+            <p>Je neemt deel aan dit onderzoek.</p>
+            <button type="button" id="annuleerButton" data-onderzoek-id="{{ onderzoek.onderzoek_id }}">Annuleer deelname</button>
+        </div>
+    {% endif %}
+</div>
 </body>
 </html>

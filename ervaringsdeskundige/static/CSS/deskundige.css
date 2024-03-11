@@ -1,12 +1,12 @@
 h1 {
-  color: rgb(60, 137, 238);
+  color: rgb(0, 0, 0);
 }
 
 .icon-accessibility {
   height: 97px;
   width: 97px;
   display: block;
-  margin-left: 0px;
+  margin-left: auto;
   margin-right: auto;
 }
 
@@ -20,6 +20,7 @@ ul li {
   margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
+  color: #000000;
 }
 
 body {
@@ -27,31 +28,59 @@ body {
   color: #333;
   line-height: 1.6;
   background-color: #d9ebf7;
-  background-size: 20px 20px;
-  background-position: 0 0, 10px 10px, 10px 0, 0 10px;
 }
 
 main {
   margin: 0 auto;
-  padding: 5rem;
+  padding: 1rem;
   background-color: #2b50ec;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #000000;
 }
 
-footer {
-  padding: 1rem;
-  text-align: left;
-  background-color: #ec7777;
+header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem;
+    background-color: #d9ebf7;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-@media screen and (max-width: 768px) {  /* voor kleinere schermen */
+.profile-link, .logout-button {
+    padding: 8px 15px;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.profile-link {
+    background-color: #007bff;
+}
+
+.profile-link:hover {
+    background-color: #0056b3;
+}
+
+.logout-button {
+    background-color: #d9534f;
+}
+
+.logout-button:hover {
+    background-color: #c9302c;
+}
+
+@media screen and (max-width: 768px) {
   .icon-accessibility {
     height: 50px;
     width: 50px;
   }
 
-  main, footer {
-    padding: 5rem;
+  main, header {
+    padding: 2rem;
   }
 
   body {
@@ -59,9 +88,9 @@ footer {
   }
 }
 
-@media screen and (max-width: 480px) { /* voor nog kleinere schermen */
-  main, footer {
-    padding: 2rem;
+@media screen and (max-width: 480px) {
+  main, header {
+    padding: 1rem;
   }
 
   ul li {
@@ -70,47 +99,13 @@ footer {
   }
 }
 
-header {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-    background-color: #f3f3f3; /* Lichtgrijze achtergrond voor de header */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Een subtiele schaduw voor de header */
+.onderzoeken-buttons button {
+    margin: 0 10px;
+    padding: 6px 5px;
+    background-color: #4CAF50;
+    color: #000000; /
 }
 
-.profile-link-container {
+.onderzoeken-buttons button:hover {
+    background-color: #45a049;
 }
-
-.profile-link {
-    display: inline-block;
-    padding: 3px 10px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border: none;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-.profile-link:hover {
-    background-color: #0056b3;
-}
-
-.logout-button {
-        display: inline-block;
-        padding: 8px 15px;
-        background-color: #d9534f;
-        color: white;
-        text-decoration: none;
-        border: none;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-
-    .logout-button:hover {
-        background-color: #c9302c;
-    }
