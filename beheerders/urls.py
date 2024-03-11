@@ -17,5 +17,6 @@ urlpatterns = [
     path('onderzoek/update/<int:pk>/', views.onderzoek_update, name='onderzoek_update'),
     path('onderzoeksvragen/', views.onderzoeksvragen, name='onderzoeksvragen'),
     path('inschrijvingen/verwijder_inschrijving/<int:pk>/', views.verwijder_inschrijving, name='verwijder_inschrijving'),
+    path('ervaringsdeskundige/', views.ervaringsdeskundige, name='ervaringsdeskundige'),
     path('logout/', logout_view, name='logout'),
 ]

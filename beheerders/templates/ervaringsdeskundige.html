@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Alle Ervaringsdeskundigen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+    {% load static %}
+    <script src="{% static 'js/ervaringsdeskundige.js' %}" defer></script>
+</head>
+<body>
+<button onclick="location.href='{% url 'dashboard_beheer' %}';" class="terug-knop">Terug naar Dashboard</button>
+    <h1>Alle Ervaringsdeskundigen</h1>
+    <ul>
+        {% for gebruiker in ervaringsdeskundigen %}
+            <li id="ervaringsdeskundige-item-{{ ervaringsdeskundige.pk }}">
+                <strong>Naam:</strong> {{ gebruiker.voornaam }} {{ gebruiker.achternaam }}<br>
+                <strong>Email:</strong> {{ gebruiker.email }}<br>
+                <strong>Geboortedatum:</strong> {{ gebruiker.geboortedatum }}<br>
+                <strong>Geslacht:</strong> {{ gebruiker.geslacht }}<br>
+                <strong>Goedgekeurd?:</strong><span id="is_goedgekeurd-{{ ervaringsdeskundige.pk }}">{{ ervaringsdeskundige.status }}</span> {{ ervaringsdeskundige.is_goedgekeurd }}<br>
+                {% if ervaringsdeskundige.is_goedgekeurd %}
+                    <button id="afkeur-knop-{{ ervaringsdeskundige.pk }}" onclick="afkeuren(event, {{ ervaringsdeskundige.pk }})">Afkeuren</button>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Geen ervaringsdeskundigen gevonden.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

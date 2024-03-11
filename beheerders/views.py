@@ -91,10 +91,13 @@ def goedkeuren_ervaringsdeskundige(request, pk):
     return redirect('dashboard_beheer')
 
 def afkeuren_ervaringsdeskundige(request, pk):
-    ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
-    ervaringsdeskundige.is_goedgekeurd = False
-    ervaringsdeskundige.save()
-    return redirect('dashboard_beheer')
+    if request.method == 'POST':
+        ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
+        ervaringsdeskundige.is_goedgekeurd = False
+        ervaringsdeskundige.save()
+        return JsonResponse({'status': 'success', 'message': 'Ervaringsdeskundige succesvol afgekeurd.'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Ongeldige verzoekmethode'}, status=400)
 
 def onderzoek_gegevens(request, pk):
     onderzoek = get_object_or_404(Onderzoek, pk=pk)
@@ -115,3 +118,8 @@ def onderzoek_update(request, pk):
 def onderzoeksvragen(request):
     onderzoeken = Onderzoek.objects.all()
     return render(request, 'onderzoeksvragen.html', {'onderzoeken': onderzoeken})
+
+
+def ervaringsdeskundige(request):
+    ervaringsdeskundigen = Gebruikers.objects.all()
+    return render(request, 'ervaringsdeskundige.html', {'ervaringsdeskundigen': ervaringsdeskundigen})
