@@ -26,10 +26,6 @@
         color: #2b50ec;
     }
 
-    h2 {
-        color: red;
-    }
-
     label {
         display: block;
         margin-top: 10px;
@@ -40,12 +36,12 @@
         padding: 8px;
         margin-top: 5px;
         border-radius: 4px;
-        border: 1px solid #ccc;
+        border: 1px solid #777;
         box-sizing: border-box;
     }
 
     .button {
-        background-color: #1fc396;
+        background-color: #4CAF50;
         color: white;
         padding: 10px 20px;
         border: none;
@@ -55,11 +51,19 @@
     }
 
     .button:hover {
-        background-color: #17a687;
+        background-color: #45a049;
     }
 
     .form-group {
         margin-bottom: 15px;
+    }
+    
+    .alert {
+        color: #D8000C;
+        background-color: #FFD2D2;
+        padding: 10px;
+        margin-top: 20px;
+        border-radius: 5px;
     }
 </style>
 <body>
@@ -79,7 +83,9 @@
                 {% endfor %}
             </div>
         {% endfor %}
-        <h2>Na het registreren wacht op goedkeuring. Na het goedkeuren kan je inloggen.</h2>
+        <div class="alert" role="alert">
+            <strong>Let op:</strong> Na het registreren wacht op goedkeuring. Na het goedkeuren kunt u inloggen.
+        </div>
         <button type="submit" class="button">Registreren</button>
 
     </form>

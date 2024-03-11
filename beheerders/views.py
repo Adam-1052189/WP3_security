@@ -30,7 +30,7 @@ def onderzoek_dashboard(request):
         return redirect('dashboard_deskundige')
 
     niet_goedgekeurde_inschrijvingen = OnderzoekErvaringsdeskundige.objects.filter(is_goedgekeurd=False)
-    nieuwe_ervaringsdeskundigen = Ervaringsdeskundige.objects.filter(is_goedgekeurd=False)
+    nieuwe_ervaringsdeskundigen = Ervaringsdeskundige.objects.filter(is_goedgekeurd=False, gebruiker__is_organisatie=False)
 
     onderzoeken = Onderzoek.objects.filter(status__in=['', 'Afgekeurd', 'Nieuw'])
     return render(request, 'dashboard_beheer.html', {
