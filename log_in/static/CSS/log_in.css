@@ -101,6 +101,10 @@ html {
     background-color: rgb(210, 218, 215);
 }
 
+div.error{
+    padding: 10px;
+}
+
 @media screen and (max-width: 300px) {
     span.psw {
         display: block;

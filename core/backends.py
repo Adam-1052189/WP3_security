@@ -6,7 +6,7 @@ class GebruikersBackend(BaseBackend):
     def authenticate(self, request, email=None, password=None):
         try:
             user = Gebruikers.objects.get(email=email)
-            if check_password(password, user.wachtwoord):
+            if check_password(password, user.password):
                 return user
         except Gebruikers.DoesNotExist:
             return None
@@ -19,4 +19,4 @@ class GebruikersBackend(BaseBackend):
 
     def user_can_authenticate(self, user):
         # Negeer het last_login-veld
-        return True
+        return user.is_goedgekeurd

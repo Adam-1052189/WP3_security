@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <link rel="stylesheet" href="/static/CSS/log_in.css" type="text/css">
     {% load static %}
+    <link rel="stylesheet" href="{% static 'CSS/log_in.css' %}" type="text/css">
     <script src="{% static 'JS/log_in.js' %}"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stichting Accesibility</title>
-    <link rel="icon" type="image/x-icon" href="/static/images/icon_accessibility_green_black.jpg">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/icon_accessibility_green_black.jpg' %}">
 
 </head>
 <body>
@@ -18,7 +18,7 @@
     <div class="img_container">
     </div>
     <br><br><br>
-    <img src="/static/images/logo-Accessibility.png" alt="logo van Accesibility" class="logo-Accesibility">
+    <img src="{% static 'images/logo-Accessibility.png' %}" alt="logo van Accesibility" class="logo-Accesibility">
     <br><br><br>
     <div class="container">
         <label for="e-mail" class="e-mailadres"><b>e-mailadres</b></label>
@@ -28,6 +28,15 @@
         <input type="password" placeholder="voor wachtwoord in" name="password" id="wachtwoord" required>
 
         <button type="submit" class="login_button">Login</button>
+        {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                    {% if message.message == "Ongeldige e-mail of wachtwoord." %}
+                        <div class="{{ message.tags }}">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
         <label for="onthoud_mij" class="onthoud_mij_lettertype">
             <input type="checkbox" checked="checked" name="onthoud_mij"> Onthoud mij
         </label>
