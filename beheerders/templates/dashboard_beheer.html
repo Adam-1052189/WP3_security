@@ -10,6 +10,7 @@
 
 <body>
 <header role="banner">
+    <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen</button>
     <h1>Dashboard Beheerders</h1>
 </header>
 <nav id="Menu" class="sidebar">
@@ -18,20 +19,13 @@
         <li><a href="{% url 'onderzoeksvragen' %}">Onderzoeksvragen</a></li>
         <li><a href="{% url 'maak_organisatie_aan' %}">Maak organisatie aan</a></li>
         <li><a href="{% url 'inschrijvingen' %}">Inschrijvingen Overzicht</a></li>
-        <li><a href="#">Settings</a></li>
     </ul>
 </nav>
 <header>
     <button aria-label="Open Menu" id="openMenu">&#9776; Menu</button>
 
 </header>
-<nav role="navigation">
-    <ul>
-        <li><a href="#onderzoeksvragen">Goed te keuren onderzoeksvragen</a></li>
-        <li><a href="#inschrijvingen">Goed te keuren inschrijvingen door ervaringsdeskundigen op onderzoeken</a></li>
-        <li><a href="#geregistreerde_evd">Goed te keuren nieuw geregistreerde ervaringsdeskundigen</a></li>
-    </ul>
-</nav>
+
 
 <main role="main">
     <section id="onderzoeksvragen" tabindex="-1">
@@ -122,6 +116,6 @@
     <p>Stichting Accessibility</p>
 </footer>
 <script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/deskundige.js' %}"></script>
 </body>
-
 </html>

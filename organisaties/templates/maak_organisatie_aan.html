@@ -10,7 +10,7 @@
     <script src="{% static 'js/organisatie_aanmaken.js' %}" defer></script>
 </head>
 <body>
-<button onclick="location.href='{% url 'dashboard_organisatie' %}';" class="terug-knop">Terug naar Dashboard</button>
+<button onclick="location.href='{% url 'dashboard_beheer' %}';" class="terug-knop">Terug naar Dashboard</button>
 <h1>Maak organisatie aan</h1>
 <form method="POST" action="{% url 'maak_organisatie_aan' %}">
     {% csrf_token %}
