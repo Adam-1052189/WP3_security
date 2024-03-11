@@ -1,6 +1,7 @@
 from django.contrib.auth.backends import BaseBackend
-from .models import Gebruikers
+from .models import Gebruikers, Ervaringsdeskundige
 from django.contrib.auth.hashers import check_password
+
 
 class GebruikersBackend(BaseBackend):
     def authenticate(self, request, email=None, password=None):
@@ -18,5 +19,8 @@ class GebruikersBackend(BaseBackend):
             return None
 
     def user_can_authenticate(self, user):
-        # Negeer het last_login-veld
-        return user.is_goedgekeurd
+        try:
+            ervaringsdeskundige = Ervaringsdeskundige.objects.get(gebruiker=user)
+            return ervaringsdeskundige.is_goedgekeurd
+        except Ervaringsdeskundige.DoesNotExist:
+            return False

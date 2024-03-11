@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login
-from core.models import Gebruikers
+from core.models import Gebruikers, Ervaringsdeskundige
 
 def login_view(request):
     if request.method == 'POST':
@@ -12,6 +12,14 @@ def login_view(request):
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
+            try:
+                ervaringsdeskundige = Ervaringsdeskundige.objects.get(gebruiker=user)
+                if not ervaringsdeskundige.is_goedgekeurd:
+                    messages.error(request, 'Wacht op goedkeuring, probeer het later opnieuw.')
+                    return redirect('login')
+            except Ervaringsdeskundige.DoesNotExist:
+                pass
+
             # Gebruiker bestaat, inloggen en doorsturen
             auth_login(request, user)
             gebruiker = Gebruikers.objects.get(email=email)

@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Stichting Accesibility</title>
     <link rel="icon" type="image/x-icon" href="{% static 'images/icon_accessibility_green_black.jpg' %}">
-
 </head>
 <body>
 <h1 aria-label="inlogpagina stichting accesibility">Inloggen</h1>
@@ -31,7 +30,7 @@
         {% if messages %}
             <div class="message-container">
                 {% for message in messages %}
-                    {% if message.message == "Ongeldige e-mail of wachtwoord." %}
+                    {% if message.message == "Ongeldige e-mail of wachtwoord." or message.message == "Wacht op goedkeuring, probeer het later opnieuw." %}
                         <div class="{{ message.tags }}">{{ message }}</div>
                     {% endif %}
                 {% endfor %}
@@ -48,8 +47,6 @@
         </button>
         <a href="{% url 'registratie' %}" class="registratie_button">Registreer hier</a>
     </div>
-
-
 </form>
 </body>
 </html>
