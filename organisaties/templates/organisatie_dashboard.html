@@ -11,53 +11,28 @@
 </head>
 <body data-login-url="{% url 'login' %}">
 <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen</button>
-<h1>Dit is het dashboard voor de organisatie</h1>
+<h1>Dashboard organisatie</h1>
+<button onclick="location.href='{% url 'maak_organisatie_aan' %}';" class="maak-organisatie-aan-knop">maak organisatie aan</button>
 <button onclick="location.href='{% url 'onderzoek_invoeren' %}';" class="maak-onderzoek-aan-knop">maak nieuw onderzoek aan</button>
 <br><br>
-<table>
-    <thead>
-    <tr>
-        <th>Titel</th>
-        <th>omschrijving</th>
-        <th>Status</th>
-        <th>beschikbaar</th>
-        <th>vanaf</th>
-        <th>tot</th>
-        <th>type onderzoek</th>
-        <th>locatie</th>
-        <th>met beloning</th>
-        <th>beloning</th>
-        <th>doelgroep leeftijd van</th>
-        <th>doelgroep leeftijd tot</th>
-        <th>doelgroep beperking</th>
-        <th>organisatie id</th>
-    </tr>
-    </thead>
-    <tbody>
+<main>
+    <h2>Onderzoeken</h2>
     {% for onderzoek in onderzoeken %}
-        <tr>
-            <td>{{ onderzoek.titel }}</td>
-            <br>
-            <td>{{ onderzoek.omschrijving }}</td>
-            <br>
-            <td>{{ onderzoek.status }}</td>
-            <br>
-            <td>{{ onderzoek.beschikbaar }}</td>
-            <br>
-            <td>{{ onderzoek.datum_vanaf }}</td>
-            <td>{{ onderzoek.datum_tot }}</td>
-            <td>{{ onderzoek.type_onderzoek }}</td>
-            <td>{{ onderzoek.locatie }}</td>
-            <td>{{ onderzoek.met_beloning }}</td>
-            <td>{{ onderzoek.beloning }}</td>
-            <td>{{ onderzoek.doelgroep_leeftijd_van }}</td>
-            <td>{{ onderzoek.doelgroep_leeftijd_tot }}</td>
-            <td>{{ onderzoek.doelgroep_beperking }}</td>
-            <td>{{ onderzoek.organisatie_id }}</td>
-
-        </tr>
+        <ul>
+            <li>
+                <strong class="onderzoek_titel">{{ onderzoek.titel }}</strong><br>
+                <strong>Omschrijving:</strong> {{ onderzoek.omschrijving }}<br>
+                <strong>Status:</strong> {{ onderzoek.status }}<br>
+                <strong>Van:</strong> {{ onderzoek.datum_vanaf }} <strong>Tot:</strong> {{ onderzoek.datum_tot }}<br>
+                <strong>Type:</strong> {{ onderzoek.type_onderzoek }}<br>
+                <strong>wel/geen beloning:</strong> {{ onderzoek.met_beloning }}
+                <strong>beloning:</strong> {{ onderzoek.beloning }} <br>
+                <strong>leeftijd van:</strong> {{ onderzoek.doelgroep_leeftijd_van }} <strong>leeftijd
+                tot:</strong> {{ onderzoek.doelgroep_leeftijd_tot }} <br>
+                <strong>beperking:</strong> {{ onderzoek.doelgroep_beperking }} <br>
+        </ul>
+        </li><br>
     {% endfor %}
-    </tbody>
-</table>
+</main>
 </body>
 </html>
