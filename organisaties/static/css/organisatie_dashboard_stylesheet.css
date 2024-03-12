@@ -52,7 +52,29 @@
 
 body {
     margin-left: 90px;
+    font-family: Arial, sans-serif;
+    background-color: #d9ebf7;
 }
 
+.onderzoek_titel {
+    font-size: 20px;
+}
 
+main {
+  margin: 0 auto;
+  padding: 5rem;
+  background-color: #2b50ec;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ul li {
+  background-color: #1fc396;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+h2 {
+    color: white;
+}
 
