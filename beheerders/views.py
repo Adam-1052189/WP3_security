@@ -29,7 +29,7 @@ def onderzoek_dashboard(request):
     if not request.user.is_staff:
         return redirect('dashboard_deskundige')
 
-    niet_goedgekeurde_inschrijvingen = OnderzoekErvaringsdeskundige.objects.filter(is_goedgekeurd=False)
+    niet_goedgekeurde_inschrijvingen = OnderzoekErvaringsdeskundige.objects.exclude(is_goedgekeurd="Goedgekeurd")
     nieuwe_ervaringsdeskundigen = Ervaringsdeskundige.objects.filter(is_goedgekeurd=False, gebruiker__is_organisatie=False)
 
     onderzoeken = Onderzoek.objects.filter(status__in=['', 'Afgekeurd', 'Nieuw'])
@@ -59,14 +59,14 @@ def onderzoek_afkeuren(request, pk):
 
 def goedkeuren_inschrijving(request, pk):
     inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
-    inschrijving.is_goedgekeurd = True
+    inschrijving.is_goedgekeurd = 'Goedgekeurd'
     inschrijving.save()
     return redirect('dashboard_beheer')
 
 def afkeuren_inschrijving(request, pk):
     if request.method == 'POST':
         inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
-        inschrijving.is_goedgekeurd = False
+        inschrijving.is_goedgekeurd = 'Afgekeurd'
         inschrijving.save()
         return JsonResponse({'status': 'success', 'message': 'Inschrijving succesvol afgekeurd.'})
     else:

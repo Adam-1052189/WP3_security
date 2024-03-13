@@ -61,6 +61,7 @@
                         }
 
                         alert(data.message);
+                        window.location.reload()
                     } else {
                         throw new Error(data.message);
                     }
@@ -76,13 +77,13 @@
 <button onclick="location.href='{% url 'dashboard_beheer' %}';" class="terug-knop">Terug naar Dashboard</button>
 <h1>Alle inschrijvingen door ervaringsdeskundigen op onderzoeken</h1>
 <ul>
-    {% for OnderzoekErvaringsdeskundige in inschrijvingen %}
-    <li id="inschrijving-item-{{ OnderzoekErvaringsdeskundige.pk }}">
-        <strong>Onderzoek:</strong> {{ OnderzoekErvaringsdeskundige.onderzoek.titel }}<br>
-        <strong>Ervaringsdeskundige:</strong> {{ OnderzoekErvaringsdeskundige.ervaringsdeskundige.gebruiker.voornaam }} {{ OnderzoekErvaringsdeskundige.ervaringsdeskundige.gebruiker.achternaam }}<br>
-        <strong>Status:</strong><span id="status-{{ OnderzoekErvaringsdeskundige.pk }}">{{ OnderzoekErvaringsdeskundige.is_goedgekeurd|yesno:"Goedgekeurd,Afgekeurd" }}</span><br>
-        {% if OnderzoekErvaringsdeskundige.is_goedgekeurd %}
-            <button id="afkeur-knop-{{ OnderzoekErvaringsdeskundige.pk }}" onclick="afkeuren(event, {{ OnderzoekErvaringsdeskundige.pk }})">Afkeuren</button>
+    {% for inschrijving in inschrijvingen %}
+    <li id="inschrijving-item-{{ inschrijving.pk }}">
+        <strong>Onderzoek:</strong> {{ inschrijving.onderzoek.titel }}<br>
+        <strong>Ervaringsdeskundige:</strong> {{ inschrijving.ervaringsdeskundige.gebruiker.voornaam }} {{ inschrijving.ervaringsdeskundige.gebruiker.achternaam }}<br>
+        <strong>Status:</strong> {{ inschrijving.is_goedgekeurd }}<br>
+        {% if inschrijving.is_goedgekeurd == 'Goedgekeurd' %}
+            <button id="afkeur-knop-{{ inschrijving.pk }}" onclick="afkeuren(event, {{ inschrijving.pk }})">Afkeuren</button>
         {% endif %}
     </li>
     {% empty %}
