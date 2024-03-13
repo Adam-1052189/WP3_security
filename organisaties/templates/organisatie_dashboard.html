@@ -29,8 +29,13 @@
                 <strong>leeftijd van:</strong> {{ onderzoek.doelgroep_leeftijd_van }} <strong>leeftijd
                 tot:</strong> {{ onderzoek.doelgroep_leeftijd_tot }} <br>
                 <strong>beperking:</strong> {{ onderzoek.doelgroep_beperking }} <br>
+                <form action="{% url 'onderzoek_sluiten' onderzoek.onderzoek_id %}" method="post">
+                    {% csrf_token %}
+                    <button class="onderzoek-sluit-knop" type="submit">Onderzoek sluiten</button>
+                </form>
+            </li>
         </ul>
-        </li><br>
+        <br>
     {% endfor %}
 </main>
 </body>

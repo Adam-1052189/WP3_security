@@ -58,6 +58,15 @@ def onderzoekstabel_view(request):
         return redirect('login')
 
 @login_required
+def onderzoek_sluiten(request, onderzoek_id):
+    if request.method == 'POST':
+        onderzoek = Onderzoek.objects.get(pk=onderzoek_id)
+        onderzoek.status = 'Gesloten'
+        onderzoek.save()
+        messages.success(request, 'Onderzoek is succesvol gesloten.')
+    return redirect('dashboard_organisatie')
+
+@login_required
 def onderzoek_invoeren(request):
     if request.method == 'POST':
         form = OnderzoekForm(request.POST)
