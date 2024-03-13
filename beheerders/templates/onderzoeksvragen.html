@@ -21,6 +21,7 @@
     </style>
     {% load static %}
     <script src="{% static 'js/onderzoeksvragen.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'CSS/beheerders.css' %}" type="text/css">
 </head>
 <body>
 <button onclick="location.href='{% url 'dashboard_beheer' %}';" class="terug-knop">Terug naar Dashboard</button>
@@ -38,8 +39,12 @@
                 <strong>Groep leeftijd:</strong> {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}<br>
                 <strong>Doelgroep beperking:</strong> {{ onderzoek.doelgroep_beperking }}<br>
                 <strong>Organisatie:</strong> {{ onderzoek.organisatie.naam }}<br>
+                <a class="hyperlink" href="{% url 'onderzoek_gegevens' onderzoek.pk %}">Gegevens bijwerken</a><br>
                 {% if onderzoek.status == 'Goedgekeurd' %}
-                    <button id="afkeur-knop-{{ onderzoek.pk }}" onclick="afkeuren(event, {{ onderzoek.pk }})">Afkeuren</button>
+                    <button class="afkeur-link" id="afkeur-knop-{{ onderzoek.pk }}" onclick="afkeuren(event, {{ onderzoek.pk }})">Afkeuren</button>
+                {% endif %}
+                {% if onderzoek.status == 'Afgekeurd' %}
+                    <button class="goedkeur-link" id="goedkeur-knop-{{ onderzoek.pk }}" onclick="goedkeuren(event, {{ onderzoek.pk }})">Goedkeuren</button>
                 {% endif %}
             </li>
         {% empty %}
