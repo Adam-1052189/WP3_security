@@ -103,7 +103,7 @@ def aanmelden_voor_onderzoek(request, onderzoek_id):
         OnderzoekErvaringsdeskundige.objects.create(
             onderzoek=onderzoek,
             ervaringsdeskundige=ervaringsdeskundige,
-            is_goedgekeurd=False
+            is_goedgekeurd='Afwachting'
         )
         return JsonResponse({"success": True, "message": "Je bent succesvol aangemeld voor het onderzoek."})
     else:
@@ -134,14 +134,26 @@ def laad_onderzoeken(request):
             onderzoeken = Onderzoek.objects.exclude(
                 onderzoekervaringsdeskundige__ervaringsdeskundige=ervaringsdeskundige
             ).filter(status='Goedgekeurd', beschikbaar=True)
+            template = 'beschikbare_onderzoeken.html'
+
         elif type_onderzoek == 'deelgenomen':
             onderzoeken = Onderzoek.objects.filter(
-                onderzoekervaringsdeskundige__ervaringsdeskundige=ervaringsdeskundige
+                onderzoekervaringsdeskundige__ervaringsdeskundige=ervaringsdeskundige,
+                onderzoekervaringsdeskundige__is_goedgekeurd='Goedgekeurd'
             )
+            template = 'deelgenomen_onderzoeken.html'
+
+        elif type_onderzoek == 'afwachting':
+            onderzoeken = Onderzoek.objects.filter(
+                onderzoekervaringsdeskundige__ervaringsdeskundige=ervaringsdeskundige,
+                onderzoekervaringsdeskundige__is_goedgekeurd='Afwachting'
+            )
+            template = 'afwachting_onderzoeken.html'
         else:
             onderzoeken = []
+            template = ''
 
-        html = render_to_string('deelgenomen_onderzoeken.html', {'onderzoeken': onderzoeken})
+        html = render_to_string(template, {'onderzoeken': onderzoeken})
         return HttpResponse(html)
     else:
         return HttpResponse('Je moet een ervaringsdeskundige zijn om deze data te bekijken.', status=403)

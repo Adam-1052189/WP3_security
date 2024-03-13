@@ -45,8 +45,12 @@ document.addEventListener("DOMContentLoaded", function() {
             if (this.readyState == 4 && this.status == 200) {
                 container.innerHTML = this.responseText;
                 var titel = document.getElementById("onderzoeken-titel");
-                if (titel) {
-                    titel.textContent = type === 'beschikbaar' ? 'Beschikbare Onderzoeken' : 'Deelgenomen Onderzoeken';
+                if (type === 'beschikbaar') {
+                    titel.textContent = 'Beschikbare Onderzoeken';
+                } else if (type === 'deelgenomen') {
+                    titel.textContent = 'Deelgenomen Onderzoeken';
+                } else if (type === 'afwachting') {
+                    titel.textContent = 'Onderzoeken In Afwachting ';
                 }
             }
         };
@@ -55,6 +59,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("show-beschikbare-onderzoeken").addEventListener("click", function() {
         laadOnderzoeken('beschikbaar');
+    });
+
+    document.getElementById("show-afwachting-onderzoeken").addEventListener("click", function() {
+        laadOnderzoeken('afwachting');
     });
 
     document.getElementById("show-deelgenomen-onderzoeken").addEventListener("click", function() {
