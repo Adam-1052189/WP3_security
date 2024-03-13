@@ -26,6 +26,10 @@ nav ul li a {
     text-decoration: none;
 }
 
+.hyperlink {
+    color: white;
+}
+
 main {
     margin: 0 auto;
     padding: 5rem;

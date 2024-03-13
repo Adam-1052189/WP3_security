@@ -45,7 +45,7 @@
             {% for onderzoek in onderzoeken %}
                 <tr>
                     <td>
-                        <a href="{% url 'onderzoek_gegevens' onderzoek.pk %}">{{ onderzoek.titel }}</a>
+                        <a class="hyperlink" href="{% url 'onderzoek_gegevens' onderzoek.pk %}">{{ onderzoek.titel }}</a>
                     </td>
                     <td>{{ onderzoek.status }}</td>
                     <td>{{ onderzoek.datum_vanaf }}</td>
