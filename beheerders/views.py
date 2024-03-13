@@ -86,14 +86,14 @@ def toon_inschrijvingen(request):
 
 def goedkeuren_ervaringsdeskundige(request, pk):
     ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
-    ervaringsdeskundige.is_goedgekeurd = True
+    ervaringsdeskundige.is_goedgekeurd = 'Goedgekeurd'
     ervaringsdeskundige.save()
     return redirect('dashboard_beheer')
 
 def afkeuren_ervaringsdeskundige(request, pk):
     if request.method == 'POST':
         ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
-        ervaringsdeskundige.is_goedgekeurd = False
+        ervaringsdeskundige.is_goedgekeurd = 'Afgekeurd'
         ervaringsdeskundige.save()
         return JsonResponse({'status': 'success', 'message': 'Ervaringsdeskundige succesvol afgekeurd.'})
     else:

@@ -73,6 +73,7 @@
             {% for inschrijving in niet_goedgekeurde_inschrijvingen %}
                 <tr>
                     <td>{{ inschrijving.onderzoek.titel }}</td>
+                    <td>{{ inschrijving.is_goedgekeurd }}</td>
                     <td>{{ inschrijving.ervaringsdeskundige.gebruiker.voornaam }} {{ inschrijving.ervaringsdeskundige.gebruiker.achternaam }}</td>
                     <td>
                         <a href="{% url 'inschrijving_goedkeuren' inschrijving.pk %}"
