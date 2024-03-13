@@ -171,7 +171,7 @@ class Onderzoek(models.Model):
 class OnderzoekErvaringsdeskundige(models.Model):
     onderzoek = models.ForeignKey(Onderzoek, on_delete=models.CASCADE)
     ervaringsdeskundige = models.ForeignKey(Ervaringsdeskundige, on_delete=models.CASCADE)
-    is_goedgekeurd = models.BooleanField(default=False)
+    is_goedgekeurd = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         db_table = 'onderzoek_ervaringsdeskundige'
