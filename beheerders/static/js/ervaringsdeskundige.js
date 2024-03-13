@@ -33,9 +33,10 @@ function afkeuren(event, ervaringsdeskundigeId) {
             afkeurKnop.style.display = 'none';
         }
 
-        document.getElementById(`is_goedgekeurd-${ervaringsdeskundigeId}`).innerText = 'Afgekeurd';
+        document.getElementById(`is_goedgekeurd-${ervaringsdeskundigeId}`);
 
         alert(data.message);
+        window.location.reload();
     } else {
         throw new Error(data.message);
     }

@@ -32,13 +32,23 @@ def onderzoek_dashboard(request):
     niet_goedgekeurde_inschrijvingen = OnderzoekErvaringsdeskundige.objects.exclude(is_goedgekeurd="Goedgekeurd")
     nieuwe_ervaringsdeskundigen = Ervaringsdeskundige.objects.filter(is_goedgekeurd=False, gebruiker__is_organisatie=False)
 
-    onderzoeken = Onderzoek.objects.filter(status__in=['', 'Afgekeurd', 'Nieuw'])
+    onderzoeken = Onderzoek.objects.filter(status__in=['', 'Nieuw'])
     return render(request, 'dashboard_beheer.html', {
         'niet_goedgekeurde_inschrijvingen': niet_goedgekeurde_inschrijvingen,
         'nieuwe_ervaringsdeskundigen': nieuwe_ervaringsdeskundigen,
         'onderzoeken': onderzoeken,
     })
 
+
+def onderzoek_goedkeuren_ajax(request, pk):
+    if request.method == 'POST':
+        try:
+            onderzoek = Onderzoek.objects.get(pk=pk)
+            onderzoek.status = 'Goedgekeurd'
+            onderzoek.save()
+            return JsonResponse({'status': 'success', 'message': 'Onderzoek succesvol goedgekeurd'})
+        except Onderzoek.DoesNotExist:
+            return JsonResponse({'status': 'error', 'message': 'Onderzoek niet gevonden'}, status=404)
 
 def onderzoek_goedkeuren(request, pk):
     onderzoek = Onderzoek.objects.get(pk=pk)
@@ -48,6 +58,13 @@ def onderzoek_goedkeuren(request, pk):
     return HttpResponseRedirect(reverse('dashboard_beheer'))
 
 def onderzoek_afkeuren(request, pk):
+    onderzoek = Onderzoek.objects.get(pk=pk)
+    onderzoek.status = 'Afgekeurd'
+    onderzoek.is_goedgekeurd = False
+    onderzoek.save()
+    return HttpResponseRedirect(reverse('dashboard_beheer'))
+
+def onderzoek_afkeuren_ajax(request, pk):
     if request.method == 'POST':
         try:
             onderzoek = Onderzoek.objects.get(pk=pk)
@@ -86,14 +103,14 @@ def toon_inschrijvingen(request):
 
 def goedkeuren_ervaringsdeskundige(request, pk):
     ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
-    ervaringsdeskundige.is_goedgekeurd = 'Goedgekeurd'
+    ervaringsdeskundige.is_goedgekeurd = True
     ervaringsdeskundige.save()
     return redirect('dashboard_beheer')
 
 def afkeuren_ervaringsdeskundige(request, pk):
     if request.method == 'POST':
         ervaringsdeskundige = get_object_or_404(Ervaringsdeskundige, pk=pk)
-        ervaringsdeskundige.is_goedgekeurd = 'Afgekeurd'
+        ervaringsdeskundige.is_goedgekeurd = False
         ervaringsdeskundige.save()
         return JsonResponse({'status': 'success', 'message': 'Ervaringsdeskundige succesvol afgekeurd.'})
     else:
@@ -121,5 +138,5 @@ def onderzoeksvragen(request):
 
 
 def ervaringsdeskundige(request):
-    ervaringsdeskundigen = Gebruikers.objects.all()
+    ervaringsdeskundigen = Ervaringsdeskundige.objects.all()
     return render(request, 'ervaringsdeskundige.html', {'ervaringsdeskundigen': ervaringsdeskundigen})

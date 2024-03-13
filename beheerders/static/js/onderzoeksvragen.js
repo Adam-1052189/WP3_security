@@ -13,6 +13,7 @@ function getCookie(name) {
     return cookieValue;
 }
 
+
 function afkeuren(event, onderzoekId) {
     event.preventDefault();
     const csrfToken = getCookie('csrftoken');
@@ -36,6 +37,42 @@ function afkeuren(event, onderzoekId) {
         document.getElementById(`status-${onderzoekId}`).innerText = 'Afgekeurd';
 
         alert(data.message);
+        window.location.reload();
+    } else {
+        throw new Error(data.message);
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Er is een fout opgetreden: ' + error.message);
+});
+}
+
+
+function goedkeuren(event, onderzoekId) {
+    event.preventDefault();
+    const csrfToken = getCookie('csrftoken');
+
+    fetch(`/beheerders/onderzoeksvragen/goedkeuren/${onderzoekId}/`, {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrfToken,
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+    if (data.status === 'success') {
+
+        const afkeurKnop = document.getElementById(`goedkeur-knop-${onderzoekId}`);
+        if (afkeurKnop) {
+            afkeurKnop.style.display = 'none';
+        }
+
+        document.getElementById(`status-${onderzoekId}`).innerText = 'Goedgekeurd';
+
+        alert(data.message)
+        window.location.reload();
     } else {
         throw new Error(data.message);
     }

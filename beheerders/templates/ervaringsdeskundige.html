@@ -18,6 +18,23 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
+        .goedkeur-link, .afkeur-link {
+            display: inline-block;
+            padding: 5px 10px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .goedkeur-link {
+            background-color: #4CAF50;
+        }
+
+        .afkeur-link {
+            background-color: #f44336;
+        }
     </style>
     {% load static %}
     <script src="{% static 'js/ervaringsdeskundige.js' %}" defer></script>
@@ -26,15 +43,15 @@
 <button onclick="location.href='{% url 'dashboard_beheer' %}';" class="terug-knop">Terug naar Dashboard</button>
     <h1>Alle Ervaringsdeskundigen</h1>
     <ul>
-        {% for gebruiker in ervaringsdeskundigen %}
+        {% for ervaringsdeskundige in ervaringsdeskundigen %}
             <li id="ervaringsdeskundige-item-{{ ervaringsdeskundige.pk }}">
-                <strong>Naam:</strong> {{ gebruiker.voornaam }} {{ gebruiker.achternaam }}<br>
-                <strong>Email:</strong> {{ gebruiker.email }}<br>
-                <strong>Geboortedatum:</strong> {{ gebruiker.geboortedatum }}<br>
-                <strong>Geslacht:</strong> {{ gebruiker.geslacht }}<br>
-                <strong>Goedgekeurd?:</strong><span id="is_goedgekeurd-{{ ervaringsdeskundige.pk }}">{{ ervaringsdeskundige.status }}</span> {{ ervaringsdeskundige.is_goedgekeurd }}<br>
+                <strong>Naam:</strong> {{ ervaringsdeskundige.gebruiker.voornaam }} {{ ervaringsdeskundige.gebruiker.achternaam }}<br>
+                <strong>Email:</strong> {{ ervaringsdeskundige.gebruiker.email }}<br>
+                <strong>Geboortedatum:</strong> {{ ervaringsdeskundige.gebruiker.geboortedatum }}<br>
+                <strong>Geslacht:</strong> {{ ervaringsdeskundige.gebruiker.geslacht }}<br>
+                <strong>Goedgekeurd?:</strong> {{ ervaringsdeskundige.is_goedgekeurd|yesno:"Ja,Nee" }}<br>
                 {% if ervaringsdeskundige.is_goedgekeurd %}
-                    <button id="afkeur-knop-{{ ervaringsdeskundige.pk }}" onclick="afkeuren(event, {{ ervaringsdeskundige.pk }})">Afkeuren</button>
+                    <button class="afkeur-link" id="afkeur-knop-{{ ervaringsdeskundige.pk }}" onclick="afkeuren(event, {{ ervaringsdeskundige.pk }})">Afkeuren</button>
                 {% endif %}
             </li>
         {% empty %}
