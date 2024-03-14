@@ -89,4 +89,23 @@ h2 {
     background-color: #0d2677;
 }
 
+.onderzoek-wijzig-knop {
+    border-radius: 5px;
+    display: inline-block;
+    padding: 5px 10px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    background-color: #bd6b01;
+}
+
+.knoppen-sluiten-wijzigen {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: flex-end;
+}
+
+
 

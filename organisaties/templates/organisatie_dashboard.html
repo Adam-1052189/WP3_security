@@ -12,7 +12,8 @@
 <body data-login-url="{% url 'login' %}">
 <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen</button>
 <h1>Dashboard organisatie</h1>
-<button onclick="location.href='{% url 'onderzoek_invoeren' %}';" class="maak-onderzoek-aan-knop">maak nieuw onderzoek aan</button>
+<button onclick="location.href='{% url 'onderzoek_invoeren' %}';" class="maak-onderzoek-aan-knop">
+    maak nieuw onderzoek aan</button>
 <br><br>
 <main>
     <h2>Onderzoeken</h2>
@@ -28,11 +29,15 @@
                 <strong>beloning:</strong> {{ onderzoek.beloning }} <br>
                 <strong>leeftijd van:</strong> {{ onderzoek.doelgroep_leeftijd_van }} <strong>leeftijd
                 tot:</strong> {{ onderzoek.doelgroep_leeftijd_tot }} <br>
-                <strong>beperking:</strong> {{ onderzoek.doelgroep_beperking }} <br>
-                <form action="{% url 'onderzoek_sluiten' onderzoek.onderzoek_id %}" method="post">
-                    {% csrf_token %}
-                    <button class="onderzoek-sluit-knop" type="submit">Onderzoek sluiten</button>
-                </form>
+                <div class="knoppen-sluiten-wijzigen">
+                    <form action="{% url 'onderzoek_sluiten' onderzoek.onderzoek_id %}" method="post">
+                        {% csrf_token %}
+                        <button class="onderzoek-sluit-knop" type="submit">Onderzoek sluiten</button>
+                    </form>
+                    <form action="{% url 'onderzoek_wijzigen' onderzoek_id=onderzoek.onderzoek_id %}" method="get">
+                        <button class="onderzoek-wijzig-knop" type="submit">Onderzoek wijzigen</button>
+                    </form>
+                </div
             </li>
         </ul>
         <br>
