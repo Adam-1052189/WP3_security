@@ -29,13 +29,15 @@
                 <strong>beloning:</strong> {{ onderzoek.beloning }} <br>
                 <strong>leeftijd van:</strong> {{ onderzoek.doelgroep_leeftijd_van }} <strong>leeftijd
                 tot:</strong> {{ onderzoek.doelgroep_leeftijd_tot }} <br>
-                <form action="{% url 'onderzoek_sluiten' onderzoek.onderzoek_id %}" method="post">
-                    {% csrf_token %}
-                    <button class="onderzoek-sluit-knop" type="submit">Onderzoek sluiten</button>
-                </form>
-                <form action="{% url 'onderzoek_wijzigen' onderzoek_id=onderzoek.onderzoek_id %}" method="get">
-                    <button class="onderzoek-wijzig-knop" type="submit">Onderzoek wijzigen</button>
-                </form>
+                <div class="knoppen-sluiten-wijzigen">
+                    <form action="{% url 'onderzoek_sluiten' onderzoek.onderzoek_id %}" method="post">
+                        {% csrf_token %}
+                        <button class="onderzoek-sluit-knop" type="submit">Onderzoek sluiten</button>
+                    </form>
+                    <form action="{% url 'onderzoek_wijzigen' onderzoek_id=onderzoek.onderzoek_id %}" method="get">
+                        <button class="onderzoek-wijzig-knop" type="submit">Onderzoek wijzigen</button>
+                    </form>
+                </div
             </li>
         </ul>
         <br>
