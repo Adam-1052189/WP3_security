@@ -18,6 +18,33 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
+        .goedkeur-link, .afkeur-link {
+            display: inline-block;
+            padding: 5px 10px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .goedkeur-link {
+            background-color: #4CAF50;
+        }
+
+        .afkeur-link {
+            background-color: #f44336;
+        }
+
+        .verwijder-link {
+            display: inline-block;
+            padding: 5px 10px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            background-color: #f44336;
+        }
     </style>
     {% load static %}
     <script defer>
@@ -40,7 +67,7 @@
             event.preventDefault();
             const csrfToken = getCookie('csrftoken');
 
-            fetch(`/beheerders/inschrijvingen/afkeuren/${inschrijvingId}/`, {
+            fetch(`/beheerders/inschrijvingen/afkeuren_ajax/${inschrijvingId}/`, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': csrfToken,
@@ -71,6 +98,80 @@
                     alert('Er is een fout opgetreden: ' + error.message);
                 });
         }
+
+        function goedkeuren(event, inschrijvingId) {
+            event.preventDefault();
+            const csrfToken = getCookie('csrftoken');
+
+            fetch(`/beheerders/inschrijvingen/goedkeuren_ajax/${inschrijvingId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        const afkeurKnop = document.getElementById(`goedkeur-knop-${inschrijvingId}`);
+                        if (afkeurKnop) {
+                            afkeurKnop.style.display = 'none';
+                        }
+
+                        const statusTekst = document.getElementById(`status-${inschrijvingId}`);
+                        if (statusTekst) {
+                            statusTekst.innerText = 'Goedgekeurd';
+                        }
+
+                        alert(data.message);
+                        window.location.reload()
+                    } else {
+                        throw new Error(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Er is een fout opgetreden: ' + error.message);
+                });
+        }
+
+        function verwijderen(event, inschrijvingId) {
+            event.preventDefault();
+            if (!confirm("Weet je zeker dat je deze inschrijving wilt verwijderen?")) {
+                return;
+            }
+            const csrfToken = getCookie('csrftoken');
+            fetch(`/beheerders/toon_inschrijvingen/verwijder_inschrijving/${inschrijvingId}/`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRFToken': csrfToken,
+                    'Content-Type': 'application/json',
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        document.getElementById(`inschrijving-item-${inschrijvingId}`).remove();
+                        alert(data.message);
+                    } else {
+                        throw new Error(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('De inschrijving is succesvol verwijderd');
+                    window.location.reload();
+                });
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.verwijder-link').forEach(button => {
+                button.addEventListener('click', function (event) {
+                    verwijderen(event, this.id.replace('verwijder-knop-', ''));
+                });
+            });
+        });
+        
     </script>
 </head>
 <body>
@@ -82,9 +183,14 @@
         <strong>Onderzoek:</strong> {{ inschrijving.onderzoek.titel }}<br>
         <strong>Ervaringsdeskundige:</strong> {{ inschrijving.ervaringsdeskundige.gebruiker.voornaam }} {{ inschrijving.ervaringsdeskundige.gebruiker.achternaam }}<br>
         <strong>Status:</strong> {{ inschrijving.is_goedgekeurd }}<br>
+        <strong>Onderzoek status:</strong> {{ inschrijving.onderzoek.status }}<br>
         {% if inschrijving.is_goedgekeurd == 'Goedgekeurd' %}
-            <button id="afkeur-knop-{{ inschrijving.pk }}" onclick="afkeuren(event, {{ inschrijving.pk }})">Afkeuren</button>
+            <button class="afkeur-link" id="afkeur-knop-{{ inschrijving.pk }}" onclick="afkeuren(event, {{ inschrijving.pk }})">Afkeuren</button>
         {% endif %}
+        {% if inschrijving.is_goedgekeurd == 'Afgekeurd' %}
+            <button class="goedkeur-link" id="goedkeur-knop-{{ inschrijving.pk }}" onclick="goedkeuren(event, {{ inschrijving.pk }})">Goedkeuren</button>
+        {% endif %}
+        <button id="verwijder-knop-{{ inschrijving.pk }}" class="verwijder-link" style="margin-left: 10px;">Verwijderen</button>
     </li>
     {% empty %}
         <li>Geen inschrijvingen gevonden.</li>

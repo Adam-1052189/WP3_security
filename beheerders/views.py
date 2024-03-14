@@ -29,7 +29,7 @@ def onderzoek_dashboard(request):
     if not request.user.is_staff:
         return redirect('dashboard_deskundige')
 
-    niet_goedgekeurde_inschrijvingen = OnderzoekErvaringsdeskundige.objects.exclude(is_goedgekeurd="Goedgekeurd")
+    niet_goedgekeurde_inschrijvingen = OnderzoekErvaringsdeskundige.objects.filter(is_goedgekeurd="Afwachting")
     nieuwe_ervaringsdeskundigen = Ervaringsdeskundige.objects.filter(is_goedgekeurd=False, gebruiker__is_organisatie=False)
 
     onderzoeken = Onderzoek.objects.filter(status__in=['', 'Nieuw'])
@@ -80,7 +80,25 @@ def goedkeuren_inschrijving(request, pk):
     inschrijving.save()
     return redirect('dashboard_beheer')
 
+
 def afkeuren_inschrijving(request, pk):
+    inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
+    inschrijving.is_goedgekeurd = 'Afgekeurd'
+    inschrijving.save()
+    return redirect('dashboard_beheer')
+
+
+def goedkeuren_inschrijving_ajax(request, pk):
+    if request.method == 'POST':
+        inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
+        inschrijving.is_goedgekeurd = 'Goedgekeurd'
+        inschrijving.save()
+        return JsonResponse({'status': 'success', 'message': 'Inschrijving succesvol goedgekeurd.'})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Ongeldig verzoek'}, status=400)
+
+
+def afkeuren_inschrijving_ajax(request, pk):
     if request.method == 'POST':
         inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
         inschrijving.is_goedgekeurd = 'Afgekeurd'
