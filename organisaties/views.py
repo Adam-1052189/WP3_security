@@ -11,6 +11,8 @@ from rest_framework import status
 from .serializers import OrganisatieSerializer
 from django.contrib.auth import logout
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
+from .forms import Onderzoek_Wijzigen_Form
 class OrganisatieCreateAPIView(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -65,6 +67,18 @@ def onderzoek_sluiten(request, onderzoek_id):
         onderzoek.save()
         messages.success(request, 'Onderzoek is succesvol gesloten.')
     return redirect('dashboard_organisatie')
+
+@login_required
+def onderzoek_wijzigen(request, onderzoek_id):
+    onderzoek = get_object_or_404(Onderzoek, pk=onderzoek_id)
+    if request.method == 'POST':
+        form = Onderzoek_Wijzigen_Form(request.POST, instance=onderzoek)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard_organisatie')
+    else:
+        form = Onderzoek_Wijzigen_Form(instance=onderzoek)
+    return render(request, 'onderzoek_wijzigen.html', {'form': form})
 
 @login_required
 def onderzoek_invoeren(request):
