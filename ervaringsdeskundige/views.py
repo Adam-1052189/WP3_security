@@ -149,6 +149,13 @@ def laad_onderzoeken(request):
                 onderzoekervaringsdeskundige__is_goedgekeurd='Afwachting'
             )
             template = 'afwachting_onderzoeken.html'
+
+        elif type_onderzoek == 'afgekeurd':
+            onderzoeken = Onderzoek.objects.filter(
+                onderzoekervaringsdeskundige__ervaringsdeskundige=ervaringsdeskundige,
+                onderzoekervaringsdeskundige__is_goedgekeurd='Afgekeurd'
+            )
+            template = 'afgekeurde_onderzoeken.html'
         else:
             onderzoeken = []
             template = ''

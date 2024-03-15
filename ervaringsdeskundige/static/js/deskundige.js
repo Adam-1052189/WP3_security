@@ -50,7 +50,9 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else if (type === 'deelgenomen') {
                     titel.textContent = 'Deelgenomen Onderzoeken';
                 } else if (type === 'afwachting') {
-                    titel.textContent = 'Onderzoeken In Afwachting ';
+                    titel.textContent = 'Onderzoeken In Afwachting';
+                } else if (type === 'afgekeurd') {
+                    titel.textContent = 'Afgekeurde Onderzoeken';
                 }
             }
         };
@@ -67,6 +69,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("show-deelgenomen-onderzoeken").addEventListener("click", function() {
         laadOnderzoeken('deelgenomen');
+    });
+
+    document.getElementById("show-afgekeurde-onderzoeken").addEventListener("click", function() {
+        laadOnderzoeken('afgekeurd');
     });
 
     laadOnderzoeken('beschikbaar');

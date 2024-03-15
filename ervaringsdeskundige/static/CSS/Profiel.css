@@ -69,18 +69,18 @@ button, input[type="button"], input[type="submit"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%; /* Zorgt ervoor dat de header de volledige breedte inneemt */
+    width: 100%;
 }
 
 .back-button {
     background-color: #1fc396;
     color: white;
-    padding: 10px 30px; /* Kleinere padding om de knop kleiner te maken */
-    font-size: 0.75em; /* Kleinere font-size */
+    padding: 10px 30px;
+    font-size: 0.75em;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px; /* Zorgt voor wat ruimte tussen de titel en de knop */
+    margin-left: 10px;
 }
 
 .back-button:hover {
