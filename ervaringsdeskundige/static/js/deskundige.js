@@ -44,19 +44,44 @@ document.addEventListener("DOMContentLoaded", function() {
         xhr.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 container.innerHTML = this.responseText;
-                var titel = document.getElementById("onderzoeken-titel");
-                if (type === 'beschikbaar') {
-                    titel.textContent = 'Beschikbare Onderzoeken';
-                } else if (type === 'deelgenomen') {
-                    titel.textContent = 'Deelgenomen Onderzoeken';
-                } else if (type === 'afwachting') {
-                    titel.textContent = 'Onderzoeken In Afwachting';
-                } else if (type === 'afgekeurd') {
-                    titel.textContent = 'Afgekeurde Onderzoeken';
-                }
+                updateTitle(type);
+                applySearchFilter();
             }
         };
         xhr.send();
+    }
+
+    function updateTitle(type) {
+        var titel = document.getElementById("onderzoeken-titel");
+        if (type === 'beschikbaar') {
+            titel.textContent = 'Beschikbare Onderzoeken';
+        } else if (type === 'deelgenomen') {
+            titel.textContent = 'Deelgenomen Onderzoeken';
+        } else if (type === 'afwachting') {
+            titel.textContent = 'Onderzoeken In Afwachting';
+        } else if (type === 'afgekeurd') {
+            titel.textContent = 'Afgekeurde Onderzoeken';
+        }
+    }
+
+    function applySearchFilter() {
+        const zoekBalk = document.getElementById('zoekbalk');
+        if (!zoekBalk) return;
+
+        zoekBalk.addEventListener('input', function() {
+            const zoekterm = this.value.toLowerCase();
+            const onderzoeken = document.querySelectorAll('.onderzoek-item');
+
+            onderzoeken.forEach(function(item) {
+                const titel = item.querySelector('strong') ? item.querySelector('strong').textContent.toLowerCase() : '';
+                const omschrijving = item.innerText.toLowerCase();
+                if (titel.includes(zoekterm) || omschrijving.includes(zoekterm)) {
+                    item.style.display = '';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
     }
 
     document.getElementById("show-beschikbare-onderzoeken").addEventListener("click", function() {
@@ -75,5 +100,20 @@ document.addEventListener("DOMContentLoaded", function() {
         laadOnderzoeken('afgekeurd');
     });
 
+
+    const existingZoekbalk = document.getElementById('zoekbalk');
+    if (!existingZoekbalk) {
+        const newZoekbalk = document.createElement('input');
+        newZoekbalk.setAttribute('type', 'text');
+        newZoekbalk.setAttribute('id', 'zoekbalk');
+        newZoekbalk.setAttribute('placeholder', 'Zoek in onderzoeken...');
+        newZoekbalk.setAttribute('aria-label', 'Zoek in onderzoeken');
+        newZoekbalk.classList.add('zoekbalk');
+
+        const section = document.getElementById("onderzoeken-section");
+        section.insertBefore(newZoekbalk, section.firstChild);
+    }
+
     laadOnderzoeken('beschikbaar');
+    applySearchFilter();
 });

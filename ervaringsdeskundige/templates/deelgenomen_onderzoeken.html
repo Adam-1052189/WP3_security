@@ -1,6 +1,6 @@
 <ul>
     {% for onderzoek in onderzoeken %}
-        <li>
+        <li class="onderzoek-item">
             <strong>{{ onderzoek.titel }}</strong><br>
             Omschrijving: {{ onderzoek.omschrijving }}<br>
             Status: {{ onderzoek.onderzoekervaringsdeskundige_set.first.is_goedgekeurd }}<br>
