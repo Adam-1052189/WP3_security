@@ -5,18 +5,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-from .serializers import OrganisatieSerializer
+from .serializers import OrganisatieSerializer, OnderzoekSerializer
 from django.contrib.auth import logout
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from .forms import Onderzoek_Wijzigen_Form
-class OrganisatieCreateAPIView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+from django.utils.decorators import method_decorator
 
+class Maak_organisatie_aan_APIView(APIView):
     def post(self, request, format=None):
         serializer = OrganisatieSerializer(data=request.data)
         if serializer.is_valid():
@@ -24,9 +21,27 @@ class OrganisatieCreateAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class OrganisatieListView(APIView):
+class Maak_onderzoek_aan_APIView(APIView):
+    def post(self, request, format=None):
+        serializer = OnderzoekSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Weergeef_onderzoek_met_API(APIView):
+    @method_decorator(login_required)
     def get(self, request, format=None):
-        organisaties = Organisaties.objects.all()
+        organisatie = request.user.organisatie
+        onderzoeken = Onderzoek.objects.filter(organisatie=organisatie)
+        serializer = OnderzoekSerializer(onderzoeken, many=True)
+        return Response(serializer.data)
+
+class Weergeef_organisatie_met_API(APIView):
+    @method_decorator(login_required)
+    def get(self, request, format=None):
+        organisatie = request.user.organisatie
+        organisaties = Organisaties.objects.filter(pk=organisatie.pk)
         serializer = OrganisatieSerializer(organisaties, many=True)
         return Response(serializer.data)
 

@@ -8,7 +8,6 @@ def login_view(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        # Authenticeren van de gebruiker
         user = authenticate(request, email=email, password=password)
 
         if user is not None:
@@ -20,7 +19,6 @@ def login_view(request):
             except Ervaringsdeskundige.DoesNotExist:
                 pass
 
-            # Gebruiker bestaat, inloggen en doorsturen
             auth_login(request, user)
             gebruiker = Gebruikers.objects.get(email=email)
 
@@ -33,7 +31,6 @@ def login_view(request):
             else:
                 return redirect(next_url if next_url else 'dashboard_beheer')
         else:
-            # Ongeldige inloggegevens
             messages.error(request, 'Ongeldige e-mail of wachtwoord.')
             return redirect('login')
     else:
