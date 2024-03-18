@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from core.models import Organisaties
+from core.models import Organisaties, Onderzoek
 
 class OrganisatieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organisaties
-        fields = ['naam', 'api_key']
+        fields = '__all__'
 
     def create(self, validated_data):
         api_key = validated_data.pop('api_key')
@@ -15,3 +15,8 @@ class OrganisatieSerializer(serializers.ModelSerializer):
         organisatie.save()
 
         return organisatie
+
+class OnderzoekSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Onderzoek
+        fields = '__all__'
