@@ -7,9 +7,11 @@
     <title>Onderzoekstabel</title>
     <link rel="icon" type="image/x-icon" href="/static/images/icon_accessibility_green_black.jpg">
     {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{% static 'js/dashboard_organisatie.js' %}" defer></script>
+    <script src="{% static 'js/dashboard_organisatie_ajax.js' %}" defer></script>
 </head>
-<body data-login-url="{% url 'login' %}">
+<body data-login-url="{% url 'login' %}" data-ajax-url="{% url 'dashboard_organisatie' %}">
 <button onclick="logoutUser()" data-logout-url="{% url 'logout' %}" class="logout-button">Uitloggen</button>
 <h1>Dashboard organisatie</h1>
 <button onclick="location.href='{% url 'onderzoek_invoeren' %}';" class="maak-onderzoek-aan-knop">
@@ -26,7 +28,7 @@
 <main>
     <h2>Onderzoeken</h2>
     {% for onderzoek in onderzoeken %}
-        <ul>
+        <ul id="onderzoeken-lijst">
             <li>
                 <strong class="onderzoek_titel">{{ onderzoek.titel }}</strong><br>
                 <strong>Omschrijving:</strong> {{ onderzoek.omschrijving }}<br>
