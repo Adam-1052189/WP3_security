@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'core',
     'ervaringsdeskundige',
     'beheerders',
@@ -147,3 +148,9 @@ IMAGES_URL = 'images/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'core.Gebruikers'
+
+
+GRAPH_MODELS ={
+    'all_applications': True,
+    'graph_models': True,
+     }
