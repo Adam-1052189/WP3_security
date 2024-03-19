@@ -1,7 +1,6 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from core.models import Onderzoek, Gebruikers, Ervaringsdeskundige, OnderzoekErvaringsdeskundige, Notificatie
-from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import OnderzoekForm
@@ -208,3 +207,21 @@ def markeer_notificatie_als_gelezen(request, notificatie_id):
         return JsonResponse({'status': 'success'})
     else:
         return JsonResponse({'status': 'error'}, status=400)
+
+
+def nieuwe_inschrijvingen_notificaties(request):
+    nieuwe_inschrijvingen = OnderzoekErvaringsdeskundige.objects.filter(notificatie_verzonden=False)
+    response_data = [{
+        'id': inschrijving.id,
+        'onderzoek_titel': inschrijving.onderzoek.titel,
+    } for inschrijving in nieuwe_inschrijvingen]
+    nieuwe_inschrijvingen.update(notificatie_verzonden=False)
+    return JsonResponse(response_data, safe=False)
+
+
+def markeer_als_gelezen(request, inschrijving_id):
+    if request.method == 'POST':
+        inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, id=inschrijving_id)
+        inschrijving.notificatie_verzonden = True
+        inschrijving.save()
+        return JsonResponse({'status': 'success'})

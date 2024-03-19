@@ -39,7 +39,7 @@
                 <strong>Groep leeftijd:</strong> {{ onderzoek.doelgroep_leeftijd_van }} tot {{ onderzoek.doelgroep_leeftijd_tot }}<br>
                 <strong>Doelgroep beperking:</strong> {{ onderzoek.doelgroep_beperking }}<br>
                 <strong>Organisatie:</strong> {{ onderzoek.organisatie.naam }}<br>
-                <a class="hyperlink" href="{% url 'onderzoek_gegevens' onderzoek.pk %}">Gegevens bijwerken</a><br>
+                <a class="hyperlink_onderzoek" href="{% url 'onderzoek_gegevens' onderzoek.pk %}">Gegevens bijwerken</a><br>
                 {% if onderzoek.status == 'Goedgekeurd' %}
                     <button class="afkeur-link" id="afkeur-knop-{{ onderzoek.pk }}" onclick="afkeuren(event, {{ onderzoek.pk }})">Afkeuren</button>
                 {% endif %}

@@ -24,4 +24,6 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('api/notificaties/', views.NotificatieAPIView.as_view(), name='notificaties'),
     path('api/notificaties/<int:notificatie_id>/markeer-als-gelezen/', views.markeer_notificatie_als_gelezen, name='markeer-als-gelezen'),
+    path('api/nieuwe_inschrijvingen_notificaties/', views.nieuwe_inschrijvingen_notificaties, name='nieuwe_inschrijvingen_notificaties'),
+    path('api/nieuwe_inschrijvingen/<int:inschrijving_id>/markeer_als_gelezen/', views.markeer_als_gelezen, name='markeer_als_gelezen'),
 ]

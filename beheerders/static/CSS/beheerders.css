@@ -30,6 +30,10 @@ nav ul li a {
     color: white;
 }
 
+.hyperlink_onderzoek {
+    color: #000000;
+}
+
 main {
     margin: 0 auto;
     padding: 5rem;
@@ -145,4 +149,19 @@ footer {
 
 .logout-button:hover {
     background-color: #c9302c;
+}
+
+.terug-knop {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 10;
+    margin-bottom: 20px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
 }

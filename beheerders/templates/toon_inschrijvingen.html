@@ -45,6 +45,21 @@
             font-weight: bold;
             background-color: #f44336;
         }
+
+        .terug-knop {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            z-index: 10;
+            margin-bottom: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
     </style>
     {% load static %}
     <script defer>
@@ -171,7 +186,7 @@
                 });
             });
         });
-        
+
     </script>
 </head>
 <body>
@@ -179,19 +194,25 @@
 <h1>Alle inschrijvingen door ervaringsdeskundigen op onderzoeken</h1>
 <ul>
     {% for inschrijving in inschrijvingen %}
-    <li id="inschrijving-item-{{ inschrijving.pk }}">
-        <strong>Onderzoek:</strong> {{ inschrijving.onderzoek.titel }}<br>
-        <strong>Ervaringsdeskundige:</strong> {{ inschrijving.ervaringsdeskundige.gebruiker.voornaam }} {{ inschrijving.ervaringsdeskundige.gebruiker.achternaam }}<br>
-        <strong>Status:</strong> {{ inschrijving.is_goedgekeurd }}<br>
-        <strong>Onderzoek status:</strong> {{ inschrijving.onderzoek.status }}<br>
-        {% if inschrijving.is_goedgekeurd == 'Goedgekeurd' %}
-            <button class="afkeur-link" id="afkeur-knop-{{ inschrijving.pk }}" onclick="afkeuren(event, {{ inschrijving.pk }})">Afkeuren</button>
-        {% endif %}
-        {% if inschrijving.is_goedgekeurd == 'Afgekeurd' %}
-            <button class="goedkeur-link" id="goedkeur-knop-{{ inschrijving.pk }}" onclick="goedkeuren(event, {{ inschrijving.pk }})">Goedkeuren</button>
-        {% endif %}
-        <button id="verwijder-knop-{{ inschrijving.pk }}" class="verwijder-link" style="margin-left: 10px;">Verwijderen</button>
-    </li>
+        <li id="inschrijving-item-{{ inschrijving.pk }}">
+            <strong>Onderzoek:</strong> {{ inschrijving.onderzoek.titel }}<br>
+            <strong>Ervaringsdeskundige:</strong> {{ inschrijving.ervaringsdeskundige.gebruiker.voornaam }} {{ inschrijving.ervaringsdeskundige.gebruiker.achternaam }}<br>
+            <strong>Status:</strong> {{ inschrijving.is_goedgekeurd }}<br>
+            <strong>Onderzoek status:</strong> {{ inschrijving.onderzoek.status }}<br>
+            {% if inschrijving.is_goedgekeurd == 'Goedgekeurd' %}
+                <button class="afkeur-link" id="afkeur-knop-{{ inschrijving.pk }}"
+                        onclick="afkeuren(event, {{ inschrijving.pk }})">Afkeuren
+                </button>
+            {% endif %}
+            {% if inschrijving.is_goedgekeurd == 'Afgekeurd' %}
+                <button class="goedkeur-link" id="goedkeur-knop-{{ inschrijving.pk }}"
+                        onclick="goedkeuren(event, {{ inschrijving.pk }})">Goedkeuren
+                </button>
+            {% endif %}
+            <button id="verwijder-knop-{{ inschrijving.pk }}" class="verwijder-link" style="margin-left: 10px;">
+                Verwijderen
+            </button>
+        </li>
     {% empty %}
         <li>Geen inschrijvingen gevonden.</li>
     {% endfor %}
