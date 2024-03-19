@@ -1,11 +1,15 @@
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from core.models import Onderzoek, Gebruikers, Ervaringsdeskundige, OnderzoekErvaringsdeskundige
+from core.models import Onderzoek, Gebruikers, Ervaringsdeskundige, OnderzoekErvaringsdeskundige, Notificatie
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import OnderzoekForm
 from django.contrib.auth import get_user_model
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializers import NotificatieSerializer
+
 
 def beheerder_required(view_func):
     def wrap(request, *args, **kwargs):
@@ -78,6 +82,13 @@ def goedkeuren_inschrijving(request, pk):
     inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
     inschrijving.is_goedgekeurd = 'Goedgekeurd'
     inschrijving.save()
+
+    Notificatie.objects.create(
+        ontvanger=inschrijving.ervaringsdeskundige.gebruiker,
+        bericht=f'Uw inschrijving voor het onderzoek "{inschrijving.onderzoek.titel}" is goedgekeurd.',
+        onderzoek=inschrijving.onderzoek
+    )
+
     return redirect('dashboard_beheer')
 
 
@@ -85,6 +96,13 @@ def afkeuren_inschrijving(request, pk):
     inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
     inschrijving.is_goedgekeurd = 'Afgekeurd'
     inschrijving.save()
+
+    Notificatie.objects.create(
+        ontvanger=inschrijving.ervaringsdeskundige.gebruiker,
+        bericht=f'Uw inschrijving voor het onderzoek "{inschrijving.onderzoek.titel}" is afgekeurd.',
+        onderzoek=inschrijving.onderzoek
+    )
+
     return redirect('dashboard_beheer')
 
 
@@ -93,6 +111,13 @@ def goedkeuren_inschrijving_ajax(request, pk):
         inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
         inschrijving.is_goedgekeurd = 'Goedgekeurd'
         inschrijving.save()
+
+        Notificatie.objects.create(
+            ontvanger=inschrijving.ervaringsdeskundige.gebruiker,
+            bericht=f'Uw inschrijving voor het onderzoek "{inschrijving.onderzoek.titel}" is goedgekeurd.',
+            onderzoek=inschrijving.onderzoek
+        )
+
         return JsonResponse({'status': 'success', 'message': 'Inschrijving succesvol goedgekeurd.'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Ongeldig verzoek'}, status=400)
@@ -103,6 +128,13 @@ def afkeuren_inschrijving_ajax(request, pk):
         inschrijving = get_object_or_404(OnderzoekErvaringsdeskundige, pk=pk)
         inschrijving.is_goedgekeurd = 'Afgekeurd'
         inschrijving.save()
+
+        Notificatie.objects.create(
+            ontvanger=inschrijving.ervaringsdeskundige.gebruiker,
+            bericht=f'Uw inschrijving voor het onderzoek "{inschrijving.onderzoek.titel}" is afgekeurd.',
+            onderzoek=inschrijving.onderzoek
+        )
+
         return JsonResponse({'status': 'success', 'message': 'Inschrijving succesvol afgekeurd.'})
     else:
         return JsonResponse({'status': 'error', 'message': 'Ongeldig verzoek'}, status=400)
@@ -150,6 +182,7 @@ def onderzoek_update(request, pk):
             return JsonResponse({"error": form.errors}, status=400)
     return JsonResponse({"error": "Alleen POST-verzoeken zijn toegestaan."}, status=400)
 
+
 def onderzoeksvragen(request):
     onderzoeken = Onderzoek.objects.all()
     return render(request, 'onderzoeksvragen.html', {'onderzoeken': onderzoeken})
@@ -158,3 +191,20 @@ def onderzoeksvragen(request):
 def ervaringsdeskundige(request):
     ervaringsdeskundigen = Ervaringsdeskundige.objects.all()
     return render(request, 'ervaringsdeskundige.html', {'ervaringsdeskundigen': ervaringsdeskundigen})
+
+
+class NotificatieAPIView(APIView):
+    def get(self, request):
+        notificaties = Notificatie.objects.filter(ontvanger=request.user, is_gelezen=False)
+        serializer = NotificatieSerializer(notificaties, many=True)
+        return Response(serializer.data)
+
+
+def markeer_notificatie_als_gelezen(request, notificatie_id):
+    if request.method == 'POST':
+        notificatie = get_object_or_404(Notificatie, id=notificatie_id, ontvanger=request.user)
+        notificatie.is_gelezen = True
+        notificatie.save()
+        return JsonResponse({'status': 'success'})
+    else:
+        return JsonResponse({'status': 'error'}, status=400)

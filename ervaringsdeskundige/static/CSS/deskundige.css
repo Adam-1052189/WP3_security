@@ -1,5 +1,5 @@
 h1 {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .icon-accessibility {
@@ -35,7 +35,7 @@ main {
   padding: 1rem;
   background-color: #2b50ec;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: #000000;
+  color: #ffffff;
 }
 
 header {
@@ -102,10 +102,33 @@ header {
 .onderzoeken-buttons button {
     margin: 0 10px;
     padding: 6px 5px;
-    background-color: #4CAF50;
+    background-color: #1fc396;
     color: #000000; /
 }
 
 .onderzoeken-buttons button:hover {
-    background-color: #45a049;
+    background-color: #1fc396;
+}
+
+.markeer-als-gelezen-btn {
+    padding: 8px 15px;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 10px;
+    background-color: #28a745;
+    float: right;
+}
+
+.markeer-als-gelezen-btn:hover {
+    background-color: #218838;
+}
+
+.notificatie-item {
+    display: flex;
+    align-items: center;
+    clear: both;
 }

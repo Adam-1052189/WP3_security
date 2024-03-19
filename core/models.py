@@ -178,5 +178,18 @@ class OnderzoekErvaringsdeskundige(models.Model):
         unique_together = ('onderzoek', 'ervaringsdeskundige')
 
 
+class Notificatie(models.Model):
+    ontvanger = models.ForeignKey(Gebruikers, on_delete=models.CASCADE, related_name='notificaties')
+    bericht = models.CharField(max_length=255)
+    is_gelezen = models.BooleanField(default=False)
+    aangemaakt_op = models.DateTimeField(auto_now_add=True)
+    onderzoek = models.ForeignKey(Onderzoek, on_delete=models.SET_NULL, null=True,
+                                  blank=True)
 
+    class Meta:
+        db_table = 'notificaties'
+        ordering = ['-aangemaakt_op']
+
+    def __str__(self):
+        return f'Notificatie voor {self.ontvanger.email} - {"Gelezen" if self.is_gelezen else "Ongelezen"}'
 

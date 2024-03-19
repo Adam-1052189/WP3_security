@@ -22,4 +22,6 @@ urlpatterns = [
     path('toon_inschrijvingen/verwijder_inschrijving/<int:pk>/', views.verwijder_inschrijving, name='verwijder_inschrijving'),
     path('ervaringsdeskundige/', views.ervaringsdeskundige, name='ervaringsdeskundige'),
     path('logout/', logout_view, name='logout'),
+    path('api/notificaties/', views.NotificatieAPIView.as_view(), name='notificaties'),
+    path('api/notificaties/<int:notificatie_id>/markeer-als-gelezen/', views.markeer_notificatie_als_gelezen, name='markeer-als-gelezen'),
 ]

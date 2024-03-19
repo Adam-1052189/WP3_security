@@ -3,7 +3,22 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="{% static 'CSS/deskundige.css' %}" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="{% static 'js/deskundige.js' %}" defer></script>
+    <script src="{% static 'js/notificatie.js' %}"></script>
+    <script>
+function getCSRFToken() {
+    return $('meta[name="csrf-token"]').attr('content');
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", getCSRFToken());
+        }
+    }
+});</script>
+    <meta name="csrf-token" content="{{ csrf_token }}">
     <title>Dashboard Ervaringsdeskundige</title>
 </head>
 <body data-login-url="{% url 'login' %}">
@@ -17,15 +32,28 @@
 <main>
     <h1>Dashboard Ervaringsdeskundige</h1>
     <img src="{% static 'images/icon_accessibility.jpg' %}" alt="Toegankelijkheidsicoon" class="icon-accessibility">
+
+    <section id="notificaties-section">
+        <h2>Notificaties</h2>
+        <div id="notificaties-container">
+        </div>
+    </section>
+    <br>
     <section id="onderzoeken-section">
         <div class="onderzoeken-buttons">
-            <button id="show-beschikbare-onderzoeken" aria-label="Toon beschikbare onderzoeken">Beschikbare Onderzoeken</button>
+            <button id="show-beschikbare-onderzoeken" aria-label="Toon beschikbare onderzoeken">Beschikbare
+                Onderzoeken
+            </button>
             <button id="show-afwachting-onderzoeken" aria-label="Toon onderzoeken in afwachting">In Afwachting</button>
-            <button id="show-deelgenomen-onderzoeken" aria-label="Toon deelgenomen onderzoeken">Deelgenomen Onderzoeken</button>
-            <button id="show-afgekeurde-onderzoeken" aria-label="Toon afgekeurde onderzoeken">Afgekeurde Onderzoeken</button>
+            <button id="show-deelgenomen-onderzoeken" aria-label="Toon deelgenomen onderzoeken">Deelgenomen
+                Onderzoeken
+            </button>
+            <button id="show-afgekeurde-onderzoeken" aria-label="Toon afgekeurde onderzoeken">Afgekeurde Onderzoeken
+            </button>
         </div>
         <h2 id="onderzoeken-titel">Beschikbare Onderzoeken</h2>
-        <input type="text" id="zoekbalk" placeholder="Zoek in onderzoeken..." aria-label="Zoek in onderzoeken" class="zoekbalk">
+        <input type="text" id="zoekbalk" placeholder="Zoek in onderzoeken..." aria-label="Zoek in onderzoeken"
+               class="zoekbalk">
         <div id="onderzoeken-container" data-laad-onderzoeken-url="{% url 'laad_onderzoeken' %}">
         </div>
     </section>
