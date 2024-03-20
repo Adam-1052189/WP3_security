@@ -46,3 +46,12 @@ Toegang tot de webapplicatie door te navigeren naar http://localhost:8000 in je 
 - https://www.youtube.com/watch?v=FW7GvkiQEJ8&t=12s
 - https://www.wplogout.com/export-database-diagrams-erd-from-django/
 - https://docs.djangoproject.com/en/5.0/topics/db/models/
+- https://docs.djangoproject.com/en/5.0/intro/tutorial03/
+- https://www.w3schools.com/accessibility/accessibility_labels.php
+- https://www.django-rest-framework.org/
+- https://www.django-rest-framework.org/tutorial/quickstart/
+- https://www.django-rest-framework.org/tutorial/1-serialization/
+- https://www.django-rest-framework.org/tutorial/2-requests-and-responses/
+- https://www.geeksforgeeks.org/django-models/
+- https://digitaaltoegankelijk.nl/wcag-uitgelegd/1-4-3-contrast-minimaal-wcag-niveau-aa/
+- https://accessibleweb.com/color-contrast-checker/
