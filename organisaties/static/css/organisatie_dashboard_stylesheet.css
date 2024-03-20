@@ -34,7 +34,7 @@
 }
 
 .maak-onderzoek-aan-knop {
-    background-color: #04AA6D;
+    background-color: #126849;
     color: #333;
     padding: 10px 20px;
     border: 1px solid #ccc;
@@ -44,6 +44,7 @@
     display: inline-block;
     text-decoration: none;
     font-size: 16px;
+    color: white;
 }
 
 .maak-onderzoek-aan-knop:hover {
@@ -68,7 +69,7 @@ main {
 }
 
 ul li {
-    background-color: #1fc396;
+    background-color: #2afebe;
     margin: 10px 0;
     padding: 10px;
     border-radius: 5px;
@@ -97,7 +98,7 @@ h2 {
     text-decoration: none;
     border-radius: 5px;
     font-weight: bold;
-    background-color: #bd6b01;
+    background-color: #bf0d0d;
 }
 
 .knoppen-sluiten-wijzigen {

@@ -28,7 +28,7 @@ h1 {
 }
 
 button[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #1b791e;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -49,8 +49,8 @@ button[type="submit"] {
 }
 
 .terug-knop {
-    background-color: #f2f2f2;
-    color: #333;
+    background-color: #1b791e;
+    color: white;
     padding: 10px 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -63,3 +63,8 @@ button[type="submit"] {
 
 .terug-knop:hover {
     background-color: #e7e7e7;
+}
+
+body {
+    background-color: #d9ebf7;
+}

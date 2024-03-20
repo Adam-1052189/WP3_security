@@ -28,13 +28,13 @@ input[type=text], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 3px solid #071e94;
     box-sizing: border-box;
     border-radius: 7px;
 }
 
 button {
-    background-color: #04AA6D;
+    background-color: #136c4c;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -61,7 +61,7 @@ button:hover {
 .annuleerbutton {
     width: auto;
     padding: 10px 18px;
-    background-color: #f44336;
+    background-color: #b11b10;
     border-radius: 7px;
     font-family: sans-serif;
     font-size: 16px;
@@ -117,7 +117,7 @@ div.error{
 }
 
 .registratie_button {
-    background-color: #1fc396;
+    background-color: #136c4c;
     color: white;
     padding: 10px 18px;
     border-radius: 7px;
@@ -127,5 +127,5 @@ div.error{
 }
 
 .registratie_button:hover {
-    background-color: #17a289;
+    background-color: #136c4c;
 }

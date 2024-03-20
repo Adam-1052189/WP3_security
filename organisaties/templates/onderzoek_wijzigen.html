@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
+    <link rel="stylesheet" href="/static/css/onderzoek_wijzigen_stylesheet.css" type="text/css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<button onclick="location.href='{% url 'dashboard_organisatie' %}';" class="terug-knop">Terug naar Dashboard</button>
 <main>
-    <h2>Onderzoek wijzigen</h2>
+    <h1>Onderzoek wijzigen</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

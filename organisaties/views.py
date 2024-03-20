@@ -62,7 +62,7 @@ def maak_organisatie_aan(request):
                                                   telefoonnummer=telefoonnummer, overige_details=overige_details,
                                                   api_key=api_key)
 
-        return JsonResponse({'message': 'Organisatie aangemaakt met succes!'})
+        return redirect('dashboard_organisatie')
 
     return render(request, 'maak_organisatie_aan.html')
 
