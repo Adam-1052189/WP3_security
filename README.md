@@ -32,7 +32,7 @@ Toegang tot de webapplicatie door te navigeren naar http://localhost:8000 in je 
 ## Accounts
 - Beheerder: omer@hr.nl:beheerder
 - Ervaringsdeskundige: olcay@hr.nl:test
-- Organisatie: adam@hr.nl:organisatie
+- Organisatie: adam@bol.com:organisatie
    
 
 ## Bronvermelding
@@ -40,3 +40,9 @@ Toegang tot de webapplicatie door te navigeren naar http://localhost:8000 in je 
 - https://learndjango.com/tutorials/django-login-and-logout-tutorial
 - https://www.w3schools.com/django/index.php
 - https://stackoverflow.com/questions/9648910/how-to-set-the-background-color-of-the-whole-page-in-css
+- https://www.youtube.com/watch?v=rHux0gMZ3Eg
+- https://docs.djangoproject.com/en/5.0/howto/static-files/
+- https://www.youtube.com/watch?v=OlO8IfpuKzs
+- https://www.youtube.com/watch?v=FW7GvkiQEJ8&t=12s
+- https://www.wplogout.com/export-database-diagrams-erd-from-django/
+- https://docs.djangoproject.com/en/5.0/topics/db/models/
