@@ -27,9 +27,9 @@
 <br><br>
 <main>
     <h2>Onderzoeken</h2>
-    {% for onderzoek in onderzoeken %}
-        <ul id="onderzoeken-lijst">
-            <li>
+    <ul id="onderzoeken-lijst">
+        {% for onderzoek in onderzoeken %}
+            <li id="onderzoeken-lijst">
                 <strong class="onderzoek_titel">{{ onderzoek.titel }}</strong><br>
                 <strong>Omschrijving:</strong> {{ onderzoek.omschrijving }}<br>
                 <strong>Status:</strong> {{ onderzoek.status }}<br>
@@ -49,9 +49,9 @@
                     </form>
                 </div
             </li>
-        </ul>
-        <br>
-    {% endfor %}
+            <br>
+        {% endfor %}
+    </ul>
 </main>
 </body>
 </html>

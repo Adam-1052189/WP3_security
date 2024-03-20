@@ -17,5 +17,5 @@ $(document).ready(function() {
         });
     }
 
-    setInterval(updateOnderzoeken, 5000);
+    setInterval(updateOnderzoeken, 1000);
 });
