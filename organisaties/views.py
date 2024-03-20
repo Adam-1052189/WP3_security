@@ -2,7 +2,7 @@ from core.models import Onderzoek, Gebruikers, Organisaties
 from django.shortcuts import render, redirect
 from organisaties.forms import OnderzoekForm
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -70,7 +70,10 @@ def maak_organisatie_aan(request):
 def onderzoekstabel_view(request):
     if request.user.is_authenticated and request.user.is_organisatie:
         onderzoeken = Onderzoek.objects.filter(organisatie=request.user.organisatie)
-        return render(request, 'organisatie_dashboard.html', {'onderzoeken': onderzoeken})
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return render(request, 'onderzoeken_partial.html', {'onderzoeken': onderzoeken})
+        else:
+            return render(request, 'organisatie_dashboard.html', {'onderzoeken': onderzoeken})
     else:
         return redirect('login')
 
@@ -101,7 +104,8 @@ def onderzoek_invoeren(request):
         form = OnderzoekForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, 'onderzoek_form.html', {'form': OnderzoekForm(), 'success_message': True})
+            return render(request, 'onderzoek_form.html',
+                          {'form': OnderzoekForm(), 'success_message': True})
     else:
         form = OnderzoekForm()
 
