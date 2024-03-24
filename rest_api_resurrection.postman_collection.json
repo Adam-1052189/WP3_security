@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "9a3d4ed7-02ee-4fa2-a0a8-c16dacd64634",
+		"name": "rest_api_resurrection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33825874"
+	},
+	"item": [
+		{
+			"name": "organisatie aanmaken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/organisatie/aanmaken/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"organisatie",
+						"aanmaken",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "organisatie zien (beveiligd met sessie login)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/organisatie/lijst/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"organisatie",
+						"lijst",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "onderzoek aanmaken",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/onderzoek/aanmaken/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"onderzoek",
+						"aanmaken",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "onderzoek bekijken (beveiligd met sessie login)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/onderzoek/lijst/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"onderzoek",
+						"lijst",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
